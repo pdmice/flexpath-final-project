@@ -2,8 +2,6 @@
 
 Abstract Requirements:
 
-adding small edit to log in
-
 Restrictions:
 - Once again, no use of 3rd party libraries that aren’t included in the starter code.
 
