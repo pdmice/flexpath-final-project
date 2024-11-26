@@ -8,6 +8,36 @@ The details of which items and groupings are created, curated, and retrieved are
 
 This project will require you to use all of the skills you have learned throughout the FlexPath program.
 
+### Project Grading
+
+Your project code must be able to be pulled down and built on a course staff device. 
+PLEASE ENSURE that you include all SQL code that creates the initial models, table relationships, and data for your MySQL database. Course staff will use that SQL to create a MySQL database for your project so we can run your project locally.
+
+If you do not include this in your project, and your app cannot be built and run when pulling down the code from Github, we won't be able to schedule your project demo. 
+
+If we get to the end of the course and we can't run your project on our device, and you are unable to get your repo in a working state, **you will be unable to graduate from the course**.
+
+After we have successfully pulled down your repo and run it locally, we will send you a link to schedule time to demo your project for course staff. The demo will occur over Zoom.
+
+Please download the relevant Zoom package for your device:
+https://zoom.us/download
+
+- If you have a Mac with an M series chip, install the "Apple Silicon" install option.
+- If you have a Mac with an intel chip, install the "Intel" option for Mac.
+
+Once scheduled, a zoom meeting link will be provided for you. We will schedule 30 minutes for the demo.
+
+During the demo, we will require you to keep your video on for the whole call and share your screen for relevant portions of the demo.
+
+The required attire for this call will be business casual.
+
+In Canvas and in this repo, we have provided you with a rubric you can use to both create a graduation ready project and prepare to pass your project demo.
+
+If you have any questions ahead of time, please reach out to course staff through slack or our support queue. 
+
+Support Queue:
+https://support.launchcodelearning.org/support/tickets/new
+
 ## Project Starter Code
 
 Starter code for this project is included in this repository, in three folders:
@@ -87,22 +117,3 @@ You will need to build upon this starter code to create your final project.
 - You must include primary keys for each table.
 - You must include foreign keys where appropriate to enforce data integrity.
 
-### Project Grading
-
-Your project code must be able to be pulled down and built on a course staff device. 
-PLEASE ENSURE that you include all SQL code that creates the initial models and data for your MySQL database.
-If you do not include this in your project, and your app cannot be built and run when pulling down the code from Github, we won't be able to schedule your project demo. If we get to the end of the course and we can't first run your code ourselves, and you are unable to get your repo in a working state, **you will be unable to graduate from the course**.
-
-After we have successfully pulled down your repo and run it locally, we will send you a link to schedule time to demo your project for course staff. The demo will occur over Zoom.
-
-Please download the relevant Zoom package for your device:
-https://zoom.us/download
-
-If you have a Mac with an M series chip, install the "Apple Silicon" install option.
-If you have a Mac with an intel chip, install the "Intel" option for Mac.
-
-Once scheduled, a zoom link will be provided for you.
-
-During the demo, we will require you to keep your video on for the whole call and share your screen for relevant portions of the demo.
-
-The required attire for this call will be business casual.
