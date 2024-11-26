@@ -23,9 +23,10 @@ You will need to build upon this starter code to create your final project.
 ### Constraints
 
 - You must use the stack that was taught in the FlexPath program (Java, Spring Boot, React, MySQL).
-- Your project must be your own work.  You may not use code from other students or other sources.
-- You may not use any code from previous projects in this program.
-- You may not use ChatGPT or any other AI-based code generation tools.
+- Your project must be your own work.  You may not use code from other students.
+- You may use external resources like Stack Overflow and others to help troubleshoot and design code. But, you are not allowed to just copy large chunks of code into your project without understanding and modifying them.
+- If you use pieces of code from previous projects in the program, you must understand them and modify them to fit your project's design.
+- You may not use ChatGPT or any other AI-based code generation tools to generate large chunks of the app. You can use ChatGPT to help you understand a piece of code and answer troubleshooting questions, but having ChatGPT design a large chunk of an application for you will result in a fail.
 - You may not use 3rd party libraries that aren’t included in the starter code or mentioned in this document.
 
 ### Application Requirements
@@ -85,3 +86,23 @@ You will need to build upon this starter code to create your final project.
 - You must use appropriate data types for each column in your tables.
 - You must include primary keys for each table.
 - You must include foreign keys where appropriate to enforce data integrity.
+
+### Project Grading
+
+Your project code must be able to be pulled down and built on a course staff device. 
+PLEASE ENSURE that you include all SQL code that creates the initial models and data for your MySQL database.
+If you do not include this in your project, and your app cannot be built and run when pulling down the code from Github, we won't be able to schedule your project demo. If we get to the end of the course and we can't first run your code ourselves, and you are unable to get your repo in a working state, **you will be unable to graduate from the course**.
+
+After we have successfully pulled down your repo and run it locally, we will send you a link to schedule time to demo your project for course staff. The demo will occur over Zoom.
+
+Please download the relevant Zoom package for your device:
+https://zoom.us/download
+
+If you have a Mac with an M series chip, install the "Apple Silicon" install option.
+If you have a Mac with an intel chip, install the "Intel" option for Mac.
+
+Once scheduled, a zoom link will be provided for you.
+
+During the demo, we will require you to keep your video on for the whole call and share your screen for relevant portions of the demo.
+
+The required attire for this call will be business casual.
