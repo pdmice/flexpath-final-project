@@ -8,35 +8,6 @@ The details of which items and groupings are created, curated, and retrieved are
 
 This project will require you to use all of the skills you have learned throughout the FlexPath program.
 
-### Project Grading
-
-Your project code must be able to be pulled down and built on a course staff device. 
-PLEASE ENSURE that you include all SQL code that creates the initial models, table relationships, and data for your MySQL database. Course staff will use that SQL to create a MySQL database for your project so we can run your project locally.
-
-If you do not include this in your project, and your app cannot be built and run when pulling down the code from Github, we won't be able to schedule your project demo. 
-
-If we get to the end of the course and we can't run your project on our device, and you are unable to get your repo in a working state, **you will be unable to graduate from the course**.
-
-After we have successfully pulled down your repo and run it locally, we will send you a link to schedule time to demo your project for course staff. The demo will occur over Zoom.
-
-Please download the relevant Zoom package for your device:
-https://zoom.us/download
-
-- If you have a Mac with an M series chip, install the "Apple Silicon" install option.
-- If you have a Mac with an intel chip, install the "Intel" option for Mac.
-
-Once scheduled, a zoom meeting link will be provided for you. We will schedule 30 minutes for the demo.
-
-During the demo, we will require you to keep your video on for the whole call and share your screen for relevant portions of the demo.
-
-The required attire for this call will be business casual.
-
-In Canvas and in this repo, we have provided you with a rubric you can use to both create a graduation ready project and prepare to pass your project demo.
-
-If you have any questions ahead of time, please reach out to course staff through slack or our support queue. 
-
-Support Queue:
-https://support.launchcodelearning.org/support/tickets/new
 
 ## Project Starter Code
 
@@ -124,3 +95,69 @@ You will need to build upon this starter code to create your final project.
 - Video Game Reviews
 - Restaurant Reviews
 - Recipes
+
+
+## Submission Requirements
+When you are ready to submit your assessment, you will submit your 
+GitHub Repo link and Walkthrough video .mp4 file through canvas.
+
+Your project code must be able to be pulled down and built on a course staff device. 
+PLEASE ENSURE that you include all SQL code that creates the initial models, table relationships, and data for your MySQL database. Course staff will use that SQL to create a MySQL database for your project so we can run your project locally.
+
+If you do not include this in your project, and your app cannot be built and run when pulling down the code from Github, we won't be able to schedule your project demo. 
+
+If we get to the end of the course and we can't run your project on our device, and you are unable to get your repo in a working state, **you will be unable to graduate from the course**.
+
+### Requirements for Github Repo:
+- Once submitted, the application in your github repo must be able to build
+and run. 
+- Includes necessary SQL files to create the initial Db tables, relationships, and any starter data your app needs
+- LaunchCode staff will be pulling down your app to review your code,
+ensure that the application has all required features, meets the style
+requirements, and can be built and run on their local device. 
+
+
+### Requirements for Walkthrough Video:
+
+[Link to download OBS](https://obsproject.com/)
+
+Download the right version of OBS for your device (Windows or Mac) from
+the home page.
+![OBS Homepage](/readMeFiles/obs-homepage.png)
+
+Watch the following tutorial for how to record your screen and capture 
+audio from your laptop with OBS:
+[Tutorial for how to record your screen with OBS](https://www.youtube.com/watch?v=j1HIHYRnOfo)
+
+Please save your walkthrough video as an `.mp4` file.
+
+We will NOT accept a video shot from your phone of your computer screen.
+Please install the OBS application, watch the tutorial video, and record
+the video directly on your computer.
+
+Walkthrough Video Requirements:
+1. Your video MUST be at least 15 minutes long and NO LONGER than 25 minutes
+2. Show yourself starting the application on your device. Then open
+your web browser and navigate to the running React app.
+3. Give us a walkthrough of the features of the app and how they run
+4. Then, show us your code files in VS Code. Give us a quick summary
+of how you organized your app and walk us through your most complicated React and Java file in depth 
+5. Then, tell us which feature requirements were the most difficult for you
+to implement. Tell us why it was difficult and the process you went through
+to figure them out.
+
+Video Technical Requirements:
+1. We must be able to hear you walking us through everything in the video, so
+make sure to capture your laptops microphone audio in OBS.
+2. The code file text must be clear and readable in the video. Ensure
+you are capturing a good Base Resolution for your video
+in the OBS settings. A good Base Resolution is 1920x1080.
+![Example of good video recording settings](/readMeFiles/video-recording-settings.png)
+3. You can find where OBS is saving your videos inside of Settings -> Output -> Recording:
+![Example of where OBS files are saved](/readMeFiles/recording-files-path.png)
+
+
+# If you encounter any issues during this process, please seek help in this order:
+1. Reach out to your Peers in the Slack
+2. Log a ticket to the LaunchCode Support Queue: https://support.launchcodelearning.org/support/tickets/new
+3. Reach out to Course Staff in the Slack
