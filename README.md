@@ -4,7 +4,7 @@
 
 This is the final project for the FlexPath program.  The project is a full-stack application that will allow users to create, curate, and retrieve items and groupings of items.  The application includes a SQL database, a backend RESTful API built with Spring Boot and a frontend application built with React.
 
-The details of which items and groupings are created, curated, and retrieved are up to the you to decide, as is the overall look and feel of the application.  You should use the included starter code as a base to build upon, but you are free to modify the code as needed to meet the requirements of the project.  You should choose a project that is interesting to you and that you would feel comfortable discussing in an interview.
+The details of which items and groupings are created, curated, and retrieved are up to you to decide, as is the overall look and feel of the application.  You should use the included starter code as a base to build upon, but you are free to modify the code as needed to meet the requirements of the project.  You should choose a project that is interesting to you and that you would feel comfortable discussing in an interview.
 
 This project will require you to use all of the skills you have learned throughout the FlexPath program.
 
