@@ -88,7 +88,7 @@ You will need to build upon this starter code to create your final project.
 - You must include primary keys for each table.
 - You must include foreign keys where appropriate to enforce data integrity.
 
-### Example of what the items could be to help with brainstorming an idea
+### Example of what the items could be to help with project brainstorming
 
 - Blog Posts
 - Client Testimonials for Products
