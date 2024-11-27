@@ -42,8 +42,8 @@ https://support.launchcodelearning.org/support/tickets/new
 
 Starter code for this project is included in this repository, in three folders:
 
-- `database` - An SQL file to create the initial database and authentication tables (users/roles).
-- `backend` - A Spring Boot application with a RESTful API.  Authentication and user/role management is included in the starter code.
+- `database` - A SQL file to create the initial database and authentication tables (users/roles).
+- `backend` - A Spring Boot application with a RESTful API. Authentication and user/role management is included in the starter code.
 - `frontend` - A basic React application.
 
 You will need to build upon this starter code to create your final project.
