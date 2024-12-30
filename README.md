@@ -25,9 +25,9 @@ You will need to build upon this starter code to create your final project.
 
 - You must use the stack that was taught in the FlexPath program (Java, Spring Boot, React, MySQL).
 - Your project must be your own work.  You may not use code from other students.
-- You may use external resources like Stack Overflow and others to help troubleshoot and design code. But, you are not allowed to just copy large chunks of code into your project without understanding and modifying them.
-- If you use pieces of code from previous projects in the program, you must understand them and modify them to fit your project's design.
-- You may not use ChatGPT or any other AI-based code generation tools to generate large chunks of the app. You can use ChatGPT to help you understand a piece of code and answer troubleshooting questions, but having ChatGPT design a large chunk of an application for you will result in a fail.
+- You may use external resources such as Stack Overflow to troubleshoot and design code. However, you are not allowed to just copy chunks of code into your project without understanding and modifying them. In order to pass, you must be able to articulate your understanding of all the code contained within the project. 
+- If you use pieces of code from previous projects in the program, you must modify them to fit your project's design and be able to explain why you used these pieces of code and how the code works.
+- AI-based tools such as ChatGPT may be used for learning and understanding code, but not to generate code for the project. Using AI generated code within the project will result in a fail.
 - You may not use 3rd party libraries that aren’t included in the starter code or mentioned in this document.
 
 ### Application Requirements
@@ -101,15 +101,15 @@ You will need to build upon this starter code to create your final project.
 When you are ready to submit your assessment, you will submit your 
 GitHub Repo link and Walkthrough video .mp4 file through canvas.
 
-Your project code must be able to be pulled down and built on a course staff device. 
+Your project code must be able to be pulled down from GitHub and successfully built on a Windows or Mac device. 
 PLEASE ENSURE that you include all SQL code that creates the initial models, table relationships, and data for your MySQL database. Course staff will use that SQL to create a MySQL database for your project so we can run your project locally.
 
-If you do not include this in your project, and your app cannot be built and run when pulling down the code from Github, we won't be able to schedule your project demo. 
+If you do not include this in your project, and your app cannot be built and run when pulling down the code from GitHub, we won't be able to schedule your project demo. 
 
 If we get to the end of the course and we can't run your project on our device, and you are unable to get your repo in a working state, **you will be unable to graduate from the course**.
 
-### Requirements for Github Repo:
-- Once submitted, the application in your github repo must be able to build
+### Requirements for GitHub Repo:
+- Once submitted, the application in your GitHub repo must be able to build
 and run. 
 - Includes necessary SQL files to create the initial Db tables, relationships, and any starter data your app needs
 - LaunchCode staff will be pulling down your app to review your code,
