@@ -15,7 +15,11 @@ create table roles (
     foreign key (username) references users(username) on delete cascade
 );
 
-create table events (
+create table books (
+	id int auto_increment PRIMARY KEY,
+    name VARCHAR(100)
+);
+create table sings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     start_date DATE not null,
@@ -38,10 +42,7 @@ create table events (
     foreign key(secondary_book_id) references books(id)
 );
 
-create table books (
-	id int auto_increment PRIMARY KEY,
-    name VARCHAR(100)
-);
+
 
 
 insert into users (username, password) values ('admin', '$2a$10$tBTfzHzjmQVKza3VSa5lsOX6/iL93xPVLlLXYg2FhT6a.jb1o6VDq');
@@ -49,3 +50,22 @@ insert into roles (username, role) values ('admin', 'ADMIN');
 
 insert into users (username, password) values ('user', '$2a$10$tBTfzHzjmQVKza3VSa5lsOX6/iL93xPVLlLXYg2FhT6a.jb1o6VDq');
 insert into roles (username, role) values ('user', 'USER');
+
+
+insert into books (id, name) VALUES (1, "Denson Book");
+
+insert into  sings 
+(name, start_date, end_date, start_time, end_time, primary_book_id, secondary_book_id, contact_email, user_added_note, location) 
+values (
+    "Huntsville Sacred Harp Singing",
+    '2025-05-03',
+    null,
+    '09:30:00',
+    '14:30:00',
+    1,
+    null,
+    "test@test.com",
+    "Previous minutes at fasola.org",
+    POINT(34.71942056886259, -86.53928298246798)
+);
+ 
