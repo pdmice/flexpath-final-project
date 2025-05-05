@@ -2,7 +2,6 @@ package org.example.daos;
 
 import org.example.exceptions.DaoException;
 import org.example.models.Book;
-import org.example.models.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -57,7 +56,7 @@ public class BookDao {
 
     public int deleteBook(int id){
         String sql = "DELETE * FROM books WHERE id = ?;";
-        int rowsAffected = jdbcTemplate.update(sql, id):
+        int rowsAffected = jdbcTemplate.update(sql, id);
 
         if (rowsAffected == 0 ){throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");}
         else{return rowsAffected;}
