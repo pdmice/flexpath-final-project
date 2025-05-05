@@ -22,6 +22,7 @@ create table books (
 create table sings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
+    owner_id VARCHAR(100),
     start_date DATE not null,
     end_date DATE, -- This can be null, if so we assume single day event.
     /*
@@ -39,7 +40,8 @@ create table sings (
     location POINT NOT NULL,
     SPATIAL INDEX(location),
     foreign key(primary_book_id) references books(id),
-    foreign key(secondary_book_id) references books(id)
+    foreign key(secondary_book_id) references books(id),
+    foreign key(owner_id) references users(username)
 );
 
 
@@ -55,9 +57,10 @@ insert into roles (username, role) values ('user', 'USER');
 insert into books (id, name) VALUES (1, "Denson Book");
 
 insert into  sings 
-(name, start_date, end_date, start_time, end_time, primary_book_id, secondary_book_id, contact_email, user_added_note, location) 
+(name,owner_id, start_date, end_date, start_time, end_time, primary_book_id, secondary_book_id, contact_email, user_added_note, location) 
 values (
     "Huntsville Sacred Harp Singing",
+    "user",
     '2025-05-03',
     null,
     '09:30:00',
