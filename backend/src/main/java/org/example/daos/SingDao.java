@@ -23,6 +23,11 @@ public class SingDao {
         return jdbcTemplate.query(sql, this::mapToSing);
     }
 
+    public List<Sing> getSingsByOwner(String owner_id){
+        String sql = "SELECT * FROM sings WHERE owner_id = ?;";
+        return jdbcTemplate.query(sql, this::mapToSing);
+    }
+
     public Sing getSingById(int id){
         String sql = "SELECT * FROM sings WHERE id = ?;";
 
