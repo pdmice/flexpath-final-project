@@ -2,9 +2,11 @@ package org.example.daos;
 
 import org.example.exceptions.DaoException;
 import org.example.models.Book;
+import org.example.models.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.sql.DataSource;
@@ -12,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Component
 public class BookDao {
     /**
      * The JDBC template for querying the database.
@@ -60,6 +63,16 @@ public class BookDao {
 
         if (rowsAffected == 0 ){throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");}
         else{return rowsAffected;}
+    }
+
+    public Book updateBook(Book book) {
+        String sql = "UPDATE books SET name = ? WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, book.getId());
+        if (rowsAffected == 0) {
+            throw new DaoException("Zero rows affected, expected at least one.");
+        } else {
+            return getBookById(book.getId());
+        }
     }
 
 

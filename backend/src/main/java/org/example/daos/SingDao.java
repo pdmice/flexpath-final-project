@@ -4,18 +4,24 @@ import org.example.exceptions.DaoException;
 import org.example.models.Sing;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.awt.geom.Point2D;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Component
 public class SingDao {
 
     private final JdbcTemplate jdbcTemplate;
 
     public SingDao(DataSource dataSource){
-        this.jdbcTemplate = new JdbcTemplate();
+
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     public List<Sing> getSings(){
@@ -63,6 +69,30 @@ public class SingDao {
 
     }
 
+    public Sing updateSing(Sing sing, int id){
+        String sql = "UPDATE sings set name = ?, owner_id = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ?, primary_book = ?, secondary_book = ?, contact_email = ?, user_added_note = ?, location = ?, WHERE id = ?;";
+        try{
+            jdbcTemplate.update(sql,
+                    sing.getName(),
+                    sing.getOwner_id(),
+                    sing.getStart_date(),
+                    sing.getEnd_date(),
+                    sing.getStart_time(),
+                    sing.getEnd_time(),
+                    sing.getPrimary_book(),
+                    sing.getSecondary_book(),
+                    sing.getContact_email(),
+                    sing.getNotes(),
+                    sing.getLatitude() + "," +  sing.getLongitude(),
+                    id);
+            return sing;
+        }
+        catch(EmptyResultDataAccessException e){
+            throw new DaoException("Failed to update sing");
+        }
+
+    }
+
     public int deleteSing(int id){
         String sql = "DELETE * FROM sings where id = ?;";
         return jdbcTemplate.update(sql, id);
@@ -75,18 +105,18 @@ public class SingDao {
                 resultSet.getInt("id"),
                 resultSet.getString("name"),
                 resultSet.getString("owner_id"),
-                resultSet.getDate("start_date").toLocalDate(),
-                resultSet.getDate("end_date").toLocalDate(),
+                resultSet.getDate("start_date"),
+                resultSet.getDate("end_date"),
                 resultSet.getString("when_description"),
-                resultSet.getTime("start_time").toLocalTime(),
-                resultSet.getTime("end_time").toLocalTime(),
+                resultSet.getTime("start_time"),
+                resultSet.getTime("end_time"),
                 resultSet.getString("primary_book"),
                 resultSet.getString("secondary_book"),
                 resultSet.getString("contact_email"),
-                resultSet.getString("notes"),
-                resultSet.getBigDecimal("latitude"),
-                resultSet.getBigDecimal("longitude")
-
+                resultSet.getString("user_added_note"),
+                //resultSet.getBigDecimal("latitude"),
+                //resultSet.getBigDecimal("longitude")
+                resultSet.getBlob("location")
         );
     }
 }

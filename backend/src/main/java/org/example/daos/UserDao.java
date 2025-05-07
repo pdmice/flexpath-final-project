@@ -62,6 +62,13 @@ public class UserDao {
         }
     }
 
+    public User getUserByUUID(String uuid) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE uuid = ?", this::mapToUser, uuid);
+        }
+        catch(EmptyResultDataAccessException e){return null;}
+    }
+
     /**
      * Creates a new user.
      * @param user The user to create.
@@ -69,10 +76,11 @@ public class UserDao {
      */
     public User createUser(User user) {
         String hashedPassword = passwordEncoder.encode(user.getPassword());
-        String sql = "INSERT INTO users (username, password) VALUES (?,?);";
+        String uuid = java.util.UUID.randomUUID().toString();
+        String sql = "INSERT INTO users (uuid, username, password) VALUES (?,?);";
         try {
-            jdbcTemplate.update(sql, user.getUsername(), hashedPassword);
-            return getUserByUsername(user.getUsername());
+            jdbcTemplate.update(sql,uuid, user.getUsername(), hashedPassword);
+            return getUserByUUID(user.getUuid());
         } catch (EmptyResultDataAccessException e) {
             throw new DaoException("Failed to create user.");
         }
@@ -86,8 +94,8 @@ public class UserDao {
      */
     public User updatePassword(User user) {
         String hashedPassword = passwordEncoder.encode(user.getPassword());
-        String sql = "UPDATE users SET password = ? WHERE username = ?";
-        int rowsAffected = jdbcTemplate.update(sql, hashedPassword, user.getUsername());
+        String sql = "UPDATE users SET password = ? WHERE uuid = ?";
+        int rowsAffected = jdbcTemplate.update(sql, hashedPassword, user.getUuid());
         if (rowsAffected == 0) {
             throw new DaoException("Zero rows affected, expected at least one.");
         } else {
@@ -98,48 +106,48 @@ public class UserDao {
     /**
      * Deletes a user.
      *
-     * @param username The username of the user.
+     * @param uuid The uuid of the user.
      */
-    public int deleteUser(String username) {
-        String sql = "DELETE FROM users WHERE username = ? ";
-        return jdbcTemplate.update(sql, username);
+    public int deleteUser(String uuid) {
+        String sql = "DELETE FROM users WHERE uuid = ? ";
+        return jdbcTemplate.update(sql, uuid);
     }
 
     /**
      * Gets all roles for a user.
      *
-     * @param username The username of the user.
+     * @param uuid The uuid of the user.
      * @return List of String
      */
-    public List<String> getRoles(String username) {
-        return jdbcTemplate.queryForList("SELECT role FROM roles WHERE username = ?;", String.class, username);
+    public List<String> getRoles(String uuid) {
+        return jdbcTemplate.queryForList("SELECT role FROM roles WHERE uuid = ?;", String.class, uuid);
     }
 
     /**
      * Adds a role to a user.
      *
-     * @param username The username of the user.
+     * @param uuid The uuid of the user.
      * @param role The role to add.
      * @return List of String
      */
-    public List<String> addRole(String username, String role) {
+    public List<String> addRole(String uuid, String username ,String role) {
         try {
-            String sql = "INSERT INTO roles (username, role) VALUES (?,?)";
-            jdbcTemplate.update(sql, username, role);
+            String sql = "INSERT INTO roles (uuid,username,role) VALUES (?,?,?);";
+            jdbcTemplate.update(sql, uuid,username,  role);
         } catch (DataAccessException e) {
         }
-        return getRoles(username);
+        return getRoles(uuid);
     }
 
     /**
      * Deletes a role from a user.
      *
-     * @param username The username of the user.
+     * @param uuid The uuid of the user.
      * @param role The role to delete.
      */
-    public int deleteRole(String username, String role) {
-        String sql = "DELETE FROM roles WHERE username = ? AND role = ?";
-        return jdbcTemplate.update(sql, username, role);
+    public int deleteRole(String uuid, String role) {
+        String sql = "DELETE FROM roles WHERE uuid = ? AND role = ?";
+        return jdbcTemplate.update(sql, uuid, role);
     }
 
     /**
@@ -153,6 +161,7 @@ public class UserDao {
     private User mapToUser(ResultSet resultSet, int rowNumber) throws SQLException {
         String username = resultSet.getString("username");
         return new User(
+                resultSet.getString("uuid"),
                 username,
                 resultSet.getString("password")
         );

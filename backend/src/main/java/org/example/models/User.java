@@ -1,5 +1,7 @@
 package org.example.models;
 
+import java.util.UUID;
+
 /**
  * Model class for users.
  */
@@ -10,9 +12,23 @@ public class User {
     private String username;
 
     /**
+     * Use a UUID instead of user name
+     */
+
+    private String uuid;
+    /**
      * The password of the user.
      */
+
     private String password;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     /**
      * Creates a new user.
@@ -20,7 +36,8 @@ public class User {
      * @param username The username of the user.
      * @param password The password of the user.
      */
-    public User(String username, String password) {
+    public User(String uuid, String username, String password) {
+        this.uuid = uuid;
         this.username = username;
         this.password = password;
     }

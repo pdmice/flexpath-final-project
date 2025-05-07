@@ -105,7 +105,9 @@ public class UserController {
      */
     @PostMapping(path = "/{username}/roles")
     public List<String> addRole(@PathVariable String username, @RequestBody String role) {
-        return userDao.addRole(username, role.toUpperCase());
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid().toString();
+        return userDao.addRole(uuid, username, role.toUpperCase());
     }
 
     /**
