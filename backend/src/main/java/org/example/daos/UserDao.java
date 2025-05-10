@@ -116,11 +116,11 @@ public class UserDao {
     /**
      * Gets all roles for a user.
      *
-     * @param uuid The uuid of the user.
+     * @param username The uuid of the user.
      * @return List of String
      */
-    public List<String> getRoles(String uuid) {
-        return jdbcTemplate.queryForList("SELECT role FROM roles WHERE uuid = ?;", String.class, uuid);
+    public List<String> getRoles(String username) {
+        return jdbcTemplate.queryForList("SELECT role FROM roles WHERE username = ?;", String.class, username);
     }
 
     /**
