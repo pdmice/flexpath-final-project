@@ -1,6 +1,7 @@
 package org.example.daos;
 
 import org.example.exceptions.DaoException;
+import org.example.models.SearchObject;
 import org.example.models.Sing;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -96,6 +97,14 @@ public class SingDao {
     public int deleteSing(int id){
         String sql = "DELETE * FROM sings where id = ?;";
         return jdbcTemplate.update(sql, id);
+    }
+
+    public List<Sing> searchByDistance (SearchObject searchObject){
+        String sql = "SELECT ST_Distance_Sphere(pointA.location, pointB.location) as distance_in_meters FROM (SELECT location FROM searches WHERE id = 1) as pointA, (SELECT location FROM sings WHERE id = ?) as pointB;";
+        try{
+            return jdbcTemplate.query(sql, this::mapToSing,searchObject.getSearchLocation());
+        }
+        catch(DaoException e){ throw new DaoException("No sings found");}
     }
 
 

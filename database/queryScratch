@@ -1,0 +1,12 @@
+-- This does not work yet. Make it work to select sings withing a given distance of a search point:
+
+
+SELECT * FROM sings WHERE location in
+(SELECT
+    ST_Distance_Sphere(
+        pointA.location,
+        pointB.location
+    ) as distance_in_meters
+FROM
+    (SELECT location FROM searches WHERE id = 1) as pointA,
+    (SELECT location FROM sings.location ) as pointB;)
