@@ -3,10 +3,13 @@ package org.example.controllers;
 
 import org.example.daos.SingDao;
 import org.example.exceptions.DaoException;
+import org.example.models.SearchObject;
 import org.example.models.Sing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -43,5 +46,11 @@ public class SingController {
         return singDao.updateSing(sing, id);
     }
 
-
+    @GetMapping("/search/{searchId}")
+    public List<Sing> searchByDistance(@PathVariable int searchId, @RequestBody SearchObject searchObject){
+        try {
+            return singDao.searchByDistance(searchId, searchObject);
+        }
+        catch(DaoException e ){throw new DaoException("No Sins Found");}
+    }
 }

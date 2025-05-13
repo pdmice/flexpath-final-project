@@ -1,16 +1,16 @@
 package org.example.daos;
 
+import com.sun.jna.platform.win32.OaIdl;
 import org.example.exceptions.DaoException;
 import org.example.models.SearchObject;
 import org.example.models.Sing;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.awt.geom.Point2D;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -99,10 +99,10 @@ public class SingDao {
         return jdbcTemplate.update(sql, id);
     }
 
-    public List<Sing> searchByDistance (SearchObject searchObject){
-        String sql = "SELECT ST_Distance_Sphere(pointA.location, pointB.location) as distance_in_meters FROM (SELECT location FROM searches WHERE id = 1) as pointA, (SELECT location FROM sings WHERE id = ?) as pointB;";
+    public List<Sing> searchByDistance (int searchId, SearchObject searchObject){
+        String sql = "SELECT pointB.*, ST_Distance_Sphere(pointA.location, pointB.location) AS distance_in_meters FROM (SELECT location FROM searches where id = ?) AS pointA, sings AS pointB WHERE ST_Distance_Sphere(pointA.location, pointB.location) <= ?  AND pointB.start_date BETWEEN ? AND ? ORDER BY distance_in_meters ASC;";
         try{
-            return jdbcTemplate.query(sql, this::mapToSing,searchObject.getSearchLocation());
+            return jdbcTemplate.query(sql, this::mapToSing,searchId, searchDistance, searchStart, searchEnd);
         }
         catch(DaoException e){ throw new DaoException("No sings found");}
     }
