@@ -1,98 +1,3 @@
-create database if not exists flexpath_final;
-use flexpath_final;
-
-drop table if exists users, roles;
-
-create table users (
-	uuid char(36) primary key,
-    username varchar(255),
-    password varchar(255)
-);
-
-create table roles (
-	uuid char(36),
-    username varchar(255) not null,
-    role varchar(250) not null,
-    primary key (uuid, role),
-    foreign key (uuid) references users(uuid) on delete cascade
-);
-
-create table books (
-	id int auto_increment PRIMARY KEY,
-    name VARCHAR(100)
-);
-create table sings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    owner_id VARCHAR(100),
-    start_date DATE not null,
-    end_date DATE, -- This can be null, if so we assume single day event.
-    /*
-     when_description will be used to generate dates if the only data available is in the form of 'Apr, Sat before 1st Sunday'
-     as that's what's in the CSV I have.
-     PROBABLY won't be necessary. Look for a way to scrape actual dates. 
-    */
-    when_description VARCHAR(100), 
-    start_time TIME ,
-    end_time TIME,
-    primary_book int,
-    secondary_book int,
-    contact_email VARCHAR(320), -- 320 == limit of length for a valid email + @ symbol
-    user_added_note VARCHAR(1000), -- Various notes i.e. Behind the barn next to the church or whatever
-    location POINT NOT NULL,
-    SPATIAL INDEX(location),
-    foreign key(primary_book) references books(id),
-    foreign key(secondary_book) references books(id),
-    foreign key(owner_id) references users(uuid)
-);
-
-insert into users (uuid, username, password) values ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7','admin', '$2a$10$tBTfzHzjmQVKza3VSa5lsOX6/iL93xPVLlLXYg2FhT6a.jb1o6VDq');
-insert into roles (uuid, username, role) values ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7','admin', 'ADMIN');
-
-insert into users (uuid, username, password) values ('72e9a58c-49d3-4198-841d-57be5553ee8e','user', '$2a$10$tBTfzHzjmQVKza3VSa5lsOX6/iL93xPVLlLXYg2FhT6a.jb1o6VDq');
-insert into roles (uuid, username, role) values ('72e9a58c-49d3-4198-841d-57be5553ee8e','user', 'USER');
-
-
-insert into books (id, name) VALUES (1, "Denson Book");
-
-INSERT INTO books (id, name) VALUES 
-(2,"1805 Christian Harmony"),
-(3,"American Vocalist"),
-(4,"Christian Harmony"),
-(5,"Christian Harmony 1873/2015"),
-(6,"Christian Harmony 2010"),
-(7,"Colored Denson Book"),
-(8,"Colored Sacred Harp"),
-(9,"Cooper Book"),
-(10,"Dayton Harmonist"),
-(11,"Denson Book 2025"),
-(12,"Georgian Harmony"),
-(13,"Harmonia Sacra"),
-(14,"J.L. White Book"),
-(15,"Missouri Harmony"),
-(16,"New Harp of Columbia"),
-(17,"Norumbega Harmony"),
-(18,"Shenandoah Harmony"),
-(19,"Social Harp"),
-(20,"Southern Harmony"),
-(21,"Valley Pocket Harmonist");
-
-insert into  sings 
-(name,owner_id, start_date, end_date, start_time, end_time, primary_book, secondary_book, contact_email, user_added_note, location) 
-values (
-    "Huntsville Sacred Harp Singing",
-    "10b2fd3b-0d98-4b38-9d1f-d4f7701913e7",
-    '2025-05-03',
-    null,
-    '09:30:00',
-    '14:30:00',
-    1,
-    null,
-    "test@test.com",
-    "Previous minutes at fasola.org",
-    POINT(34.71942056886259, -86.53928298246798)
-);
- 
 INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start_time, end_time, primary_book, secondary_book, contact_email, user_added_note, location) VALUES 
 ('Cincinnati New Year’s Day singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-01', null, 'Jan, New Yearnulls Day', '10:00:00 ', '15:00:00 ', '1', '18', null, null, POINT(39.147862, -84.519887)),
 ('New Yearnulls Day Harmonia Sacra Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-01', null, 'Jan, New Yearnulls Day', '10:00:00 ', '15:00:00 ', '13', null, null, null, POINT(41.655872, -85.972154)),
@@ -110,7 +15,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Roving Shenandoah Harmony Singing ', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-17', null, 'Jan, Sat before 3rd Sun', '10:30:00 ', '15:00:00 ', '18', null, null, null, POINT(50.881184, 0.006834)),
 ('All-California Sacred Harp Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-17', null, 'Jan, 3rd Sun &. Sat before', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(37.758097, -122.229899)),
 ('Creel Memorial Christian Harmony Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-18', null, 'Jan, 3rd Sun', '10:00:00 ', '15:00:00 ', '6', null, null, null, POINT(33.807052, -86.927644)),
-('Australian Sacred Harp Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-24', null, 'Jan, 4th Sun &. Sat before', '09:30:00 ', '15:30:00 ', '1', null, null, null, POINT(33.899344, 151.183813)),
+('Australian Sacred Harp Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-24', null, 'Jan, 4th Sun &. Sat before', '09:30:00 ', '15:30:00 ', '1', null, null, null, '-33.899344, 151.183813'),
 ('Jacksonville All-Day Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-24', null, 'Jan, Sat before 4th Sun', '09:00:00 ', '15:30:00 ', '1', null, null, null, POINT(30.348480, -81.657070)),
 ('Keystone Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-24', null, 'Jan, 4th Sun &. Sat before', '10:00:00 ', '15:30:00 ', '1', null, null, null, POINT(40.092095, -76.162885)),
 ('Bill Green Memorial/Baldwin County Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-24', null, 'Jan, 4th Sun &. Sat before', '10:00:00 ', '16:00:00 ', '9', '6', null, null, POINT(30.768277, -87.786978)),
@@ -191,7 +96,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Tuckaleechee United Methodist Church Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-04-19', null, 'Apr, 3rd Sun', null, null, '16', null, null, null, POINT(35.671958, -83.776720)),
 ('Old Harmony Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-04-19', null, 'Apr, 3rd Sun', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(33.645941, -85.418565)),
 ('Pine Grove Church', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-04-19', null, 'Apr, 3rd Sun', null, null, '1', null, null, null, POINT(34.21815, -85.857469)),
-('East Midlands Sacred Harp Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-04-25', null, 'Apr, 4th Sun &. Sat before', null, '10:00:00 ', '1', '9', null, null, POINT(52.837826, -1.276215)),
+('East Midlands Sacred Harp Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-04-25', null, 'Apr, 4th Sun &. Sat before', null, '10:00:00 ', '1', '9', null, null, '2025-04-26'),
 ('Atlanta Sacred Harp Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-04-25', null, 'Apr, Sat before 4th Sun', '10:00:00 ', '14:30:00 ', '1', null, null, null, POINT(33.767003, -84.339744)),
 ('New York State Regional (Spring)', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-04-25', null, 'Apr, Sat before 4th Sun', '10:00:00 ', '15:30:00 ', '1', null, null, null, POINT(42.445213, -76.504594)),
 ('Oliver Kindig-Stokes Memorial', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-04-25', null, 'Apr, Sat before 4th Sun', '10:00:00 ', '15:30:00 ', '1', null, null, null, POINT(40.054211, -76.378688)),
@@ -278,7 +183,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Dublin All-Day Sacred Harp Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-05-07', null, 'Jul, Sat before 1st Sun', '10:00:00 ', '16:00:00 ', '1', null, null, null, POINT(53.344282, -6.272445)),
 ('Pioneer Valley All-Day Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-05-07', null, 'Jul, Sat before 1st Sun', '10:00:00 ', '16:00:00 ', '1', null, null, null, POINT(42.473184, -72.566083)),
 ('Henagar-Union Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-05-07', null, 'Jul, 1st Sun &. Sat before', '09:30:00 ', '14:30:00 ', '1', null, null, null, POINT(34.651078, -85.757215)),
-('Victorian All-Day Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-06-21', null, 'Jun, Sat before 4th Sun', '09:30:00 ', '16:00:00 ', '1', null, null, null, POINT(-37.772581, 144.961479)),
+('Victorian All-Day Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-06-21', null, 'Jun, Sat before 4th Sun', '09:30:00 ', '16:00:00 ', '1', null, null, null, '-37.772581, 144.961479'),
 ('John Campbell Folk School Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-12-07', null, 'Jul, Sat before 2nd Sun', '10:00:00 ', '15:00:00 ', '1', '6', null, null, POINT(35.039165, -83.963493)),
 ('Cullman County Singing Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-12-07', null, 'Jul, 2nd Sun &. Sat before', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(34.172393, -86.84176)),
 ('Ozias Sacred Harp Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-12-07', null, 'Jul, Sat before 2nd Sun', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(33.542577, -84.138379)),
@@ -308,7 +213,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Lunsford and Jolly Memorial', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-02-08', null, 'Aug, Sat before 1st Sun', null, null, '1', null, null, null, POINT(32.801897, -117.25296)),
 ('Bulger-Cockcroft Memorial', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-03-08', null, 'Aug, 1st Sun', null, null, '9', null, null, null, POINT(31.139752, -86.461026)),
 ('Ann Sleeva Memorial Cooper Book Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-09-08', null, 'Aug, Sat before 2nd Sun', '09:30:00 ', '15:00:00 ', '9', null, null, null, POINT(41.792768, -87.596192)),
-('Rhode Island All-Day Christian Harmony Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-09-08', null, 'Aug, Sat before 2nd Sun', '10:00:00 ', '15:00:00 ', 4, null, null, null, POINT(41.900941, -71.417748)),
+('Rhode Island All-Day Christian Harmony Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-09-08', null, 'Aug, Sat before 2nd Sun', '10:00:00 ', '15:00:00 ', 'Christian Harmony', null, null, null, POINT(41.900941, -71.417748)),
 ('Calhoun County Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-09-08', null, 'Aug, Sat before 2nd Sun', '10:00:00 ', '15:00:00 ', '1', '14', null, null, POINT(33.890324, -89.226967)),
 ('East Texas Sacred Harp Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-09-08', null, 'Aug, 2nd Sun &. Sat before', '09:30:00 ', '15:00:00 ', '9', null, null, null, POINT(32.16608, -94.811744)),
 ('B.M. Smith &. Philip Denney Memorial Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-16', null, 'Aug, Sat before 3rd Sun', '10:00:00 ', '15:00:00 ', '1', null, null, null, POINT(33.516955, -85.087147)),
@@ -328,7 +233,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Cork Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-23', null, 'Aug, 4th Sun &. Sat before', '10:00:00 ', '16:30:00 ', '1', '9', null, null, POINT(51.893867, -8.4810595)),
 ('Tickanetly Primitive Baptist Church Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-24', null, 'Aug, 4th Sun', '10:00:00 ', '15:00:00 ', '6', null, null, null, POINT(34.653053, -84.292412)),
 ('Maidencreek All-Day Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-30', null, 'Sep, Sat before Labor Day', '10:00:00 ', '15:30:00 ', '1', null, null, null, POINT(40.462166, -75.930731)),
-('Young Peoplenulls Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-30', null, 'Aug, 5th Sun after July 4th and Sat before', '09:30:00 ', '15:00:00 ', '1', '6', null, null, POINT(33.98930122903544, -118.23599904547616)),
+('Young Peoplenulls Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-30', null, 'Aug, 5th Sun after July 4th and Sat before', '09:30:00 ', '15:00:00 ', '1', '6', null, null, null),
 ('Southwest Texas Convention, Fall Session', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-30', null, 'Aug, 1st Sun &. Sat Before', '09:30:00 ', '15:00:00 ', '9', null, null, null, POINT(30.836611, -97.621508)),
 ('Fox Valley Folk Festival Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-31', null, 'Sep, Sun before Labor Day', null, null, '1', null, null, null, POINT(41.884236, -88.301858)),
 ('Bethlehem PBC 5th Sunday Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-31', null, 'Aug, Every 5th Sunday', null, null, '9', null, null, null, POINT(27.726032, -82.061286)),
@@ -378,7 +283,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Albright, Cates, Brown, and Sheppard Memorial', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-12-10', null, 'Oct, 2nd Sun', '10:00:00 ', '15:00:00 ', '1', null, null, null, POINT(33.683421, -85.14938)),
 ('Shiloh October Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-10-18', null, 'Oct, 3rd Sat', '10:00:00 ', '14:00:00 ', '6', null, null, null, POINT(33.013635, -87.389662)),
 ('Tennessee State Sacred Harp Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-10-18', null, 'Oct, Sat before 3rd Sun', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(36.115423, -86.694245)),
-('France Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-10-18', null, 'Oct, Sat before 3rd Sun', '10:30:00 ', '16:00:00 ', '1', null, null, null,POINT(48.85747026095788, 2.3449717450146643)),
+('France Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-10-18', null, 'Oct, Sat before 3rd Sun', '10:30:00 ', '16:00:00 ', '1', null, null, null, null),
 ('Pacific Northwest Sacred Harp Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-10-18', null, 'Oct, 3rd Sun &. Sat before', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(45.522872, -122.624603)),
 ('Tri-State Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-10-18', null, 'Oct, Sat before 3rd Sun', '09:00:00 ', '14:00:00 ', '9', null, null, null, POINT(31.122502, -86.067498)),
 ('Andrew’s Chapel Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-10-18', null, 'Oct, Sat before 3rd Sun', null, null, '1', null, null, null, POINT(32.901453, -84.223903)),
@@ -395,7 +300,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Maryville College Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-10-26', null, 'Oct, 4th Sun', null, null, '16', null, null, null, POINT(35.751950, -83.963884)),
 ('Denney Memorial', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-01-11', null, 'Nov, Sat before 1st Sun', '10:00:00 ', '15:00:00 ', '1', null, null, null, POINT(33.516915, -85.087072)),
 ('Velton Chafin Memorial Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-01-11', null, 'Nov, Sat before 1st Sun', '10:00:00 ', '15:00:00 ', '1', '9', null, null, POINT(33.737983, -87.010181)),
-('Dallas Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-01-11', null, 'Nov, Sat before 1st Sun', '09:30:00 ',null,'1', null, null, null, POINT(32.862662, -96.836251)),
+('Dallas Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-01-11', null, 'Nov, Sat before 1st Sun', null, '09:30:00 ', '1', null, null, null, '2025-11-01'),
 ('Hyde Park Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-01-11', null, 'Nov, Sat before 1st Sun', '09:30:00 ', '14:30:00 ', '1', '15', null, null, POINT(41.792761, -87.596261)),
 ('James River Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-01-11', null, 'Nov, Sat before 1st Sun', '10:00:00 ', '16:00:00 ', '1', '18', null, null, POINT(37.572015, -77.511143)),
 ('Holly Springs Primitive Baptist Church Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-02-11', null, 'Nov, 1st Sun', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(33.683421, -85.14928)),
@@ -406,7 +311,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Immanuel Baptist Church Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-11', null, 'Nov, Sat before 2nd Sun', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(36.111578, -86.853607)),
 ('All-Wisconsin Shapenote Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-11', null, 'Nov, Sat before 2nd Sun', '10:00:00 ', '15:30:00 ', '1', null, null, null, POINT(43.077064, -87.894598)),
 ('Stapleford Sacred Harp Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-08-11', null, 'Nov, Sat before 2nd Sun', null, null, '1', '9', null, null, POINT(52.930686, -1.272881)),
-('Kyneton All-Day Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-11-29', null, 'Nov, Sat before 5th Sun', '09:30:00 ', '16:00:00 ', '1', null, null, null, POINT(-37.245689, 144.449917)),
+('Kyneton All-Day Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-11-29', null, 'Nov, Sat before 5th Sun', '09:30:00 ', '16:00:00 ', '1', null, null, null, '-37.245689, 144.449917'),
 ('State of Alabama Convention (Annual Session)', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-11-15', null, 'Nov, Sat before 3rd Sun', null, null, '9', null, null, null, POINT(31.122501, -86.067496)),
 ('West Yorkshire Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-11-15', null, 'Nov, Sat before 3rd Sun', '10:30:00 ', '16:00:00 ', '1', null, null, null, POINT(53.750054, -1.481098)),
 ('Georgian Harmony Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-11-15', null, 'Nov, Sat before 3rd Sun', '10:00:00 ', '15:00:00 ', '12', null, null, null, POINT(33.905408, -83.217333)),
