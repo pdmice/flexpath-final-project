@@ -32,7 +32,7 @@ public class SingDao {
 
     public List<Sing> getSingsByOwner(String owner_id){
         String sql = "SELECT * FROM sings WHERE owner_id = ?;";
-        return jdbcTemplate.query(sql, this::mapToSing);
+        return jdbcTemplate.query(sql, this::mapToSing, owner_id);
     }
 
     public Sing getSingById(int id){
@@ -98,7 +98,7 @@ public class SingDao {
         String sql = "DELETE * FROM sings where id = ?;";
         return jdbcTemplate.update(sql, id);
     }
-
+    /*
     public List<Sing> searchByDistance (int searchId, SearchObject searchObject){
         String sql = "SELECT pointB.*, ST_Distance_Sphere(pointA.location, pointB.location) AS distance_in_meters FROM (SELECT location FROM searches where id = ?) AS pointA, sings AS pointB WHERE ST_Distance_Sphere(pointA.location, pointB.location) <= ?  AND pointB.start_date BETWEEN ? AND ? ORDER BY distance_in_meters ASC;";
         try{
@@ -106,9 +106,9 @@ public class SingDao {
         }
         catch(DaoException e){ throw new DaoException("No sings found");}
     }
+    */
 
-
-    private Sing mapToSing(ResultSet resultSet, int rowNumber) throws SQLException {
+    public Sing mapToSing(ResultSet resultSet, int rowNumber) throws SQLException {
         int id = resultSet.getInt("id");
         return new Sing(
                 resultSet.getInt("id"),

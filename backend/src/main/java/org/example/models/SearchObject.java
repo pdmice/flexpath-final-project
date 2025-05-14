@@ -14,6 +14,9 @@ public class SearchObject {
 
     private Date searchEnd;
 
+    public SearchObject(Date searchStart, Date searchEnd, float radius, Blob searchLocation) {
+    }
+
     public Date getSearchStart() {
         return searchStart;
     }

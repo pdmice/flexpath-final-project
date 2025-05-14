@@ -46,6 +46,17 @@ create table sings (
     foreign key(owner_id) references users(uuid)
 );
 
+CREATE TABLE searches(
+	id int auto_increment primary key,
+    search_start DATE,
+    search_end DATE,
+    radius float4,
+    search_location POINT not null,
+    SPATIAL INDEX(search_location)
+    );
+    
+INSERT INTO searches (search_start, search_end, radius, search_location) VALUES('2025-05-01', '2026-06-01', 50000, POINT(34.71942056886259, -86.53928298246798));
+
 insert into users (uuid, username, password) values ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7','admin', '$2a$10$tBTfzHzjmQVKza3VSa5lsOX6/iL93xPVLlLXYg2FhT6a.jb1o6VDq');
 insert into roles (uuid, username, role) values ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7','admin', 'ADMIN');
 
@@ -141,7 +152,7 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Ohio State Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-02-28', null, 'Mar, Sat before 1st Sun', '10:00:00 ', '15:00:00 ', '1', null, null, null, POINT(40.040918, -83.0191946)),
 ('Arie and Mona Galloway Memorial', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-02-28', null, 'Mar, Sat before 1st Sun', null, null, '9', null, null, null, POINT(31.122501, -86.067496)),
 ('Rogers Memorial', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-01-03', null, 'Mar, 1st Sun', '10:00:00 ', '15:00:00 ', '1', null, null, null, POINT(33.405728, -85.252995)),
-('Texas State Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-07-03', null, 'Mar, 2nd Sun &. Sat before', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(29.555556, -98.491389)),
+-- ('Texas State Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-07-03', null, 'Mar, 2nd Sun &. Sat before', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(29.555556, -98.491389)),
 ('North Carolina Sacred Harp Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-07-03', null, 'Mar, Sat before 2nd Sun', '09:30:00 ', '15:30:00 ', '1', '18', null, null, POINT(35.784749, -78.661152)),
 ('Western Massachusetts Sacred Harp Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-07-03', null, 'Mar, 2nd Sun &. Sat before', '10:00:00 ', '15:30:00 ', '1', null, null, null, POINT(42.331574, -72.674468)),
 ('Missouri State Convention', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2026-07-03', null, 'Mar, 2nd Sun &. Sat before', '09:30:00 ', '15:00:00 ', '1', '15', null, null, POINT(38.591024, -90.355224)),
