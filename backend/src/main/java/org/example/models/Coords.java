@@ -20,7 +20,7 @@ public class Coords {
         BigDecimal test4;
         test4 = BigDecimal.valueOf(test3);
         this.lat = new BigDecimal(Double.valueOf(parts[0]));
-        this.lon = new BigDecimal(Double.valueOf(parts[1]));
+        this.lon = test4;
 
 
     }

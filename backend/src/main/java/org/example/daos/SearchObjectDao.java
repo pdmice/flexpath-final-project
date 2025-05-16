@@ -35,9 +35,6 @@ public class SearchObjectDao {
     public int createSearch(SearchObject searchObject){
         String sql = "INSERT INTO searches (search_location,search_start,search_end, radius) VALUES(POINT(?,?),?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        Coords coords = new Coords(searchObject.getSearchLocation().toString());
-        BigDecimal lat = coords.getLat();
-        BigDecimal lon = coords.getLon();
 
         BigDecimal searchRadius = BigDecimal.valueOf(searchObject.getSearchRadius() * 1609.344);
         try{
@@ -47,8 +44,8 @@ public class SearchObjectDao {
                 ps.setObject(3, searchObject.getSearchStart());
                 ps.setObject(4, searchObject.getSearchEnd());
                 ps.setObject(5, searchRadius);
-                ps.setObject(1, lat);
-                ps.setObject(2, lon);
+                ps.setObject(1, searchObject.getLat());
+                ps.setObject(2, searchObject.getLon());
                 return ps;
             }, keyHolder);
             return Objects.requireNonNull(keyHolder.getKey()).intValue();

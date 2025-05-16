@@ -1,5 +1,6 @@
 package org.example.models;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class SearchObject {
@@ -7,7 +8,7 @@ public class SearchObject {
     private Date searchStart;
     private Date searchEnd;
     private Float searchRadius;
-    private Coords searchLocation;
+    public Coords searchLocation;
 
     public Date getSearchStart() {
         return searchStart;
@@ -36,6 +37,10 @@ public class SearchObject {
     public Coords getSearchLocation() {
         return searchLocation;
     }
+
+    public BigDecimal getLat(){return searchLocation.getLat();}
+
+    public BigDecimal getLon(){return searchLocation.getLon();}
 
     public void setSearchLocation(Coords searchLocation) {
         this.searchLocation = searchLocation;
