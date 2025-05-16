@@ -1,3 +1,9 @@
+/*
+Query the DB for points within a given distance of the location from a row of searches table (pointA) then 
+filter for sings within a date range. When you forget how this works check:
+https://www.slingacademy.com/article/mysql-8-calculate-distance-between-two-locations/
+*/
+
 SELECT 
     pointB.*,  -- Select all event fields
     ST_Distance_Sphere(
@@ -5,13 +11,14 @@ SELECT
         pointB.location
     ) AS distance_in_meters
 FROM 
-    (SELECT location FROM searches WHERE id = 1) AS pointA,
+    (SELECT location FROM searches where id = 1) AS pointA,
     sings AS pointB
 WHERE 
     ST_Distance_Sphere(
         pointA.location, 
         pointB.location
-    ) <= 5000  -- Replace with desired distance in meters
+    ) <= 20000  -- Replace with desired distance in meters
+AND pointB.start_date BETWEEN '2025-05-01' AND '2025-05-05'
 ORDER BY 
     distance_in_meters ASC;
 

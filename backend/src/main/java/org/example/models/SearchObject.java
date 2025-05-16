@@ -1,21 +1,13 @@
 package org.example.models;
 
-import java.math.BigDecimal;
-import java.sql.Blob;
-import java.sql.Date;
+import java.util.Date;
 
 public class SearchObject {
 
-    private Blob searchLocation;
-
-    private BigDecimal searchRadius;
-
     private Date searchStart;
-
     private Date searchEnd;
-
-    public SearchObject(Date searchStart, Date searchEnd, float radius, Blob searchLocation) {
-    }
+    private Float searchRadius;
+    private Coords searchLocation;
 
     public Date getSearchStart() {
         return searchStart;
@@ -33,45 +25,19 @@ public class SearchObject {
         this.searchEnd = searchEnd;
     }
 
-    public BigDecimal getSearchRadius() {
+    public Float getSearchRadius() {
         return searchRadius;
     }
 
-    public void setSearchRadius(BigDecimal searchRadius) {
+    public void setSearchRadius(Float searchRadius) {
         this.searchRadius = searchRadius;
     }
 
-    private Date searchStartDate;
-
-    private Date searchEndDate;
-
-    public SearchObject(Blob searchLocation, Date searchStartDate, Date searchEndDate) {
-        this.searchLocation = searchLocation;
-        this.searchStartDate = searchStartDate;
-        this.searchEndDate = searchEndDate;
-    }
-
-    public Blob getSearchLocation() {
+    public Coords getSearchLocation() {
         return searchLocation;
     }
 
-    public void setSearchLocation(Blob searchLocation) {
+    public void setSearchLocation(Coords searchLocation) {
         this.searchLocation = searchLocation;
-    }
-
-    public Date getSearchStartDate() {
-        return searchStartDate;
-    }
-
-    public void setSearchStartDate(Date searchStartDate) {
-        this.searchStartDate = searchStartDate;
-    }
-
-    public Date getSearchEndDate() {
-        return searchEndDate;
-    }
-
-    public void setSearchEndDate(Date searchEndDate) {
-        this.searchEndDate = searchEndDate;
     }
 }

@@ -1,13 +1,17 @@
 package org.example.daos;
 
 import org.example.exceptions.DaoException;
+import org.example.models.Coords;
 import org.example.models.SearchObject;
 import org.example.models.Sing;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +19,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class SearchObjectDao {
 
     private final JdbcTemplate jdbcTemplate;
@@ -24,17 +29,26 @@ public class SearchObjectDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Autowired
+    private SingDao singDao;
+
     public int createSearch(SearchObject searchObject){
-        String sql = "INSERT INTO searches (search_start,search_end, radius, search_location) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO searches (search_location,search_start,search_end, radius) VALUES(POINT(?,?),?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
+        Coords coords = new Coords(searchObject.getSearchLocation().toString());
+        BigDecimal lat = coords.getLat();
+        BigDecimal lon = coords.getLon();
+
+        BigDecimal searchRadius = BigDecimal.valueOf(searchObject.getSearchRadius() * 1609.344);
         try{
 
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setObject(1, searchObject.getSearchStart());
-                ps.setObject(2, searchObject.getSearchEnd());
-                ps.setObject(3, searchObject.getSearchRadius());
-                ps.setObject(4, searchObject.getSearchLocation());
+                ps.setObject(3, searchObject.getSearchStart());
+                ps.setObject(4, searchObject.getSearchEnd());
+                ps.setObject(5, searchRadius);
+                ps.setObject(1, lat);
+                ps.setObject(2, lon);
                 return ps;
             }, keyHolder);
             return Objects.requireNonNull(keyHolder.getKey()).intValue();
@@ -66,10 +80,11 @@ public class SearchObjectDao {
                 
                 """;
         try{
-            return jdbcTemplate.query(sql, )
+            return jdbcTemplate.query(sql, singDao::mapToSing, searchID);
         }
+        catch(DaoException e ){throw new DaoException("Failed to retrieve search results from DB");}
     }
-
+/*
     private SearchObject mapToSearch(ResultSet resultSet, int rowNumber) throws SQLException{
         int id = resultSet.getInt("id");
 
@@ -79,5 +94,5 @@ public class SearchObjectDao {
                 resultSet.getFloat("radius"),
                 resultSet.getBlob("search_location")
         );
-    }
+    }*/
 }

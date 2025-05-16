@@ -1,0 +1,92 @@
+package org.example.models;
+
+import ch.qos.logback.core.joran.sanity.Pair;
+
+import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.Date;
+
+public class SearchObject {
+
+    private Blob searchLocation;
+
+    private BigDecimal searchRadius;
+
+    private Date searchStart;
+
+    private Date searchEnd;
+
+    private float radius;
+
+    public SearchObject(Date searchStart, Date searchEnd, float radius, Blob searchLocation) {
+    }
+
+
+    public SearchObject(Date searchStart, Date searchEnd,BigDecimal searchRadius,Blob searchLocation,   Date searchStartDate, Date searchEndDate) {
+        this.searchLocation = searchLocation;
+        this.searchRadius = searchRadius;
+        this.searchStart = searchStart;
+        this.searchEnd = searchEnd;
+        this.searchStartDate = searchStartDate;
+        this.searchEndDate = searchEndDate;
+    }
+
+    public Date getSearchStart() {
+        return searchStart;
+    }
+
+    public void setSearchStart(Date searchStart) {
+        this.searchStart = searchStart;
+    }
+
+    public Date getSearchEnd() {
+        return searchEnd;
+    }
+
+    public void setSearchEnd(Date searchEnd) {
+        this.searchEnd = searchEnd;
+    }
+
+    public BigDecimal getSearchRadius() {
+        return searchRadius;
+    }
+
+    public void setSearchRadius(BigDecimal searchRadius) {
+        this.searchRadius = searchRadius;
+    }
+
+    private Date searchStartDate;
+
+    private Date searchEndDate;
+
+    public SearchObject( Date searchStartDate, Date searchEndDate,BigDecimal searchRadius, Blob searchLocation) {
+        this.searchLocation = searchLocation;
+        this.searchStartDate = searchStartDate;
+        this.searchEndDate = searchEndDate;
+        this.searchRadius = searchRadius;
+    }
+
+    public Blob getSearchLocation() {
+        return searchLocation;
+    }
+
+    public void setSearchLocation(Blob searchLocation) {
+        this.searchLocation = searchLocation;
+    }
+
+    public Date getSearchStartDate() {
+        return searchStartDate;
+    }
+
+    public void setSearchStartDate(Date searchStartDate) {
+        this.searchStartDate = searchStartDate;
+    }
+
+    public Date getSearchEndDate() {
+        return searchEndDate;
+    }
+
+    public void setSearchEndDate(Date searchEndDate) {
+        this.searchEndDate = searchEndDate;
+    }
+}

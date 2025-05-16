@@ -46,6 +46,7 @@ public class SingController {
         return singDao.updateSing(sing, id);
     }
 
+    /*
     @GetMapping("/search/{searchId}")
     public List<Sing> searchByDistance(@PathVariable int searchId, @RequestBody SearchObject searchObject){
         try {
@@ -53,4 +54,6 @@ public class SingController {
         }
         catch(DaoException e ){throw new DaoException("No Sins Found");}
     }
+
+     */
 }
