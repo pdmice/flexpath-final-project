@@ -3,9 +3,7 @@ import { useState } from "react";
 import UserSearch from "./UserSearch";
 import LocationSearch from "./LocationSearch";
 
-export default function Search() {
-  const [searchType, setSearchType] = useState(true);
-
+export default function Search({ searchType, setSearchType }) {
   return (
     <>
       <div
