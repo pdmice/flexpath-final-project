@@ -11,18 +11,28 @@ export default function LocationSearch() {
     "39.89243631917957, -95.86952041568385"
   );
   const [data, setData] = useState("Initial data");
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   const handleDate = (range) => {
     const [startDate, endDate] = range;
-    let start = Date.parse(startDate)//.toString("yyyy-MM-dd")
-    let end = Date.parse(endDate)//.toString("yyyy-MM-dd")
-    console.log("Parsed dates are: ", start, end)
+    let start = new Date(startDate).toISOString("yyyy-MM-dd").split("T")[0]; //.toString("yyyy-MM-dd")
+    let end = new Date(endDate).toISOString("yyyy-MM-dd").split("T")[0];
+    console.log("Parsed dates are: ", start, end);
     setStartDate(start);
     setEndDate(end);
   };
 
   const handleKeyword = (e) => {
-    setSearchString(e.target.value);
+    async function fetchGPS(e) {
+      await fetch(
+        `https://geocode.maps.co/search?postalcode${e.target.value}=&api_key=${API_KEY}`
+      )
+        .then((response) => response.json())
+        .then((json) => setSearchString(json))
+        .catch((e) => console.log("fetchGPS error: ", e));
+    }
+
+    //setSearchString(e.target.value);
   };
 
   const handleRadius = (e) => {
@@ -30,33 +40,33 @@ export default function LocationSearch() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();    
-    const postQuery = `{"searchStart":${startDate} ,
-        "searchEnd": ${endDate},
+    e.preventDefault();
+    const postQuery = `{"searchStart":"${startDate}" ,
+        "searchEnd": "${endDate}",
         "searchRadius": ${radius},
-        "searchLocation": ${searchString}`;
+        "searchLocation":"${searchString}"}`;
 
-        async function fetchData(post){
-          await fetch("http://localhost:8080/api/search",
-            {
-              method : "post",
-              headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: postQuery
-            }
-          )
-          .then((response) => response.json())
-          .then((json) => {
-            setData(json);
-          })
-          .catch((error)=> console.error("Fetch error was: ", error))
-          
-        }
-        fetchData(postQuery);
+    async function fetchData(post) {
+      await fetch("http://localhost:8080/api/search", {
+        method: "post",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: postQuery,
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          setData(json);
+        })
+        .catch((error) => console.error("Fetch error was: ", error));
+    }
+    fetchData(postQuery);
     console.log("postQuery is: ", postQuery);
+    console.log("Data is: ", data);
   };
+
+  console.log("Data is: ", data);
 
   return (
     <div className="container-md">
@@ -98,7 +108,7 @@ export default function LocationSearch() {
           </div>
         </form>
       </div>
-      <p>Test String</p>
+      <p>${JSON.stringify(data)}</p>
     </div>
   );
 }

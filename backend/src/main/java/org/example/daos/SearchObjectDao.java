@@ -44,8 +44,8 @@ public class SearchObjectDao {
                 ps.setObject(3, searchObject.getSearchStart());
                 ps.setObject(4, searchObject.getSearchEnd());
                 ps.setObject(5, searchRadius);
-                ps.setObject(1, searchObject.getLat());
-                ps.setObject(2, searchObject.getLon());
+                ps.setObject(2, searchObject.getLat());
+                ps.setObject(1, searchObject.getLon());
                 return ps;
             }, keyHolder);
             return Objects.requireNonNull(keyHolder.getKey()).intValue();
