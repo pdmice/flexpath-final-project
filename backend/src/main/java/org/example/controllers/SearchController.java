@@ -16,6 +16,7 @@ public class SearchController {
     @Autowired
     private SearchObjectDao searchObjectDao;
 
+    @CrossOrigin
     @PostMapping
     public List<Sing> getSearch(@RequestBody SearchObject search){
         return searchObjectDao.searchSings(search);

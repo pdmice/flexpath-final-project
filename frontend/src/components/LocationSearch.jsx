@@ -10,11 +10,15 @@ export default function LocationSearch() {
   const [searchString, setSearchString] = useState(
     "39.89243631917957, -95.86952041568385"
   );
+  const [data, setData] = useState("Initial data");
 
   const handleDate = (range) => {
     const [startDate, endDate] = range;
-    setStartDate(startDate);
-    setEndDate(endDate);
+    let start = Date.parse(startDate)//.toString("yyyy-MM-dd")
+    let end = Date.parse(endDate)//.toString("yyyy-MM-dd")
+    console.log("Parsed dates are: ", start, end)
+    setStartDate(start);
+    setEndDate(end);
   };
 
   const handleKeyword = (e) => {
@@ -25,13 +29,33 @@ export default function LocationSearch() {
     setRadius(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();    
     const postQuery = `{"searchStart":${startDate} ,
         "searchEnd": ${endDate},
         "searchRadius": ${radius},
         "searchLocation": ${searchString}`;
 
-    console.error("postQuery is: ", postQuery);
+        async function fetchData(post){
+          await fetch("http://localhost:8080/api/search",
+            {
+              method : "post",
+              headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: postQuery
+            }
+          )
+          .then((response) => response.json())
+          .then((json) => {
+            setData(json);
+          })
+          .catch((error)=> console.error("Fetch error was: ", error))
+          
+        }
+        fetchData(postQuery);
+    console.log("postQuery is: ", postQuery);
   };
 
   return (
@@ -74,6 +98,7 @@ export default function LocationSearch() {
           </div>
         </form>
       </div>
+      <p>Test String</p>
     </div>
   );
 }
