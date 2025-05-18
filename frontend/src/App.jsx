@@ -3,17 +3,11 @@ import Home from "./components/Home";
 import Search from "./components/Search";
 import Login from "./components/Login";
 import NotFound from "./components/NotFound";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 function App() {
   const [searchType, setSearchType] = useState(true);
-  const [stateLocation, setLocation] = useState(location.path);
-  console.error("stateLocation is: ", stateLocation);
 
-  useEffect(() => {
-    setLocation(location.path);
-  }, location.path);
-  console.error("stateLocation is: ", stateLocation);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -30,7 +24,7 @@ function App() {
           className="btn btn-outline-success my-2 my-sm-0"
           type="button"
           style={{
-            display: stateLocation === "/search" ? "block" : "none",
+            display: useLocation().pathname === "/search" ? "block" : "none",
           }}
           onClick={() => {
             setSearchType(!searchType);
