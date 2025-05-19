@@ -1,6 +1,7 @@
 package org.example.models;
 
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.util.Date;
 
 public class SearchObject {
@@ -9,6 +10,9 @@ public class SearchObject {
     private Date searchEnd;
     private Float searchRadius;
     public Coords searchLocation;
+
+    public SearchObject(int id, java.sql.Date searchStart, java.sql.Date searchEnd, float radius, Blob searchLocation) {
+    }
 
     public Date getSearchStart() {
         return searchStart;

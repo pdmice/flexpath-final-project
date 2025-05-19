@@ -4,6 +4,7 @@ import org.example.exceptions.DaoException;
 import org.example.models.Coords;
 import org.example.models.SearchObject;
 import org.example.models.Sing;
+import org.example.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -31,6 +32,9 @@ public class SearchObjectDao {
 
     @Autowired
     private SingDao singDao;
+
+    @Autowired
+    private UserDao userDao;
 
     public int createSearch(SearchObject searchObject){
         String sql = "INSERT INTO searches (search_location,search_start,search_end, radius) VALUES(POINT(?,?),?,?,?);";
@@ -81,15 +85,28 @@ public class SearchObjectDao {
         }
         catch(DaoException e ){throw new DaoException("Failed to retrieve search results from DB");}
     }
-/*
+
+    public List<Sing> searchByUser(String user){
+
+        User searchUser = userDao.getUserByUsername(user);
+        String uuid = searchUser.getUuid();
+
+        String sql = "SELECT * FROM sings where owner_id = ?;";
+
+        try {
+            return jdbcTemplate.query(sql, singDao::mapToSing, uuid);
+        }
+        catch(DaoException e){throw new DaoException("Failed to retrieve sings by user");}
+    }
+
     private SearchObject mapToSearch(ResultSet resultSet, int rowNumber) throws SQLException{
-        int id = resultSet.getInt("id");
 
         return new SearchObject(
+                resultSet.getInt("id"),
                 resultSet.getDate("search_start"),
                 resultSet.getDate("search_end"),
                 resultSet.getFloat("radius"),
                 resultSet.getBlob("search_location")
         );
-    }*/
+    }
 }

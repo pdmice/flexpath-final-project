@@ -21,4 +21,8 @@ public class SearchController {
     public List<Sing> getSearch(@RequestBody SearchObject search){
         return searchObjectDao.searchSings(search);
     }
+
+    @CrossOrigin
+    @GetMapping("/{username}")
+    public List<Sing> searchByUsername(@PathVariable String username){return searchObjectDao.searchByUser(username);}
 }

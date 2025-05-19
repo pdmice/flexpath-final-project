@@ -158,11 +158,11 @@ public class UserDao {
      * @return User The user object.
      * @throws SQLException If an error occurs while mapping the result set.
      */
-    private User mapToUser(ResultSet resultSet, int rowNumber) throws SQLException {
-        String username = resultSet.getString("username");
+    public User mapToUser(ResultSet resultSet, int rowNumber) throws SQLException {
+        //String username = resultSet.getString("username");
         return new User(
                 resultSet.getString("uuid"),
-                username,
+                resultSet.getString("username"),
                 resultSet.getString("password")
         );
     }
