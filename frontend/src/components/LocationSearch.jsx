@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import Table from "./Table";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function LocationSearch() {
@@ -108,7 +109,6 @@ export default function LocationSearch() {
           </div>
         </form>
       </div>
-      <p>${JSON.stringify(data)}</p>
     </div>
   );
 }

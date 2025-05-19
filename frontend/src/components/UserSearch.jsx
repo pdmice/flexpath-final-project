@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import Table from "./Table";
 
 export default function UserSearch() {
   const [userName, setUsername] = useState("user");
@@ -25,7 +26,7 @@ export default function UserSearch() {
   };
 
   return (
-    <div className="container-md">
+    <div className="container">
       <h1> Enter the name of a user to search</h1>
       <div className="row-align-items-center>">
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -43,7 +44,9 @@ export default function UserSearch() {
           </div>
         </form>
       </div>
-      <p>${JSON.stringify(data)}</p>
+      <div className="row align-items-center gy-6">
+        <Table data={data} />
+      </div>
     </div>
   );
 }
