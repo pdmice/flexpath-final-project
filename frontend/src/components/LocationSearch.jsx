@@ -11,12 +11,12 @@ export default function LocationSearch() {
   const [searchString, setSearchString] = useState(
     "39.89243631917957, -95.86952041568385"
   );
-  const [data, setData] = useState("Initial data");
+  const [data, setData] = useState(null);
   const API_KEY = import.meta.env.VITE_API_KEY;
 
   const handleDate = (range) => {
     const [startDate, endDate] = range;
-    let start = new Date(startDate).toISOString("yyyy-MM-dd").split("T")[0]; //.toString("yyyy-MM-dd")
+    let start = new Date(startDate).toISOString("yyyy-MM-dd").split("T")[0];
     let end = new Date(endDate).toISOString("yyyy-MM-dd").split("T")[0];
     console.log("Parsed dates are: ", start, end);
     setStartDate(start);
@@ -25,6 +25,7 @@ export default function LocationSearch() {
 
   const handleKeyword = (e) => {
     async function fetchGPS(e) {
+      console.error("e.targetvalue is: ", e.target.value);
       await fetch(
         `https://geocode.maps.co/search?postalcode${e.target.value}=&api_key=${API_KEY}`
       )
@@ -68,6 +69,7 @@ export default function LocationSearch() {
   };
 
   console.log("Data is: ", data);
+  console.log("searchString is:", searchString);
 
   return (
     <div className="container-md">
@@ -109,6 +111,9 @@ export default function LocationSearch() {
           </div>
         </form>
       </div>
+      <div>
+        <Table data={data}/>
+        </div>      
     </div>
   );
 }

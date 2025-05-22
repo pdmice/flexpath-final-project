@@ -44,8 +44,8 @@ export default function UserSearch() {
           </div>
         </form>
       </div>
-      <div className="row align-items-center gy-6">
-        <Table data={data} />
+      <div className="container">
+        <Table data={data}/>
       </div>
     </div>
   );

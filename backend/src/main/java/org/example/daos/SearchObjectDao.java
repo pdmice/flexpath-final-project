@@ -59,9 +59,12 @@ public class SearchObjectDao {
 
     public List<Sing> searchSings(SearchObject searchObject){
         int searchID = createSearch(searchObject);
+        //There's a ludicrously long select string here. We need to select everything that we aren't renaming
+        //with an AS clause so no SELECT pointB.*
+
         String sql = """
                 SELECT\s
-                    pointB.*, \s
+                    pointB.location, pointB.id, pointB.name, pointB.start_date, pointB.end_date, pointB.when_description, pointB.start_time, pointB.end_time, pointB.contact_email, pointB.user_added_note, b1.name AS primary_book,b2.name AS secondary_book,u1.username AS owner_id,\s
                     ST_Distance_Sphere(
                         pointA.search_location,\s
                         pointB.location
@@ -69,6 +72,9 @@ public class SearchObjectDao {
                 FROM\s
                     (SELECT search_location, search_start, search_end, radius FROM searches WHERE id = ?) AS pointA,
                     sings AS pointB
+                    LEFT JOIN books b1 ON pointB.primary_book = b1.id
+                    LEFT JOIN books b2 ON pointB.secondary_book = b2.id
+                    LEFT JOIN users u1 ON pointB.owner_id = u1.uuid
                 WHERE\s
                     ST_Distance_Sphere(
                         pointA.search_location,\s
@@ -91,14 +97,21 @@ public class SearchObjectDao {
         User searchUser = userDao.getUserByUsername(user);
         String uuid = searchUser.getUuid();
 
-        String sql = "SELECT * FROM sings where owner_id = ?;";
-
+        String sql = """
+                SELECT  sings.id, sings.name, start_date, end_date,when_description,start_time, end_time, b1.name AS primary_book, b2.name as secondary_book,contact_email, user_added_note,location , u1.username AS owner_id\s
+                FROM sings \s
+                LEFT JOIN books b1 ON sings.primary_book = b1.id
+                LEFT JOIN books b2 ON sings.secondary_book = b2.id
+                LEFT JOIN users u1 ON sings.owner_id = u1.uuid \s
+                where owner_id = ?;
+                """;
         try {
             return jdbcTemplate.query(sql, singDao::mapToSing, uuid);
         }
         catch(DaoException e){throw new DaoException("Failed to retrieve sings by user");}
     }
 
+    /*
     private SearchObject mapToSearch(ResultSet resultSet, int rowNumber) throws SQLException{
 
         return new SearchObject(
@@ -109,4 +122,5 @@ public class SearchObjectDao {
                 resultSet.getBlob("search_location")
         );
     }
+     */
 }
