@@ -86,7 +86,7 @@ export default function LocationSearch() {
           <input
             type="text"
             className="form-control"
-            placeholder="Search by keyword"
+            placeholder="Search by zip-code"
             onChange={(e) => handleKeyword(e)}
           ></input>
           <p className="mt-3">How far can you travel?</p>
@@ -112,8 +112,8 @@ export default function LocationSearch() {
         </form>
       </div>
       <div>
-        <Table data={data}/>
-        </div>      
+        <Table data={data} />
+      </div>
     </div>
   );
 }

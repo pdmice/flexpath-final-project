@@ -25,4 +25,7 @@ public class SearchController {
     @CrossOrigin
     @GetMapping("/{username}")
     public List<Sing> searchByUsername(@PathVariable String username){return searchObjectDao.searchByUser(username);}
+
+    @GetMapping("/keyword/{keyword}")
+    public List<Sing> searchByKeyword(@PathVariable String keyword){return searchObjectDao.searchByKeywork(keyword);}
 }

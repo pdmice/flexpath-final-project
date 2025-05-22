@@ -6,7 +6,11 @@ import NotFound from "./components/NotFound";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 function App() {
-  const [searchType, setSearchType] = useState(true);
+  const [searchType, setSearchType] = useState("location");
+
+  const handleSearchSelect = (search) => {
+    setSearchType(search);
+  };
 
   return (
     <div>
@@ -20,18 +24,51 @@ function App() {
         <Link to="/login" className="navbar-brand ms-4 nav-link fs-4">
           Login
         </Link>
-        <button
-          className="btn btn-outline-success my-2 my-sm-0"
-          type="button"
+        <div
+          className="dropdown"
           style={{
             display: useLocation().pathname === "/search" ? "block" : "none",
           }}
-          onClick={() => {
-            setSearchType(!searchType);
-          }}
         >
-          {searchType ? "Search by User" : "Search by location"}
-        </button>
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton2"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Search Type
+          </button>
+          <ul
+            className="dropdown-menu dropdown-menu-dark"
+            aria-labelledby="dropdownMenuButton2"
+          >
+            <li>
+              <button
+                className="dropdown-item active"
+                onClick={() => handleSearchSelect("location")}
+              >
+                Location Search
+              </button>
+            </li>
+            <li>
+              <button
+                className="dropdown-item active"
+                onClick={() => handleSearchSelect("user")}
+              >
+                User Search
+              </button>
+            </li>
+            <li>
+              <button
+                className="dropdown-item active"
+                onClick={() => handleSearchSelect("keyword")}
+              >
+                Keyword Search
+              </button>
+            </li>
+          </ul>
+        </div>
       </nav>
       <hr />
       <Routes>
