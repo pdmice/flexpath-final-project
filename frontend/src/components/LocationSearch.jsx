@@ -75,9 +75,9 @@ export default function LocationSearch() {
     <div className="container-md">
       <h1>Find a Sing to Attend</h1>
       <p>
-        Use this form to find a sing that lines up with your travel plans. You
-        can also Enter a username in the location field and leave the rest blank
-        to find sings from people you know.
+        Use this form to find a sing that lines up with your travel plans. Just enter a zip code
+        and the dates for where you'll be and how far you're willing to travel in miles. Distance is 
+        as the crow flies, so actual travel distance will be longer.
       </p>
 
       <div className="row-align-items-center>">

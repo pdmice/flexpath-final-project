@@ -45,7 +45,7 @@ function App() {
           >
             <li>
               <button
-                className="dropdown-item active"
+                className="dropdown-item "
                 onClick={() => handleSearchSelect("location")}
               >
                 Location Search
@@ -53,7 +53,7 @@ function App() {
             </li>
             <li>
               <button
-                className="dropdown-item active"
+                className="dropdown-item "
                 onClick={() => handleSearchSelect("user")}
               >
                 User Search
@@ -61,7 +61,7 @@ function App() {
             </li>
             <li>
               <button
-                className="dropdown-item active"
+                className="dropdown-item "
                 onClick={() => handleSearchSelect("keyword")}
               >
                 Keyword Search
