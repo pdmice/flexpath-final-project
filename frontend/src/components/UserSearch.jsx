@@ -34,7 +34,7 @@ export default function UserSearch() {
           <input
             type="text"
             className="form-control"
-            placeholder="Search by keyword"
+            placeholder="Search by users"
             onChange={(e) => handleKeyword(e)}
           ></input>
           <div className=" border-top mt-1 d-grid gap-2">
@@ -45,7 +45,7 @@ export default function UserSearch() {
         </form>
       </div>
       <div className="container">
-        <Table data={data}/>
+        <Table data={data} />
       </div>
     </div>
   );

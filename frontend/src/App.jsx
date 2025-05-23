@@ -1,9 +1,10 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import Home from "./components/Home";
 import Search from "./components/Search";
 import Login from "./components/Login";
 import NotFound from "./components/NotFound";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { AuthContext } from "./provider/AuthProvider";
 
 function App() {
   const [searchType, setSearchType] = useState("location");
@@ -11,6 +12,8 @@ function App() {
   const handleSearchSelect = (search) => {
     setSearchType(search);
   };
+
+  const { isLoggedIn, userName } = useContext(AuthContext);
 
   return (
     <div>
@@ -21,9 +24,7 @@ function App() {
         <Link to="/search" className="navbar-brand ms-4 nav-link fs-4">
           Search
         </Link>
-        <Link to="/login" className="navbar-brand ms-4 nav-link fs-4">
-          Login
-        </Link>
+
         <div
           className="dropdown"
           style={{
@@ -69,6 +70,55 @@ function App() {
             </li>
           </ul>
         </div>
+
+        {/*-----------------------------------------------------------------------------------------*/}
+        {isLoggedIn ? (
+          <div className="dropdown ms-auto p-3">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {isLoggedIn ? userName : "Login"}
+            </button>
+            <ul
+              className="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="dropdownMenuButton2"
+            >
+              <li>
+                <button
+                  className="dropdown-item "
+                  onClick={() => handleSearchSelect("location")}
+                >
+                  Location Search
+                </button>
+              </li>
+              <li>
+                <button
+                  className="dropdown-item "
+                  onClick={() => handleSearchSelect("user")}
+                >
+                  User Search
+                </button>
+              </li>
+              <li>
+                <button
+                  className="dropdown-item "
+                  onClick={() => handleSearchSelect("keyword")}
+                >
+                  Keyword Search
+                </button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link to="/login" className="navbar-brand ms-4 nav-link fs-4 ms-auto">
+            Login
+          </Link>
+        )}
+        {/*-----------------------------------------------------------------------------------------*/}
       </nav>
       <hr />
       <Routes>

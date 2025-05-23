@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+// For the cross origin, try updating to something like:
+// @CrossOrigin(origins = {"http://localhost:5173"})
+// to only allow cross origin requests from the intended front end
 @RestController
 @CrossOrigin
 @RequestMapping("/api/search")
