@@ -7,6 +7,7 @@ import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { AuthContext } from "./provider/AuthProvider";
 import LoginButton from "./components/LoginButton";
 import SearchSelect from "./components/SearchSelect";
+import SignUp from "./components/Signup";
 
 function App() {
   const [searchType, setSearchType] = useState("location");
@@ -33,6 +34,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

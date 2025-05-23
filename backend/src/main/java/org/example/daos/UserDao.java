@@ -77,7 +77,7 @@ public class UserDao {
     public User createUser(User user) {
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         String uuid = java.util.UUID.randomUUID().toString();
-        String sql = "INSERT INTO users (uuid, username, password) VALUES (?,?);";
+        String sql = "INSERT INTO users (uuid, username, password) VALUES (?,?,?);";
         try {
             jdbcTemplate.update(sql,uuid, user.getUsername(), hashedPassword);
             return getUserByUUID(user.getUuid());

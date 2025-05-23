@@ -34,7 +34,7 @@ export default function LoginButton() {
                 className="dropdown-item "
                 onClick={() => handleSearchSelect("location")}
               >
-                Location Search
+                My Sings
               </button>
             </li>
             <li>
@@ -42,7 +42,7 @@ export default function LoginButton() {
                 className="dropdown-item "
                 onClick={() => handleSearchSelect("user")}
               >
-                User Search
+                Settings
               </button>
             </li>
             <li>
