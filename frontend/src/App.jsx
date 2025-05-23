@@ -6,13 +6,10 @@ import NotFound from "./components/NotFound";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { AuthContext } from "./provider/AuthProvider";
 import LoginButton from "./components/LoginButton";
+import SearchSelect from "./components/SearchSelect";
 
 function App() {
   const [searchType, setSearchType] = useState("location");
-
-  const handleSearchSelect = (search) => {
-    setSearchType(search);
-  };
 
   return (
     <div>
@@ -23,52 +20,7 @@ function App() {
         <Link to="/search" className="navbar-brand ms-4 nav-link fs-4">
           Search
         </Link>
-
-        <div
-          className="dropdown"
-          style={{
-            display: useLocation().pathname === "/search" ? "block" : "none",
-          }}
-        >
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton2"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Search Type
-          </button>
-          <ul
-            className="dropdown-menu dropdown-menu-dark"
-            aria-labelledby="dropdownMenuButton2"
-          >
-            <li>
-              <button
-                className="dropdown-item "
-                onClick={() => handleSearchSelect("location")}
-              >
-                Location Search
-              </button>
-            </li>
-            <li>
-              <button
-                className="dropdown-item "
-                onClick={() => handleSearchSelect("user")}
-              >
-                User Search
-              </button>
-            </li>
-            <li>
-              <button
-                className="dropdown-item "
-                onClick={() => handleSearchSelect("keyword")}
-              >
-                Keyword Search
-              </button>
-            </li>
-          </ul>
-        </div>
+        <SearchSelect search={searchType} setSearchType={setSearchType} />
         <LoginButton />
       </nav>
       <hr />
