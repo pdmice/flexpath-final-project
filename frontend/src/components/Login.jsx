@@ -26,10 +26,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     async function login(username, password) {
-      console.log("In login userName is: ", userName);
-      console.log("In login password is: ", password);
       const login = `{"username": "${userName}", "password":"${password}"}`;
-      console.log("In login login variable is: ", login);
       await fetch("http://localhost:5174/auth/login", {
         method: "post",
         headers: {

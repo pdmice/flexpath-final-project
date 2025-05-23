@@ -4,7 +4,13 @@ import { AuthContext } from "../provider/AuthProvider";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 export default function LoginButton() {
-  const { isLoggedIn, userName } = useContext(AuthContext);
+  const { isLoggedIn, userName, setToken, setIsLoggedIn } =
+    useContext(AuthContext);
+
+  const handleLogout = () => {
+    setToken(null);
+    setIsLoggedIn(false);
+  };
 
   return (
     <>
@@ -40,10 +46,7 @@ export default function LoginButton() {
               </button>
             </li>
             <li>
-              <button
-                className="dropdown-item "
-                onClick={() => handleSearchSelect("keyword")}
-              >
+              <button className="dropdown-item " onClick={() => handleLogout()}>
                 Logout
               </button>
             </li>
