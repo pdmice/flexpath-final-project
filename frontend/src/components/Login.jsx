@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const {
@@ -12,6 +12,8 @@ export default function Login() {
     setRole,
     userName,
     setUserName,
+    loginFailed,
+    setLoginFailed,
   } = useContext(AuthContext);
 
   const [password, setPassword] = useState(null);
@@ -40,8 +42,12 @@ export default function Login() {
         .then((json) => {
           setToken(json);
           setIsLoggedIn(true);
+          setLoginFailed(false);
         })
-        .catch((error) => console.error("Login error: ", error));
+        .catch((error) => {
+          console.error("Login error: ", error);
+          setLoginFailed(true);
+        });
     }
     login(userName, password);
   };
@@ -58,6 +64,9 @@ export default function Login() {
     <div className="container-sm">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div data-mdb-input-init className="form-outline mb-4">
+          <h4 style={{ display: loginFailed ? "block" : "none", color: "red" }}>
+            Login failed.
+          </h4>
           <input
             type="text"
             id="username"

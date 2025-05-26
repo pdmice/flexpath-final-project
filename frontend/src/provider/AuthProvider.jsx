@@ -10,6 +10,7 @@ export default function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [role, setRole] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [loginFailed, setLoginFailed] = useState(false);
 
   return (
     <>
@@ -25,6 +26,8 @@ export default function AuthProvider({ children }) {
           setRole,
           userName,
           setUserName,
+          loginFailed,
+          setLoginFailed,
         }}
       >
         {children}
