@@ -1,11 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom"
 import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 
 export default function Table({ data,modifiable }) {
   console.log("In the table data is: ", data);
+  const [id, setId] = useState()
   const navigate= useNavigate()
+
+  const handleClick = (ID) => {
+    setId(ID)
+    console.log("In handleClick id is: ",ID)
+    navigate("/UpdateSing", {state: {sing: ID}})
+
+  }
 
   if (data == null || data.length === 0 || data === undefined) {
     return <LoadingTable />;
@@ -35,8 +43,8 @@ export default function Table({ data,modifiable }) {
               {data.map((key, val) => {
                 return (
                     <tr key={val}>
-                    <button style={{display: modifiable ? "block" : "none",}} onClick={() => navigate("/UpdateSing") }><td>{key["id"]}</td></button>
-                    <td style={{display: !modifiable ? "block" : "none",}}>{key["id"]}</td>
+                    <button id="modbutton" style={{display: modifiable ? "block" : "none",}} onClick={() => {handleClick(key["id"]) }}><td>{key["id"]}</td></button>
+                    <td id="nomodbutton" style={{display: !modifiable ? "block" : "none",}}>{key["id"]}</td>
                     <td>{key["name"]}</td>
                     <td>{key["owner_id"]}</td>
                     <td>{key["start_date"]}</td>

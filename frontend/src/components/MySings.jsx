@@ -25,9 +25,11 @@ export default function MySings(){
 
     return(
         <>
-        <h1> Here are all the sings you've created. Click on one to edit it</h1>
+        <div className="container-md">
+        <h1 className="text-center"> Here are all the sings you've created.</h1>
+        <h3 className="text-center">Click on the ID number of a sing to edit it.</h3>
         <Table modifiable={modifiable} data={data}/>
-
+        </div>
         </>
     )
 }

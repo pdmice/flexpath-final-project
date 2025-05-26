@@ -30,4 +30,8 @@ public class SearchController {
 
     @GetMapping("/keyword/{keyword}")
     public List<Sing> searchByKeyword(@PathVariable String keyword){return searchObjectDao.searchByKeywork(keyword);}
+
+    @CrossOrigin
+    @GetMapping("/id/{id}")
+    public Sing searchById(@PathVariable int id){return searchObjectDao.searchById(id);}
 }
