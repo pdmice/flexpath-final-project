@@ -40,7 +40,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/MySings" element={<MySings />} />
         <Route path="/Settings" element={<Settings />} />
-        <Route path="/UpdateSing" element={<UpdateSing />} />
+        <Route path="/UpdateSing/:id" element={<UpdateSing />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
