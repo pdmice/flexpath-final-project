@@ -28,7 +28,7 @@ export default function Login() {
     e.preventDefault();
     async function login(username, password) {
       const login = `{"username": "${userName}", "password":"${password}"}`;
-      await fetch("http://localhost:5174/auth/login", {
+      await fetch("http://localhost:5173/auth/login", {
         method: "post",
         headers: {
           Accept: "application/json",

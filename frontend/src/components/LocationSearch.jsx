@@ -89,7 +89,7 @@ export default function LocationSearch() {
             placeholder="Search by zip-code"
             onChange={(e) => handleKeyword(e)}
           ></input>
-          <p className="mt-3">How far can you travel?</p>
+          <p className="mt-3">How far (in miles) can you travel?</p>
           <input
             type="text"
             className="form-control"

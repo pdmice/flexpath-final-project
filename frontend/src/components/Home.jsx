@@ -3,7 +3,7 @@ import React from "react";
 export default function Home() {
   return (
     <div className="container-md">
-      <h1>Welcome the Travelling Singer!</h1>
+      <h1>Welcome to the Travelling Singer!</h1>
 
       <p>
         You can use this site to search for sings happening within a given

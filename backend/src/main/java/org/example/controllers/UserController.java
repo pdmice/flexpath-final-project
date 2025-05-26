@@ -92,6 +92,7 @@ public class UserController {
      * @return A list of all roles for the user.
      */
     @GetMapping(path = "/{username}/roles")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
     public List<String> getRoles(@PathVariable String username) {
         return userDao.getRoles(username);
     }

@@ -8,6 +8,9 @@ import { AuthContext } from "./provider/AuthProvider";
 import LoginButton from "./components/LoginButton";
 import SearchSelect from "./components/SearchSelect";
 import SignUp from "./components/Signup";
+import MySings from "./components/MySings";
+import Settings from "./components/Settings"
+import UpdateSing from "./components/UpdateSing";
 
 function App() {
   const [searchType, setSearchType] = useState("location");
@@ -35,6 +38,9 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/MySings" element={<MySings />} />
+        <Route path="/Settings" element={<Settings />} />
+        <Route path="/UpdateSing" element={<UpdateSing />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

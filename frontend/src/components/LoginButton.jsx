@@ -1,9 +1,11 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 export default function LoginButton() {
+
+  const navigate = useNavigate()
   const { isLoggedIn, userName, setToken, setIsLoggedIn } =
     useContext(AuthContext);
 
@@ -32,7 +34,7 @@ export default function LoginButton() {
             <li>
               <button
                 className="dropdown-item "
-                onClick={() => handleSearchSelect("location")}
+                onClick={() => navigate("/MySings")}
               >
                 My Sings
               </button>
@@ -40,7 +42,7 @@ export default function LoginButton() {
             <li>
               <button
                 className="dropdown-item "
-                onClick={() => handleSearchSelect("user")}
+                onClick={() => navigate("Settings")}
               >
                 Settings
               </button>

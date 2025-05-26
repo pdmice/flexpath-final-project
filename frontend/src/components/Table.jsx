@@ -1,8 +1,11 @@
 import React from "react";
+import {Link} from "react-router-dom"
 import LoadingTable from "./LoadingTable";
+import { useNavigate } from "react-router-dom";
 
-export default function Table({ data }) {
+export default function Table({ data,modifiable }) {
   console.log("In the table data is: ", data);
+  const navigate= useNavigate()
 
   if (data == null || data.length === 0 || data === undefined) {
     return <LoadingTable />;
@@ -13,28 +16,39 @@ export default function Table({ data }) {
           <table className="table table-striped table-hover">
             <thead>
               <tr>
-                {Object.keys(data[1]).map((key) => (
+                {/* {Object.keys(data[1]).map((key) => (
                   <th>{key}</th>
-                ))}
+                ))} */}
+                <td>ID</td>
+                <td>Name</td>
+                <td>Added By</td>
+                <td>Date</td>
+                {/* <td>End Date</td> */}
+                <td>Start Time</td>
+                <td>End Time</td>
+                <td>Primary Book</td>
+                <td>Secondary Book</td>
+                {/* <td>Location</td> */}
               </tr>
             </thead>
             <tbody>
               {data.map((key, val) => {
                 return (
-                  <tr key={val}>
-                    {key["id"]}
+                    <tr key={val}>
+                    <button style={{display: modifiable ? "block" : "none",}} onClick={() => navigate("/UpdateSing") }><td>{key["id"]}</td></button>
+                    <td style={{display: !modifiable ? "block" : "none",}}>{key["id"]}</td>
                     <td>{key["name"]}</td>
                     <td>{key["owner_id"]}</td>
                     <td>{key["start_date"]}</td>
-                    <td>{key["end_date"]}</td>
-                    <td>{key["when_description"]}</td>
+                    {/* <td>{key["end_date"]}</td>
+                    <td>{key["when_description"]}</td> */}
                     <td>{key["start_time"]}</td>
                     <td>{key["end_time"]}</td>
                     <td>{key["primary_book"]}</td>
                     <td>{key["secondary_book"]}</td>
-                    <td>{key["contact_email"]}</td>
-                    <td>{key["user_added_note"]}</td>
-                    <td>{key["location"]}</td>
+                    {/* <td>{key["contact_email"]}</td>
+                    <td>{key["user_added_note"]}</td> */}
+                    {/* <td>{key["location"]}</td> */}
                   </tr>
                 );
               })}
