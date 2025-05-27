@@ -6,6 +6,7 @@ import org.example.exceptions.DaoException;
 import org.example.models.SearchObject;
 import org.example.models.Sing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -41,7 +42,9 @@ public class SingController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @CrossOrigin
+    @PostMapping("/update/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Sing update(@PathVariable int id, @RequestBody Sing sing) {
         return singDao.updateSing(sing, id);
     }

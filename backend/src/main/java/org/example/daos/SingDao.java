@@ -71,20 +71,28 @@ public class SingDao {
     }
 
     public Sing updateSing(Sing sing, int id){
-        String sql = "UPDATE sings set name = ?, owner_id = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ?, primary_book = ?, secondary_book = ?, contact_email = ?, user_added_note = ?, location = ?, WHERE id = ?;";
+        String conversionObject = "SELECT * FROM sings WHERE id = ?;";
+
+        Sing singObjectForConversionBack = jdbcTemplate.queryForObject(conversionObject,this::mapToSing,id);
+        String sql = """
+                UPDATE sings 
+                set name = ?, owner_id = ?, start_date = ?, end_date = ?,  when_description = ?, start_time = ?, end_time = ?, primary_book = ?, secondary_book = ?, contact_email = ?, user_added_note = ?
+                WHERE id = ?;
+                """;
         try{
             jdbcTemplate.update(sql,
                     sing.getName(),
-                    sing.getOwner_id(),
+                    singObjectForConversionBack.getOwner_id(),
                     sing.getStart_date(),
                     sing.getEnd_date(),
+                    sing.getWhen_Description(),
                     sing.getStart_time(),
                     sing.getEnd_time(),
-                    sing.getPrimary_book(),
-                    sing.getSecondary_book(),
+                    singObjectForConversionBack.getPrimary_book(),
+                    singObjectForConversionBack.getSecondary_book(),
                     sing.getContact_email(),
                     sing.getNotes(),
-                    sing.getLatitude() + "," +  sing.getLongitude(),
+
                     id);
             return sing;
         }

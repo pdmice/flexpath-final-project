@@ -1,20 +1,72 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFetchSing } from "../helpers/useFetchSing";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
+
 export default function UpdateSing() {
-  const location = useLocation();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    token,
+    setToken,
+    role,
+    setRole,
+    userName,
+    setUserName,
+    loginFailed,
+    setLoginFailed,
+  } = useContext(AuthContext);
+
+  const navigate = useNavigate();
   const { id } = useParams();
 
-  const data = useFetchSing(id);
+  var { data, loading } = useFetchSing(id);
+  var dataToSend = "";
 
   console.error("In UpdateSing data is: ", data);
+
+  const handleName = (e) => {
+    data.name = e.target.value;
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    async function postData(data) {
+      const post = `${JSON.stringify(data)}`;
+      await fetch(
+        `http://localhost:8080/api/sings/update/${JSON.stringify(data.id)}`,
+        {
+          method: "post",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `${JSON.stringify(token)
+              .split(":")[2]
+              .split(",")[0]
+              .replace(/"/g, "")}`,
+          },
+          body: post,
+        }
+      )
+        .then((response) => {
+          response.ok ? navigate("/MySings") : navigate("/Error");
+        })
+        .catch((error) => console.error(error));
+    }
+    postData(data);
+  };
+
   return (
     <>
       <div className="container-md">
         <h1 className="text-center"> Update Sings You've Created</h1>
         <p className="text-center">You are modifying:</p>
-        <p className="text-center">{JSON.stringify(data.name)}</p>
+        <p className="text-center">
+          {loading ? "loading... " : JSON.stringify(data.name)}
+        </p>
         <p className="text-center">
           {" "}
           Type a new value into each box to change it, or leave it blank leave
