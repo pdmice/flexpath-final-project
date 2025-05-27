@@ -1,21 +1,21 @@
 import { React, useState, useEffect, useContext } from "react";
-import Home from "./components/Home";
-import Search from "./components/Search";
-import Login from "./components/Login";
-import NotFound from "./components/NotFound";
+import Home from "./components/generic/Home";
+import Search from "./components/search/Search";
+import Login from "./components/generic/Login";
+import NotFound from "./components/generic/NotFound";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { AuthContext } from "./provider/AuthProvider";
-import LoginButton from "./components/LoginButton";
-import SearchSelect from "./components/SearchSelect";
-import SignUp from "./components/Signup";
-import MySings from "./components/MySings";
-import Settings from "./components/Settings"
-import UpdateSing from "./components/UpdateSing";
-import EditSelect from "./components/EditSelect";
+import LoginButton from "./buttons/LoginButton";
+import SearchSelect from "./buttons/SearchSelect";
+import SignUp from "./components/generic/Signup";
+import MySings from "./components/userPages/MySings";
+import Settings from "./components/userPages/Settings";
+import UpdateSing from "./components/userPages/UpdateSing";
+import EditSelect from "./buttons/EditSelect";
 
 function App() {
   const [searchType, setSearchType] = useState("location");
-  const [editType, setEditType] = useState("created")
+  const [editType, setEditType] = useState("created");
 
   return (
     <div>
@@ -41,7 +41,10 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/MySings" element={<MySings editType={editType} setEditType={setEditType} />} />
+        <Route
+          path="/MySings"
+          element={<MySings editType={editType} setEditType={setEditType} />}
+        />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/UpdateSing/:id" element={<UpdateSing />} />
         <Route path="*" element={<NotFound />} />

@@ -1,39 +1,39 @@
 import React from "react";
 import { useState } from "react";
-import Table from "./Table";
+import Table from "../../tables/Table";
 
-export default function UserSearch() {
-  const [userName, setUsername] = useState("user");
+export default function KeyWordSearch() {
+  const [keyword, setKeyword] = useState(null);
   const [data, setData] = useState(null);
 
   const handleKeyword = (e) => {
-    setUsername(e.target.value);
+    setKeyword(e.target.value);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    async function fetchData(userName) {
-      await fetch(`http://localhost:8080/api/search/${userName}`)
+    async function fetchData(keyword) {
+      await fetch(`http://localhost:8080/api/search/keyword/${keyword}`)
         .then((response) => response.json())
-        .then((json) => {
-          setData(json);
-          console.log("Data is: ", data);
-        })
-        .catch((error) => console.error("UserSearch error was: ".error));
+        .then((json) => setData(json))
+        .catch((e) => console.error("Keyword search error: ", e));
     }
-    fetchData(userName);
+    fetchData(keyword);
   };
 
   return (
     <div className="container">
-      <h1> Enter the name of a user to search</h1>
+      <h1>Enter a keyword to search.</h1>
+      <p>
+        You could try a city, state or just a keyword. For example, try
+        "Huntsville", "Florida", or "Sacred Harp"{" "}
+      </p>
       <div className="row-align-items-center>">
         <form onSubmit={(e) => handleSubmit(e)}>
-          <p className="mt-3">User to search for</p>
+          <p className="mt-3">Keyword to search for</p>
           <input
             type="text"
             className="form-control"
-            placeholder="Search by users"
+            placeholder="Search by keyword"
             onChange={(e) => handleKeyword(e)}
           ></input>
           <div className=" border-top mt-1 d-grid gap-2">

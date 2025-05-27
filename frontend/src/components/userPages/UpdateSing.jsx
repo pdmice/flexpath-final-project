@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFetchSing } from "../helpers/useFetchSing";
+import { useFetchSing } from "../../helpers/useFetchSing";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
-import { AuthContext } from "../provider/AuthProvider";
+import { AuthContext } from "../../provider/AuthProvider";
 
 export default function UpdateSing() {
   const {
@@ -28,11 +28,11 @@ export default function UpdateSing() {
   console.error("In UpdateSing data is: ", data);
 
   const handleName = (e) => {
-    const target = e.target.id
-    console.log("In handleNmae target is: ",target)
+    const target = e.target.id;
+    console.log("In handleNmae target is: ", target);
     data[target] = e.target.value;
-    console.log("in handleName data.target is: ", data.target)
-    console.log("in handleName data is: ",data)
+    console.log("in handleName data.target is: ", data.target);
+    console.log("in handleName data is: ", data);
   };
 
   const handleUpdate = (e) => {
