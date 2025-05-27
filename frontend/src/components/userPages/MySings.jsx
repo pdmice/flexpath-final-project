@@ -18,7 +18,7 @@ export default function MySings() {
         setData(json);
         console.log("Data is: ", data);
       })
-      .catch((error) => console.error("UserSearch error was: ".error));
+      .catch((error) => console.error("UserSearch error was: ", error));
   }
 
   useEffect(() => {

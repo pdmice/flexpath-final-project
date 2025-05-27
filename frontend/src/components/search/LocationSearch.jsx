@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import Table from "../../tables/Table";
+import LoggedInTable from "../../tables/LoggedInTable";
+import { AuthContext } from "../../provider/AuthProvider";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function LocationSearch() {
@@ -12,7 +14,9 @@ export default function LocationSearch() {
     "39.89243631917957, -95.86952041568385"
   );
   const [data, setData] = useState(null);
+  const [modifiable, setModifiable] = useState(true);
   const API_KEY = import.meta.env.VITE_API_KEY;
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleDate = (range) => {
     const [startDate, endDate] = range;
@@ -73,13 +77,18 @@ export default function LocationSearch() {
 
   return (
     <div className="container-md">
-      <h1>Find a Sing to Attend</h1>
+      <h1 className="text-center">Find a Sing to Attend</h1>
       <p>
         Use this form to find a sing that lines up with your travel plans. Just
         enter a zip code and the dates for where you'll be and how far you're
         willing to travel in miles. Distance is as the crow flies, so actual
         travel distance will be longer.
       </p>
+      <p>
+        If you're logged in, you can also click the ID number of a sing to add
+        it to your list of sings to attend.
+      </p>
+      <hr />
 
       <div className="row-align-items-center>">
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -113,7 +122,11 @@ export default function LocationSearch() {
         </form>
       </div>
       <div>
-        <Table data={data} />
+        {isLoggedIn ? (
+          <LoggedInTable data={data} modifiable={modifiable} />
+        ) : (
+          <Table data={data} />
+        )}
       </div>
     </div>
   );

@@ -4,16 +4,37 @@ import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
-export default function Table({ data, modifiable }) {
+export default function LoggedInTable({ data, modifiable }) {
   console.log("In the table data is: ", data);
   const [id, setId] = useState();
   const navigate = useNavigate();
+  const { isLoggedIn, userName, token } = useContext(AuthContext);
 
   const handleClick = (ID) => {
     setId(ID);
     console.log("In handleClick id is: ", ID);
-    navigate(`/UpdateSing/${ID}`);
+    addToMySings(userName, isPublic, ID);
   };
+
+  var isPublic = 0;
+  async function addToMySings() {
+    await fetch(
+      `http://localhost:8080/api/users/${userName}/events/${isPublic}/${id}`,
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: `${JSON.stringify(token)
+            .split(":")[2]
+            .split(",")[0]
+            .replace(/"/g, "")}`,
+        },
+      }
+    ).then((response) => {
+      response.ok
+        ? alert("Sing added to your list")
+        : alert("something went wrong");
+    });
+  }
 
   if (data == null || data.length === 0 || data === undefined) {
     return <LoadingTable />;
@@ -45,10 +66,12 @@ export default function Table({ data, modifiable }) {
                   <tr key={val}>
                     <button
                       id="modbutton"
-                      className="btn btn-outline-secondary"
                       style={{ display: modifiable ? "block" : "none" }}
+                      className="btn btn-outline-secondary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#isPublicModal"
                       onClick={() => {
-                        handleClick(key["id"]);
+                        setId(key["id"]);
                       }}
                     >
                       <td>{key["id"]}</td>
@@ -77,6 +100,59 @@ export default function Table({ data, modifiable }) {
             </tbody>
           </table>
         </div>
+
+        {/* ------------------------------------------------------------------------------------- */}
+
+        <div
+          class="modal fade"
+          id="isPublicModal"
+          tabindex="-1"
+          aria-labelledby="isPublic Modal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Make attendance public?
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="no"
+                ></button>
+              </div>
+              <div class="modal-body">...</div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onClick={() => {
+                    isPublic = 0;
+                    handleClick();
+                  }}
+                  data-bs-dismiss="modal"
+                >
+                  No thanks!
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onClick={() => {
+                    isPublic = 1;
+                    handleClick();
+                  }}
+                  data-bs-dismiss="modal"
+                >
+                  Yes please!
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------------------- */}
       </>
     );
   }
