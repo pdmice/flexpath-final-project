@@ -1,17 +1,23 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 export default function LoginButton() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { isLoggedIn, userName, setToken, setIsLoggedIn } =
     useContext(AuthContext);
 
   const handleLogout = () => {
     setToken(null);
     setIsLoggedIn(false);
+    navigate("/");
   };
 
   return (
