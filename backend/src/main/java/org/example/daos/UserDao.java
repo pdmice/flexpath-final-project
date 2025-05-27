@@ -177,6 +177,16 @@ public class UserDao {
 
     }
 
+    public List<Sing> getUsersEventsIDS(String uuid){
+        String queryForListOfSings = "SELECT event_id FROM users_events where user_id = ? AND public = 1;";
+        List<Integer> sings = jdbcTemplate.queryForList(queryForListOfSings,Integer.class,uuid);
+        return sings.stream()
+                .map(singDao::getSingById)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+    }
+
 
 
     /**

@@ -150,4 +150,15 @@ public class UserController {
 
     }
 
+    @GetMapping("/events/public/{username}")
+    @PreAuthorize("permitAll()")
+    public List<Sing> getUsersSings(@PathVariable String username){
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+
+        return userDao.getUsersEventsIDS(uuid);
+
+    }
+
+
 }
