@@ -11,9 +11,11 @@ import SignUp from "./components/Signup";
 import MySings from "./components/MySings";
 import Settings from "./components/Settings"
 import UpdateSing from "./components/UpdateSing";
+import EditSelect from "./components/EditSelect";
 
 function App() {
   const [searchType, setSearchType] = useState("location");
+  const [editType, setEditType] = useState("created")
 
   return (
     <div>
@@ -25,6 +27,7 @@ function App() {
           Search
         </Link>
         <SearchSelect search={searchType} setSearchType={setSearchType} />
+        <EditSelect editType={editType} EditSelect={setEditType} />
         <LoginButton />
       </nav>
       <hr />
@@ -38,7 +41,7 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/MySings" element={<MySings />} />
+        <Route path="/MySings" element={<MySings editType={editType} setEditType={setEditType} />} />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/UpdateSing/:id" element={<UpdateSing />} />
         <Route path="*" element={<NotFound />} />

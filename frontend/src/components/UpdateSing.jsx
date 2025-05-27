@@ -28,7 +28,11 @@ export default function UpdateSing() {
   console.error("In UpdateSing data is: ", data);
 
   const handleName = (e) => {
-    data.name = e.target.value;
+    const target = e.target.id
+    console.log("In handleNmae target is: ",target)
+    data[target] = e.target.value;
+    console.log("in handleName data.target is: ", data.target)
+    console.log("in handleName data is: ",data)
   };
 
   const handleUpdate = (e) => {
@@ -76,6 +80,7 @@ export default function UpdateSing() {
           <p className="mt-3">Name</p>
           <input
             type="text"
+            id="name"
             className="form-control"
             placeholder={loading ? "Loading... " : JSON.stringify(data.name)}
             onChange={(e) => handleName(e)}
@@ -83,47 +88,52 @@ export default function UpdateSing() {
           <p className="mt-3">Date (In the form of yyyy-mm-dd)</p>
           <input
             type="text"
+            id="start_date"
             className="form-control"
             placeholder={
               loading ? "Loading... " : JSON.stringify(data.start_date)
             }
-            onChange={(e) => handleDate(e)}
+            onChange={(e) => handleName(e)}
           ></input>
           <p className="mt-3">Starting Time (In the form of HH:MM:SS)</p>
           <input
             type="text"
+            id="start_time"
             className="form-control"
             placeholder={
               loading ? "Loading... " : JSON.stringify(data.start_time)
             }
-            onChange={(e) => handleStartTime(e)}
+            onChange={(e) => handleName(e)}
           ></input>
           <p className="mt-3">End Time (In the form of HH:MM:SS)</p>
           <input
             type="text"
+            id="end_time"
             className="form-control"
             placeholder={
               loading ? "Loading... " : JSON.stringify(data.end_time)
             }
-            onChange={(e) => handleEndTime(e)}
+            onChange={(e) => handleName(e)}
           ></input>
           <p className="mt-3">Primary Book</p>
           <input
             type="text"
+            id="primary_book"
             className="form-control"
             placeholder={
               loading ? "Loading... " : JSON.stringify(data.primary_book)
             }
-            onChange={(e) => handlePrimaryBook(e)}
+            onChange={(e) => handleName(e)}
           ></input>
           <p className="mt-3">Secondary Book</p>
           <input
             type="text"
+            id="secondary_book"
             className="form-control"
             placeholder={
               loading ? "Loading... " : JSON.stringify(data.secondary_book)
             }
-            onChange={(e) => handleEndTime(e)}
+            onChange={(e) => handleName(e)}
           ></input>
           <div className=" border-top mt-1 d-grid gap-2">
             <button type="submit" className="btn  btn-outline-secondary">
