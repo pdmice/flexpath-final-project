@@ -1,7 +1,9 @@
 package org.example.daos;
 
 import org.example.exceptions.DaoException;
+import org.example.models.Sing;
 import org.example.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,9 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Data access object for users.
@@ -27,6 +32,9 @@ public class UserDao {
      * The password encoder for the DAO.
      */
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private SingDao singDao;
 
     /**
      * Creates a new user data access object.
@@ -158,6 +166,18 @@ public class UserDao {
         }
         catch(DaoException e) {throw new DaoException("Failed to add event to users_events table");}
     }
+
+    public List<Sing> getMyEventsIDS(String uuid){
+        String queryForListOfSings = "SELECT event_id FROM users_events where user_id = ?;";
+        List<Integer> sings = jdbcTemplate.queryForList(queryForListOfSings,Integer.class,uuid);
+        return sings.stream()
+                .map(singDao::getSingById)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+    }
+
+
 
     /**
      * Maps a row in the ResultSet to a User object.

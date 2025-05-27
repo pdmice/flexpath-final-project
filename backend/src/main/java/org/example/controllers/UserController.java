@@ -1,5 +1,7 @@
 package org.example.controllers;
 
+import org.example.daos.SingDao;
+import org.example.models.Sing;
 import org.example.models.User;
 import org.example.daos.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class UserController {
      */
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private SingDao singDao;
 
     /**
      * Gets all users.
@@ -103,7 +108,7 @@ public class UserController {
     public int addToUsersEvents(@PathVariable String username, @PathVariable int isPublic ,@PathVariable int id){
         User user = userDao.getUserByUsername(username);
         String uuid = user.getUuid();
-        return userDao.addToMySing(uuid, isPublic, id);
+        return userDao.addToMySing(uuid,id, isPublic);
     }
     /**
      * Adds a role to a user.
@@ -133,6 +138,16 @@ public class UserController {
         } else {
             return affectedRows;
         }
+    }
+
+    @GetMapping(path = "/events/{username}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public List<Sing> getMyAttendingSings(@PathVariable String username){
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+
+        return userDao.getMyEventsIDS(uuid);
+
     }
 
 }
