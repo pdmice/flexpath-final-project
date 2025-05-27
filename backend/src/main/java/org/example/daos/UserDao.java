@@ -150,6 +150,15 @@ public class UserDao {
         return jdbcTemplate.update(sql, uuid, role);
     }
 
+    public int addToMySing(String uuid, int singID, int isPublic){
+        String sql = "INSERT INTO users_events (user_id, event_id, public) VALUES (?,?,?);";
+
+        try{
+           return jdbcTemplate.update(sql, uuid, singID,isPublic);
+        }
+        catch(DaoException e) {throw new DaoException("Failed to add event to users_events table");}
+    }
+
     /**
      * Maps a row in the ResultSet to a User object.
      *

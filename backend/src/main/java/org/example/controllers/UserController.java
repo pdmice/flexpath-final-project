@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -97,6 +98,13 @@ public class UserController {
         return userDao.getRoles(username);
     }
 
+    @GetMapping(path = "/{username}/events/{isPublic}/{id}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public int addToUsersEvents(@PathVariable String username, @PathVariable int isPublic ,@PathVariable int id){
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+        return userDao.addToMySing(uuid, isPublic, id);
+    }
     /**
      * Adds a role to a user.
      *
@@ -126,4 +134,5 @@ public class UserController {
             return affectedRows;
         }
     }
+
 }

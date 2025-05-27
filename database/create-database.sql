@@ -443,13 +443,25 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 ('Olympia Christmas Harp All-Day Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-12-27', null, 'Dec, Last Saturday', '09:30:00 ', '15:00:00 ', '1', null, null, null, POINT(47.070013, -122.985903)),
 ('Wootten Family New Years Eve Singing', '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', '2025-12-31', null, 'Dec, New Yearnulls Eve', null, null, '1', null, null, null, POINT(34.750714, -85.628180));
 
- UPDATE sings
- SET location = ST_PointFromText(
+
+CREATE TABLE users_events (
+	user_id VARCHAR(36) not null,
+    event_id int not null,
+    public int not null,
+    PRIMARY KEY (user_id,event_id),
+    foreign key (user_id) references users(uuid),
+    FOREIGN KEY (event_id) references sings(id)
+    );
+/*
+Reverse the order of lat/long. This seem to be implementation dependent. Remove if you get errors like "coordinate out of bounds. Must be less than 90"
+*/
+UPDATE sings
+SET location = ST_PointFromText(
     CONCAT(
         'POINT(',
-        ST_Y(location), ' ',  
-        ST_X(location),       
+        ST_Y(location), ' ',  -- Use current latitude as longitude
+        ST_X(location),       -- Use current longitude as latitude
         ')'
     )
-    );
+);
 
