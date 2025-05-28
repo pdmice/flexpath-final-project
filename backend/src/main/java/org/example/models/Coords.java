@@ -11,7 +11,7 @@ public class Coords {
     }
 
     public Coords(String latLong){
-        String[] parts = latLong.split(",\\s*");
+        String[] parts = latLong.split(":\\s*");
         int len = parts.length;
         String test1 = parts[0];
         String test2 = parts[1];

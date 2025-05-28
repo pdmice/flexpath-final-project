@@ -2,6 +2,7 @@ package org.example.daos;
 
 import com.sun.jna.platform.win32.OaIdl;
 import org.example.exceptions.DaoException;
+import org.example.models.Coords;
 import org.example.models.SearchObject;
 import org.example.models.Sing;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -46,8 +47,14 @@ public class SingDao {
     }
 
     public Sing createSing(Sing sing){
-        String sql = "insert into  sings (name,owner_id, start_date, end_date, start_time, end_time, primary_book_id, secondary_book_id, contact_email, user_added_note, location)" +
-                " values (?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "insert into  sings (name,owner_id, start_date, end_date, start_time, end_time, primary_book, secondary_book, contact_email, user_added_note,location)" +
+                " values (?,?,?,?,?,?,?,?,?,?,POINT(?,?));";
+        String Lat = sing.getLatitude().toString();
+        String Lon =  sing.getLongitude().toString();
+        String loc = Lat + ":" + Lon;
+        Coords coords = new Coords(loc);
+        BigDecimal lat = coords.getLat();
+        BigDecimal lon = coords.getLon();
 
         try{
            jdbcTemplate.update(sql,
@@ -61,7 +68,10 @@ public class SingDao {
                     sing.getSecondary_book(),
                     sing.getContact_email(),
                     sing.getNotes(),
-                    sing.getLatitude() + "," +  sing.getLongitude());
+                   lat,
+                   lon
+
+           );
            return sing;
         }
         catch(EmptyResultDataAccessException e){

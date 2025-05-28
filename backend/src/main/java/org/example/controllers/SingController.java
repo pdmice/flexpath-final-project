@@ -33,6 +33,7 @@ public class SingController {
     }
 
     @PostMapping("/create")
+    @CrossOrigin
     public Sing create(@RequestBody Sing sing) {
         try{
             return singDao.createSing(sing);

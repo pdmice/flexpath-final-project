@@ -48,6 +48,7 @@ public class UserController {
      * @return The user with the given username.
      */
     @GetMapping(path = "/{username}")
+    @PreAuthorize("#username == authentication.name OR hasRole('ADMIN')")
     public User get(@PathVariable String username) {
         return userDao.getUserByUsername(username);
     }
