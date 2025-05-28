@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import Table from "../../tables/Table";
 import { AuthContext } from "../../provider/AuthProvider";
@@ -7,6 +7,7 @@ export default function UserSearch() {
   const [userName, setUsername] = useState("user");
   const [searchType, setSearchType] = useState("");
   const [data, setData] = useState(null);
+  const [queryString, setQueryString] = useState(null);
 
   const { token, isLoggedIn } = useContext(AuthContext);
 
@@ -14,40 +15,46 @@ export default function UserSearch() {
     setUsername(e.target.value);
   };
 
-  var queryString = "";
-
-  const handleSearchType = (type) => {
-    setSearchType(type);
-    console.log("In handleSearchType isLoggedIn is:", isLoggedIn);
+  /* var queryString = "" */ useEffect(() => {
     if (searchType === "created") {
-      queryString = `http://localhost:8080/api/search/${userName}`;
+      setQueryString(`http://localhost:8080/api/search/${userName}`);
       console.log("In handleSearchType queryString is: ", queryString);
     } else if (searchType === "attending") {
       isLoggedIn
-        ? (queryString = `http://localhost:8080/api/users/events/public/${userName}`)
+        ? setQueryString(
+            `http://localhost:8080/api/users/events/public/future/${userName}`
+          )
         : alert("You need to login for that!");
     } else if (searchType === "attended") {
       isLoggedIn
-        ? (queryString = `http://localhost:8080/api/users/events/public/${userName}`)
+        ? setQueryString(
+            `http://localhost:8080/api/users/events/public/past/${userName}`
+          )
         : alert("You need to login for that");
-    } /* else {
-      alert("handleSearchType has gone awry");
-    } */
-    console.log("searchType is: ", searchType);
-  };
+    }
+  }, [searchType]);
+
+  var strippedToken = "";
+
+  if (token) {
+    strippedToken = `${JSON.stringify(token)
+      .split(":")[2]
+      .split(",")[0]
+      .replace(/"/g, "")}`;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!searchType) {
+      alert("Select How you wish to search");
+    }
     console.log("In handleSubmit userName is: ", userName);
     console.log("In handleSubmit queryString is: ", queryString);
     async function fetchData(userName) {
       await fetch(queryString, {
         headers: {
           Accept: "application/json",
-          Authorization: `${JSON.stringify(token)
-            .split(":")[2]
-            .split(",")[0]
-            .replace(/"/g, "")}`,
+          strippedToken,
         },
       })
         .then((response) => response.json())
@@ -104,7 +111,7 @@ export default function UserSearch() {
           <li>
             <button
               className="dropdown-item "
-              onClick={() => handleSearchType("created")}
+              onClick={() => setSearchType("created")}
             >
               Created BY
             </button>
@@ -112,7 +119,7 @@ export default function UserSearch() {
           <li>
             <button
               className="dropdown-item "
-              onClick={() => handleSearchType("attending")}
+              onClick={() => setSearchType("attending")}
             >
               Attending
             </button>
@@ -120,7 +127,7 @@ export default function UserSearch() {
           <li>
             <button
               className="dropdown-item "
-              onClick={() => handleSearchType("attended")}
+              onClick={() => setSearchType("attended")}
             >
               Attended
             </button>

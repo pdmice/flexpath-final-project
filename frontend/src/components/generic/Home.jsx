@@ -3,9 +3,9 @@ import React from "react";
 export default function Home() {
   return (
     <div className="container-md">
-      <h1>Welcome to the Travelling Singer!</h1>
+      <h1 className="text-center">Welcome to the Travelling Singer!</h1>
 
-      <p>
+      <p className="pt-2">
         You can use this site to search for sings happening within a given
         distance and time when you're traveling. For example, if you're planning
         a trip to Philly in the first week of June you can search here to see if

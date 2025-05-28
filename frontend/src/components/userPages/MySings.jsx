@@ -30,7 +30,7 @@ export default function MySings() {
       <div className="container-md">
         <h1 className="text-center"> Here are all the sings you've created.</h1>
         <h3 className="text-center">
-          Click on the ID number of a sing to edit it.
+          Click on the ID number of a sing to edit or delete it.
         </h3>
         <Table modifiable={modifiable} data={data} />
       </div>

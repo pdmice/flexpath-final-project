@@ -6,6 +6,7 @@ export default function KeyWordSearch() {
   const [keyword, setKeyword] = useState(null);
   const [data, setData] = useState(null);
 
+  // Get text input 
   const handleKeyword = (e) => {
     setKeyword(e.target.value);
   };
@@ -22,8 +23,8 @@ export default function KeyWordSearch() {
 
   return (
     <div className="container">
-      <h1>Enter a keyword to search.</h1>
-      <p>
+      <h1 className="text-center">Enter a keyword to search.</h1>
+      <p className="pt-2">
         You could try a city, state or just a keyword. For example, try
         "Huntsville", "Florida", or "Sacred Harp"{" "}
       </p>
@@ -36,7 +37,7 @@ export default function KeyWordSearch() {
             placeholder="Search by keyword"
             onChange={(e) => handleKeyword(e)}
           ></input>
-          <div className=" border-top mt-1 d-grid gap-2">
+          <div className=" border-top mt-1 d-grid gap-2 ">
             <button type="submit" className="btn  btn-outline-secondary">
               Search
             </button>

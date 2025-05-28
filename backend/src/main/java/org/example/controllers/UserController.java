@@ -161,5 +161,25 @@ public class UserController {
 
     }
 
+    @GetMapping("/events/public/past/{username}")
+    @PreAuthorize("permitAll()")
+    public List<Sing> getUsersPastSings(@PathVariable String username){
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+
+        return userDao.getUsersPastEventsIDS(uuid);
+
+    }
+
+    @GetMapping("/events/public/future/{username}")
+    @PreAuthorize("permitAll()")
+    public List<Sing> getUsersFutureSings(@PathVariable String username){
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+
+        return userDao.getUsersFutureEventsIDS(uuid);
+
+    }
+
 
 }

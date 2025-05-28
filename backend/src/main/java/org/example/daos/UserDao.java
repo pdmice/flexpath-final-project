@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -159,10 +160,11 @@ public class UserDao {
     }
 
     public int addToMySing(String uuid, int singID, int isPublic){
-        String sql = "INSERT INTO users_events (user_id, event_id, public) VALUES (?,?,?);";
-
+        String sql = "INSERT INTO users_events (user_id, event_id, public, event_date) VALUES (?,?,?,?);";
+        Sing sing = singDao.getSingById(singID);
+        Date date =sing.getStart_date();
         try{
-           return jdbcTemplate.update(sql, uuid, singID,isPublic);
+           return jdbcTemplate.update(sql, uuid, singID,isPublic, date);
         }
         catch(DaoException e) {throw new DaoException("Failed to add event to users_events table");}
     }
@@ -179,6 +181,27 @@ public class UserDao {
 
     public List<Sing> getUsersEventsIDS(String uuid){
         String queryForListOfSings = "SELECT event_id FROM users_events where user_id = ? AND public = 1;";
+        List<Integer> sings = jdbcTemplate.queryForList(queryForListOfSings,Integer.class,uuid);
+        return sings.stream()
+                .map(singDao::getSingById)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+    }
+
+
+    public List<Sing> getUsersPastEventsIDS(String uuid){
+        String queryForListOfSings = "SELECT event_id FROM users_events where user_id = ? AND public = 1 AND event_date < CURDATE();";
+        List<Integer> sings = jdbcTemplate.queryForList(queryForListOfSings,Integer.class,uuid);
+        return sings.stream()
+                .map(singDao::getSingById)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+    }
+
+    public List<Sing> getUsersFutureEventsIDS(String uuid){
+        String queryForListOfSings = "SELECT event_id FROM users_events where user_id = ? AND public = 1 AND event_date > CURDATE();";
         List<Integer> sings = jdbcTemplate.queryForList(queryForListOfSings,Integer.class,uuid);
         return sings.stream()
                 .map(singDao::getSingById)
