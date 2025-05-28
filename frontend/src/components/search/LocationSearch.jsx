@@ -17,6 +17,9 @@ export default function LocationSearch() {
   const [modifiable, setModifiable] = useState(true);
   const API_KEY = import.meta.env.VITE_API_KEY;
   const { isLoggedIn } = useContext(AuthContext);
+  const [zipCode, setZipCode] = useState();
+
+  console.log("Api key is: ", API_KEY);
 
   const handleDate = (range) => {
     const [startDate, endDate] = range;
@@ -28,19 +31,27 @@ export default function LocationSearch() {
   };
 
   const handleZipCode = (e) => {
-    async function fetchGPS(e) {
+    setZipCode(e.target.value);
+
+    async function fetchGPS() {
       console.error("e.targetvalue is: ", e.target.value);
       await fetch(
-        `https://geocode.maps.co/search?postalcode${e.target.value}=&api_key=${API_KEY}`
+        `https://geocode.maps.co/search?postalcode=${e.target.value}=&api_key=${API_KEY}`
       )
-        .then((response) => response.json())
+        .then((response) => {
+          console.log("Geocoding response is: ", response);
+          return response.json();
+        })
         .then((json) => {
-          setSearchString(json);
+          console.log("Geocoding json is: ", json);
+          setSearchString(`${json[0].lat}:${json[0].lon}`);
         })
         .catch((e) => console.log("fetchGPS error: ", e));
     }
-
-    //setSearchString(e.target.value);
+    //Add a stupid simple de-bounce kinda thing to  not get rate-limited by geocoding api
+    setTimeout(() => {
+      fetchGPS();
+    }, 500);
   };
 
   const handleRadius = (e) => {
@@ -49,14 +60,11 @@ export default function LocationSearch() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const loc = searchString.split(",");
-    const lat = loc[0];
-    const lon = loc[1];
-    const fixedSearchString = `${loc[0]}:${loc[1]}`;
+
     const postQuery = `{"searchStart":"${startDate}" ,
         "searchEnd": "${endDate}",
         "searchRadius": ${radius},
-        "searchLocation":"${fixedSearchString}"}`;
+        "searchLocation":"${searchString}"}`;
 
     console.log("In handleSubmit postQuery is: ", postQuery);
 
