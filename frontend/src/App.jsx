@@ -12,6 +12,7 @@ import MySings from "./components/userPages/MySings";
 import Settings from "./components/userPages/Settings";
 import UpdateSing from "./components/userPages/UpdateSing";
 import EditSelect from "./buttons/EditSelect";
+import CreateSing from "./components/userPages/CreateSing";
 
 function App() {
   const [searchType, setSearchType] = useState("location");
@@ -47,6 +48,7 @@ function App() {
         />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/UpdateSing/:id" element={<UpdateSing />} />
+        <Route path="/CreateSing" element={<CreateSing />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

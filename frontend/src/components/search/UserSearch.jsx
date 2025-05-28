@@ -5,7 +5,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 
 export default function UserSearch() {
   const [userName, setUsername] = useState("user");
-  /* const [searchType, setSearchType] = useState(""); */
+  const [searchType, setSearchType] = useState("");
   const [data, setData] = useState(null);
 
   const { token, isLoggedIn } = useContext(AuthContext);
@@ -15,9 +15,10 @@ export default function UserSearch() {
   };
 
   var queryString = "";
-  var searchType = "";
+
   const handleSearchType = (type) => {
-    searchType = type;
+    setSearchType(type);
+    console.log("In handleSearchType isLoggedIn is:", isLoggedIn);
     if (searchType === "created") {
       queryString = `http://localhost:8080/api/search/${userName}`;
       console.log("In handleSearchType queryString is: ", queryString);
@@ -29,9 +30,9 @@ export default function UserSearch() {
       isLoggedIn
         ? (queryString = `http://localhost:8080/api/users/events/public/${userName}`)
         : alert("You need to login for that");
-    } else {
+    } /* else {
       alert("handleSearchType has gone awry");
-    }
+    } */
     console.log("searchType is: ", searchType);
   };
 
@@ -64,7 +65,11 @@ export default function UserSearch() {
       <h1 className="text-center"> Enter the name of a user to search</h1>
       <div className="row-align-items-center>">
         <form onSubmit={(e) => handleSubmit(e)}>
-          <p className="mt-3">User to search for</p>
+          <p className="mt-3">
+            Use this form to find sings your buddies are going to. You can
+            search by sings that a user created, is planning to attend, or has
+            attended
+          </p>
           <input
             type="text"
             className="form-control"
@@ -89,6 +94,7 @@ export default function UserSearch() {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
+          {/* {searchType} */}
           {searchType ? searchType : "Type of User Search"}
         </button>
         <ul

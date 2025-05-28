@@ -48,9 +48,9 @@ export default function LoginButton() {
             <li>
               <button
                 className="dropdown-item "
-                onClick={() => navigate("Settings")}
+                onClick={() => navigate("/CreateSing")}
               >
-                Settings
+                Create Sing!
               </button>
             </li>
             <li>
