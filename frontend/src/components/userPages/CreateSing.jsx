@@ -155,7 +155,7 @@ export default function CreateSing() {
           <p className="mt-3">Latitude</p>
           <input
             type="text"
-            id="latitude"
+            id="longitude"
             className="form-control"
             placeholder="38.62742847136166"
             onChange={(e) => handleName(e)}
@@ -164,7 +164,7 @@ export default function CreateSing() {
           <p className="mt-3">Longitude</p>
           <input
             type="text"
-            id="longitude"
+            id="latitude"
             className="form-control"
             placeholder="92.68662020167139"
             onChange={(e) => handleName(e)}

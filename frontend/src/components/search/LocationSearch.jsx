@@ -27,14 +27,16 @@ export default function LocationSearch() {
     setEndDate(end);
   };
 
-  const handleKeyword = (e) => {
+  const handleZipCode = (e) => {
     async function fetchGPS(e) {
       console.error("e.targetvalue is: ", e.target.value);
       await fetch(
         `https://geocode.maps.co/search?postalcode${e.target.value}=&api_key=${API_KEY}`
       )
         .then((response) => response.json())
-        .then((json) => setSearchString(json))
+        .then((json) => {
+          setSearchString(json);
+        })
         .catch((e) => console.log("fetchGPS error: ", e));
     }
 
@@ -47,10 +49,16 @@ export default function LocationSearch() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const loc = searchString.split(",");
+    const lat = loc[0];
+    const lon = loc[1];
+    const fixedSearchString = `${loc[0]}:${loc[1]}`;
     const postQuery = `{"searchStart":"${startDate}" ,
         "searchEnd": "${endDate}",
         "searchRadius": ${radius},
-        "searchLocation":"${searchString}"}`;
+        "searchLocation":"${fixedSearchString}"}`;
+
+    console.log("In handleSubmit postQuery is: ", postQuery);
 
     async function fetchData(post) {
       await fetch("http://localhost:8080/api/search", {
@@ -74,6 +82,7 @@ export default function LocationSearch() {
 
   console.log("Data is: ", data);
   console.log("searchString is:", searchString);
+  console.log("searchString is a: ", typeof searchString);
 
   return (
     <div className="container-md">
@@ -97,7 +106,7 @@ export default function LocationSearch() {
             type="text"
             className="form-control"
             placeholder="Search by zip-code"
-            onChange={(e) => handleKeyword(e)}
+            onChange={(e) => handleZipCode(e)}
           ></input>
           <p className="mt-3">How far (in miles) can you travel?</p>
           <input
