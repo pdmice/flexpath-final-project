@@ -3,36 +3,21 @@ import { useState } from "react";
 import Table from "../../tables/Table";
 import { AuthContext } from "../../provider/AuthProvider";
 
-export default function UserSearch() {
+export default function UserSearch({ loading, setLoading }) {
   const [userName, setUsername] = useState("user");
   const [searchType, setSearchType] = useState("");
   const [data, setData] = useState(null);
-  const [queryString, setQueryString] = useState(null);
+  /* const [queryString, setQueryString] = useState(null); */
 
   const { token, isLoggedIn } = useContext(AuthContext);
 
   const handleKeyword = (e) => {
     setUsername(e.target.value);
   };
+  useEffect(() => {
+    setData(null);
+  }, [userName, searchType]);
 
-  /* var queryString = "" */ useEffect(() => {
-    if (searchType === "created") {
-      setQueryString(`http://localhost:8080/api/search/${userName}`);
-      console.log("In handleSearchType queryString is: ", queryString);
-    } else if (searchType === "attending") {
-      isLoggedIn
-        ? setQueryString(
-            `http://localhost:8080/api/users/events/public/future/${userName}`
-          )
-        : alert("You need to login for that!");
-    } else if (searchType === "attended") {
-      isLoggedIn
-        ? setQueryString(
-            `http://localhost:8080/api/users/events/public/past/${userName}`
-          )
-        : alert("You need to login for that");
-    }
-  }, [searchType]);
 
   var strippedToken = "";
 
@@ -44,7 +29,24 @@ export default function UserSearch() {
   }
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
+    /*------------------------------------------------------------------------------------*/
+    var queryString;
+
+    if (searchType === "created") {
+      queryString = `http://localhost:8080/api/search/${userName}`;
+      console.log("In handleSearchType queryString is: ", queryString);
+    } else if (searchType === "attending") {
+      isLoggedIn
+        ? (queryString = `http://localhost:8080/api/users/events/public/future/${userName}`)
+        : alert("You need to login for that!");
+    } else if (searchType === "attended") {
+      isLoggedIn
+        ? (queryString = `http://localhost:8080/api/users/events/public/past/${userName}`)
+        : alert("You need to login for that");
+    }
+    /*------------------------------------------------------------------------------------*/
     if (!searchType) {
       alert("Select How you wish to search");
     }
@@ -60,9 +62,13 @@ export default function UserSearch() {
         .then((response) => response.json())
         .then((json) => {
           setData(json);
+          setLoading(false);
           console.log("Data is: ", data);
         })
-        .catch((error) => console.error("UserSearch error was: ".error));
+        .catch((error) => {
+          console.error("UserSearch error was: ".error);
+          setLoading(false);
+        });
     }
     fetchData(userName);
   };
@@ -138,7 +144,7 @@ export default function UserSearch() {
       {/*============================================================================================*/}
 
       <div className="container">
-        <Table data={data} />
+        <Table data={data} loading={loading} />
       </div>
     </div>
   );

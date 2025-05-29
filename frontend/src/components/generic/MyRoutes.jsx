@@ -18,6 +18,8 @@ export default function MyRoutes({
   setSearchType,
   editType,
   setEditType,
+  loading,
+  setLoading
 }) {
   return (
     <Routes>
@@ -25,7 +27,7 @@ export default function MyRoutes({
       <Route
         path="/search"
         element={
-          <Search searchType={searchType} setSearchType={setSearchType} />
+          <Search searchType={searchType} setSearchType={setSearchType} loading={loading} setLoading={setLoading}/>
         }
       />
       <Route path="/login" element={<Login />} />

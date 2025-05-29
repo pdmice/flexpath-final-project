@@ -6,7 +6,7 @@ import LoggedInTable from "../../tables/LoggedInTable";
 import { AuthContext } from "../../provider/AuthProvider";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function LocationSearch() {
+export default function LocationSearch({loading, setLoading}) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState();
   const [radius, setRadius] = useState(100);
@@ -69,6 +69,7 @@ export default function LocationSearch() {
     console.log("In handleSubmit postQuery is: ", postQuery);
 
     async function fetchData(post) {
+      setLoading(true)
       await fetch("http://localhost:8080/api/search", {
         method: "post",
         headers: {
@@ -80,6 +81,7 @@ export default function LocationSearch() {
         .then((response) => response.json())
         .then((json) => {
           setData(json);
+          setLoading(false)
         })
         .catch((error) => console.error("Fetch error was: ", error));
     }
@@ -140,9 +142,9 @@ export default function LocationSearch() {
       </div>
       <div>
         {isLoggedIn ? (
-          <LoggedInTable data={data} modifiable={modifiable} />
+          <LoggedInTable data={data} modifiable={modifiable} loading={loading}/>
         ) : (
-          <Table data={data} />
+          <Table data={data} loading={loading} />
         )}
       </div>
     </div>

@@ -4,7 +4,7 @@ import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
-export default function Table({ data, modifiable }) {
+export default function Table({ data, modifiable , loading}) {
   console.log("In the table data is: ", data);
   const [id, setId] = useState();
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function Table({ data, modifiable }) {
   };
 
   if (data == null || data.length === 0 || data === undefined) {
-    return <LoadingTable />;
+    return <LoadingTable loading={loading}/>;
   } else {
     return (
       <>
