@@ -7,7 +7,7 @@ export default function MySings({ editType }) {
   const [modifiable, setModifiable] = useState(true);
   const { userName, token } = useContext(AuthContext);
   const [data, setData] = useState(null);
-  
+
   console.log("In my sings userName is: ", userName);
 
   var strippedToken = "";
@@ -34,16 +34,15 @@ export default function MySings({ editType }) {
       })
       .catch((error) => console.error("UserSearch error was: ", error));
   }
- 
-  var url = ''
+
+  var url = "";
   useEffect(() => {
     if (editType === "created") {
       url = `http://localhost:8080/api/search/${userName}`;
       fetchData(userName);
     }
     if (editType === "attending") {
-      url = 
-        `http://localhost:8080/api/users/events/future/${userName}`;
+      url = `http://localhost:8080/api/users/events/future/${userName}`;
       fetchData(userName);
     }
     if (editType === "attended") {
@@ -64,7 +63,7 @@ export default function MySings({ editType }) {
         <h3 className="text-center">
           Click on the ID number of a sing to edit or delete it.
         </h3>
-        <Table modifiable={modifiable} data={data} />
+        <Table modifiable={modifiable} data={data} setData={setData} />
       </div>
 
       <div
@@ -77,7 +76,7 @@ export default function MySings({ editType }) {
         <h3 className="text-center">
           Click on the ID number of a sing to edit or delete it.
         </h3>
-        <Table modifiable={modifiable} data={data} />
+        <Table modifiable={modifiable} data={data} setData={setData} />
       </div>
 
       <div
@@ -90,7 +89,7 @@ export default function MySings({ editType }) {
         <h3 className="text-center">
           Click on the ID number of a sing to edit or delete it.
         </h3>
-        <Table modifiable={modifiable} data={data} />
+        <Table modifiable={modifiable} data={data} setData={setData} />
       </div>
     </>
   );

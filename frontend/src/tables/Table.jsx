@@ -1,13 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import sortSingsByDate from "../helpers/sortSings";
 
-export default function Table({ data, modifiable , loading}) {
+export default function Table({ data, setData, modifiable, loading }) {
   console.log("In the table data is: ", data);
   const [id, setId] = useState();
   const navigate = useNavigate();
+  const [order, setOrder] = useState();
 
   const handleClick = (ID) => {
     setId(ID);
@@ -15,11 +17,50 @@ export default function Table({ data, modifiable , loading}) {
     navigate(`/UpdateSing/${ID}`);
   };
 
+  const handleRadio = (ORDER) => {
+    setOrder(ORDER);
+    console.log("order is: ", order);
+  };
+
+  useEffect(() => {
+    if (data && order) {
+      setData(sortSingsByDate(data, order));
+    }
+  }, [order]);
+
   if (data == null || data.length === 0 || data === undefined) {
-    return <LoadingTable loading={loading}/>;
+    return <LoadingTable loading={loading} />;
   } else {
     return (
       <>
+        {/*=================================================================================*/}
+
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="sortByDate"
+            id="sortAscending"
+            onChange={() => handleRadio("asc")}
+          />
+          <label class="form-check-label" for="flexRadioDefault1">
+            Sort Ascending
+          </label>
+        </div>
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="sortByDate"
+            id="sortDescending"
+            onChange={() => handleRadio("desc")}
+          />
+          <label class="form-check-label" for="flexRadioDefault2">
+            Sort Descending
+          </label>
+        </div>
+
+        {/*=================================================================================*/}
         <div className="container">
           <table className="table table-striped table-hover">
             <thead>

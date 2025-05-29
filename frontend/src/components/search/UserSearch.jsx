@@ -144,7 +144,7 @@ export default function UserSearch({ loading, setLoading }) {
       {/*============================================================================================*/}
 
       <div className="container">
-        <Table data={data} loading={loading} />
+        <Table data={data} setData={setData} loading={loading} />
       </div>
     </div>
   );

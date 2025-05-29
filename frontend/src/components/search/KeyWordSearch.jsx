@@ -2,17 +2,17 @@ import React from "react";
 import { useState } from "react";
 import Table from "../../tables/Table";
 
-export default function KeyWordSearch({loading, setLoading}) {
+export default function KeyWordSearch({ loading, setLoading }) {
   const [keyword, setKeyword] = useState(null);
   const [data, setData] = useState(null);
 
-  // Get text input 
+  // Get text input
   const handleKeyword = (e) => {
     setKeyword(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     async function fetchData(keyword) {
       await fetch(`http://localhost:8080/api/search/keyword/${keyword}`)
         .then((response) => response.json())
@@ -47,7 +47,7 @@ export default function KeyWordSearch({loading, setLoading}) {
         </form>
       </div>
       <div className="container">
-        <Table data={data} loading={loading}/>
+        <Table data={data} setData={setData} loading={loading} />
       </div>
     </div>
   );
