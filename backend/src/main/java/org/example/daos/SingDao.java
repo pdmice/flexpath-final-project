@@ -119,16 +119,6 @@ public class SingDao {
 
 
 
-/*
-    public List<Sing> searchByDistance (int searchId, SearchObject searchObject){
-        String sql = "SELECT pointB.*, ST_Distance_Sphere(pointA.location, pointB.location) AS distance_in_meters FROM (SELECT location FROM searches where id = ?) AS pointA, sings AS pointB WHERE ST_Distance_Sphere(pointA.location, pointB.location) <= ?  AND pointB.start_date BETWEEN ? AND ? ORDER BY distance_in_meters ASC;";
-        try{
-            return jdbcTemplate.query(sql, this::mapToSing,searchId, searchDistance, searchStart, searchEnd);
-        }
-        catch(DaoException e){ throw new DaoException("No sings found");}
-    }
-*/
-
 
     public Sing mapToSing(ResultSet resultSet, int rowNumber) throws SQLException {
         int id = resultSet.getInt("id");

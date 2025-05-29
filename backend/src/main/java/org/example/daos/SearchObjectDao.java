@@ -1,7 +1,6 @@
 package org.example.daos;
 
 import org.example.exceptions.DaoException;
-import org.example.models.Coords;
 import org.example.models.SearchObject;
 import org.example.models.Sing;
 import org.example.models.User;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
@@ -143,16 +140,5 @@ public class SearchObjectDao {
 
 
     }
-    /*
-    private SearchObject mapToSearch(ResultSet resultSet, int rowNumber) throws SQLException{
 
-        return new SearchObject(
-                resultSet.getInt("id"),
-                resultSet.getDate("search_start"),
-                resultSet.getDate("search_end"),
-                resultSet.getFloat("radius"),
-                resultSet.getBlob("search_location")
-        );
-    }
-     */
 }

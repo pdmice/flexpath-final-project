@@ -3,16 +3,12 @@ package org.example.controllers;
 
 import org.example.daos.SingDao;
 import org.example.exceptions.DaoException;
-import org.example.models.SearchObject;
 import org.example.models.Sing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.example.services.SingSecurity;
 
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 @RestController
