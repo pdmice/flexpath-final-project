@@ -113,7 +113,7 @@ public class SingDao {
     }
 
     public int deleteSing(int id){
-        String sql = "DELETE * FROM sings where id = ?;";
+        String sql = "DELETE FROM sings where id = ?;";
         return jdbcTemplate.update(sql, id);
     }
 

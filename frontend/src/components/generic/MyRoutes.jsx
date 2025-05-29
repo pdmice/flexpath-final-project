@@ -35,7 +35,7 @@ export default function MyRoutes({
         element={<MySings editType={editType} setEditType={setEditType} />}
       />
       <Route path="/Settings" element={<Settings />} />
-      <Route path="/UpdateSing/:id" element={<UpdateSing />} />
+      <Route path="/UpdateSing/:id" element={<UpdateSing editType={editType}/>} />
       <Route path="/CreateSing" element={<CreateSing />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

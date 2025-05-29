@@ -3,15 +3,29 @@ import Table from "../../tables/Table";
 import { AuthContext } from "../../provider/AuthProvider";
 import UpdateSing from "./UpdateSing";
 
-export default function MySings() {
+export default function MySings({ editType }) {
   const [modifiable, setModifiable] = useState(true);
-  const { userName } = useContext(AuthContext);
+  const { userName, token } = useContext(AuthContext);
   const [data, setData] = useState(null);
+  
   console.log("In my sings userName is: ", userName);
 
+  var strippedToken = "";
+
+  if (token) {
+    strippedToken = `${JSON.stringify(token)
+      .split(":")[2]
+      .split(",")[0]
+      .replace(/"/g, "")}`;
+  }
+
   async function fetchData(userName) {
-    await fetch(`http://localhost:8080/api/search/${userName}`, {
+    await fetch(url, {
       mode: "cors",
+      headers: {
+        Accept: "application/json",
+        Authorization: strippedToken,
+      },
     })
       .then((response) => response.json())
       .then((json) => {
@@ -20,15 +34,59 @@ export default function MySings() {
       })
       .catch((error) => console.error("UserSearch error was: ", error));
   }
-
+ 
+  var url = ''
   useEffect(() => {
-    if (userName) fetchData(userName);
-  }, [userName]);
+    if (editType === "created") {
+      url = `http://localhost:8080/api/search/${userName}`;
+      fetchData(userName);
+    }
+    if (editType === "attending") {
+      url = 
+        `http://localhost:8080/api/users/events/future/${userName}`;
+      fetchData(userName);
+    }
+    if (editType === "attended") {
+      url = `http://localhost:8080/api/users/events/past/${userName}`;
+      fetchData(userName);
+    }
+  }, [editType]);
 
   return (
     <>
-      <div className="container-md">
+      <div
+        className="container-md"
+        style={{
+          display: editType === "created" ? "block" : "none",
+        }}
+      >
         <h1 className="text-center"> Here are all the sings you've created.</h1>
+        <h3 className="text-center">
+          Click on the ID number of a sing to edit or delete it.
+        </h3>
+        <Table modifiable={modifiable} data={data} />
+      </div>
+
+      <div
+        className="container-md"
+        style={{
+          display: editType === "attending" ? "block" : "none",
+        }}
+      >
+        <h1 className="text-center"> Here are all your upcoming sings.</h1>
+        <h3 className="text-center">
+          Click on the ID number of a sing to edit or delete it.
+        </h3>
+        <Table modifiable={modifiable} data={data} />
+      </div>
+
+      <div
+        className="container-md"
+        style={{
+          display: editType === "attended" ? "block" : "none",
+        }}
+      >
+        <h1 className="text-center"> Here are all your past sings.</h1>
         <h3 className="text-center">
           Click on the ID number of a sing to edit or delete it.
         </h3>

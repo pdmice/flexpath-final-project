@@ -151,6 +151,36 @@ public class UserController {
 
     }
 
+    @GetMapping(path = "/events/future/{username}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public List<Sing> getMyFutureSings(@PathVariable String username){
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+
+        return userDao.getUsersEventsIDS(uuid);
+
+    }
+
+    @GetMapping(path = "/events/past/{username}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public List<Sing> getMyPastSings(@PathVariable String username){
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+
+        return userDao.getMysPastEventsIDS(uuid);
+
+    }
+
+    @GetMapping(path = "/events/delete/{username}/{id}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public int deleteMySing(@PathVariable String username, @PathVariable int id){ return userDao.deleteFromMyEvents(username, id);};
+
+
+
+
+
+
+
     @GetMapping("/events/public/{username}")
     @PreAuthorize("permitAll()")
     public List<Sing> getUsersSings(@PathVariable String username){

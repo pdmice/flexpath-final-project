@@ -8,6 +8,8 @@ import org.example.models.Sing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.example.services.SingSecurity;
+
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -48,6 +50,14 @@ public class SingController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public Sing update(@PathVariable int id, @RequestBody Sing sing) {
         return singDao.updateSing(sing, id);
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/delete/{id}/{username}")
+    @PreAuthorize("@singSecurity.isOwner(#id, #username) or  hasAuthority('ADMIN')")
+    public int deleteSing(@PathVariable String username, @PathVariable int id){
+        return singDao.deleteSing(id);
     }
 
     /*

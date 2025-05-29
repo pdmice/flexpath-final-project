@@ -19,7 +19,7 @@ function App() {
           Search
         </Link>
         <SearchSelect search={searchType} setSearchType={setSearchType} />
-        <EditSelect editType={editType} EditSelect={setEditType} />
+        <EditSelect editType={editType} setEditType={setEditType} />
         <LoginButton />
       </nav>
       <hr />

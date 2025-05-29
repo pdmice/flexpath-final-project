@@ -128,6 +128,7 @@ export default function CreateSing() {
             className="form-select"
             name="primary_book"
             id="primary_book"
+            defaultValue={10}
             onChange={(e) => handleName(e)}
             required
           >
@@ -142,6 +143,7 @@ export default function CreateSing() {
             className="form-select"
             name="secondary_book"
             id="secondary_book"
+            defaultValue={1}
             onChange={(e) => handleName(e)}
             required
           >

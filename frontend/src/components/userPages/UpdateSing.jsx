@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 
-export default function UpdateSing() {
+export default function UpdateSing({ editType }) {
   const {
     isLoggedIn,
     setIsLoggedIn,
@@ -63,9 +63,62 @@ export default function UpdateSing() {
     postData(data);
   };
 
+  var deleteString =
+    editType == "created"
+      ? `http://localhost:8080/api/sings/delete/${id}/${userName}`
+      : `http://localhost:8080/api/users/events/delete/${userName}/${id}`;
+
+  console.log("In updateSing deleteString is: ", deleteString);
+  const handleDelete = (e) => {
+    e.preventDefault();
+    async function deleteSing(id) {
+      await fetch(deleteString, {
+        method: "get",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `${JSON.stringify(token)
+            .split(":")[2]
+            .split(",")[0]
+            .replace(/"/g, "")}`,
+        },
+      })
+        .then((response) => {
+          console.log("Before if statement response is: ", response.status);
+          if (response.ok) {
+            alert("Sing Deleted. Sending you back to your sings");
+            navigate("/MySings");
+          } else {
+            alert(
+              "Something has gone awry. Do you have permission to delete this?"
+            );
+            console.log("Awry response was: ", response);
+          }
+        })
+        .catch((error) => {
+          console.log("handleDelete catch error is: ", error);
+          alert("Something has gone awry. Is the backend up?");
+        });
+    }
+    deleteSing(id);
+  };
+
+  var headerText = "";
+  if (editType == "created") {
+    headerText = "Update a Sing You Created";
+  }
+  if (editType == "attending") {
+    headerText = "Remove from sings you're Attending";
+  }
+  if (editType == "attended") {
+    headerText = "Remove from Sings you Attended";
+  }
+
   return (
     <>
       <div className="container-md">
+        <div style={{ display: editType == "created" ? "block" : "none" }}>
         <h1 className="text-center"> Update Sings You've Created</h1>
         <p className="text-center">You are modifying:</p>
         <p className="text-center">
@@ -141,6 +194,18 @@ export default function UpdateSing() {
             </button>
           </div>
         </form>
+        </div>
+        <div className=" border-top mt-1 d-grid gap-2">
+          <button
+            type="button"
+            className="btn  btn-outline-secondary"
+            style={{display: "block"}}
+            onClick={(e) => handleDelete(e)}
+          >
+            Delete Sing!
+          </button>
+        </div>
+
       </div>
     </>
   );

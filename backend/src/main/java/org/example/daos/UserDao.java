@@ -211,6 +211,34 @@ public class UserDao {
     }
 
 
+    public List<Sing> getMysPastEventsIDS(String uuid){
+        String queryForListOfSings = "SELECT event_id FROM users_events where user_id = ? AND event_date < CURDATE();";
+        List<Integer> sings = jdbcTemplate.queryForList(queryForListOfSings,Integer.class,uuid);
+        return sings.stream()
+                .map(singDao::getSingById)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+    }
+
+    public List<Sing> geMyFutureEventsIDS(String uuid){
+        String queryForListOfSings = "SELECT event_id FROM users_events where user_id = ?  AND event_date > CURDATE();";
+        List<Integer> sings = jdbcTemplate.queryForList(queryForListOfSings,Integer.class,uuid);
+        return sings.stream()
+                .map(singDao::getSingById)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+    }
+
+    public int deleteFromMyEvents(String username, int event_id){
+        User user = getUserByUsername(username);
+        String UUID = user.getUuid();
+        String sql = "DELETE FROM users_events WHERE event_id = ? AND user_id = ?;";
+        return jdbcTemplate.update(sql,event_id,UUID);
+    }
+
+
 
     /**
      * Maps a row in the ResultSet to a User object.
