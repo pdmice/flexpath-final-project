@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function LoadingTable({ data, loading }) {
+export default function LoadingTable({ data, loading, errorState }) {
   return (
     <div className="container">
       <table className="table table-striped table-hover">
@@ -17,8 +17,24 @@ export default function LoadingTable({ data, loading }) {
           </tr>
         </thead>
       </table>
-      <h4 className="text-center" style={{ display: loading ? "block" : "none" }}>Loading...</h4>
-      <h4 className="text-center" style={{ display: !loading ? "block" : "none" }}>No Data Returned</h4>
+      <h4
+        className="text-center"
+        style={{ display: loading ? "block" : "none" }}
+      >
+        Loading...
+      </h4>
+      <h4
+        className="text-center"
+        style={{ display: !loading ? "block" : "none" }}
+      >
+        No Data Returned
+      </h4>
+      <h4
+        className="text-center text-danger"
+        style={{ display: errorState ? "block" : "none" }}
+      >
+        Database Communication Error
+      </h4>
     </div>
   );
 }

@@ -4,21 +4,33 @@ import Table from "../../tables/Table";
 import LoggedInTable from "../../tables/LoggedInTable";
 import { AuthContext } from "../../provider/AuthProvider";
 
-export default function KeyWordSearch({ loading, setLoading }) {
+export default function KeyWordSearch({
+  loading,
+  setLoading,
+  errorState,
+  setErrorState,
+}) {
   const [keyword, setKeyword] = useState(null);
   const [data, setData] = useState(null);
   const [modifiable, setModifiable] = useState(true);
 
-  // Get text input
   const handleKeyword = (e) => {
     setKeyword(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorState(false);
     async function fetchData(keyword) {
       await fetch(`http://localhost:8080/api/search/keyword/${keyword}`)
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            setErrorState(true);
+            return response.json();
+          }
+        })
         .then((json) => setData(json))
         .finally(() => setLoading(false))
         .catch((e) => console.error("Keyword search error: ", e));
@@ -50,7 +62,13 @@ export default function KeyWordSearch({ loading, setLoading }) {
         </form>
       </div>
       <div className="container">
-        <Table data={data} setData={setData} loading={loading} modifiable={modifiable} />
+        <Table
+          data={data}
+          setData={setData}
+          loading={loading}
+          modifiable={modifiable}
+          errorState={errorState}
+        />
       </div>
     </div>
   );

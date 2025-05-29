@@ -6,7 +6,12 @@ import LoggedInTable from "../../tables/LoggedInTable";
 import { AuthContext } from "../../provider/AuthProvider";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function LocationSearch({ loading, setLoading }) {
+export default function LocationSearch({
+  loading,
+  setLoading,
+  errorState,
+  setErrorState,
+}) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState();
   const [radius, setRadius] = useState(100);
@@ -18,7 +23,6 @@ export default function LocationSearch({ loading, setLoading }) {
   const API_KEY = import.meta.env.VITE_API_KEY;
   const { isLoggedIn } = useContext(AuthContext);
   const [zipCode, setZipCode] = useState();
-
 
   const handleDate = (range) => {
     const [startDate, endDate] = range;
@@ -65,6 +69,7 @@ export default function LocationSearch({ loading, setLoading }) {
 
     async function fetchData(post) {
       setLoading(true);
+      setErrorState(false)
       await fetch("http://localhost:8080/api/search", {
         method: "post",
         headers: {
@@ -73,7 +78,14 @@ export default function LocationSearch({ loading, setLoading }) {
         },
         body: postQuery,
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            setErrorState(true);
+            return response.json();
+          }
+        })
         .then((json) => {
           setData(json);
           setLoading(false);
@@ -142,9 +154,15 @@ export default function LocationSearch({ loading, setLoading }) {
             setData={setData}
             modifiable={modifiable}
             loading={loading}
+            errorState={errorState}
           />
         ) : (
-          <Table data={data} setData={setData} loading={loading} />
+          <Table
+            data={data}
+            setData={setData}
+            loading={loading}
+            errorState={errorState}
+          />
         )}
       </div>
     </div>

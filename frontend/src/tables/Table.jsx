@@ -3,7 +3,13 @@ import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 import sortSingsByDate from "../helpers/sortSings";
 
-export default function Table({ data, setData, modifiable, loading }) {
+export default function Table({
+  data,
+  setData,
+  modifiable,
+  loading,
+  errorState,
+}) {
   console.log("In the table data is: ", data);
   const [id, setId] = useState();
   const navigate = useNavigate();
@@ -26,12 +32,16 @@ export default function Table({ data, setData, modifiable, loading }) {
     }
   }, [order]);
 
-  if (data == null || data.length === 0 || data === undefined) {
-    return <LoadingTable loading={loading} />;
+  if (
+    data == null ||
+    data.length === 0 ||
+    data === undefined ||
+    errorState == true
+  ) {
+    return <LoadingTable loading={loading} errorState={errorState} />;
   } else {
     return (
       <>
-
         <div className="form-check">
           <input
             className="form-check-input"

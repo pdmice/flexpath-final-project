@@ -9,6 +9,7 @@ function App() {
   const [searchType, setSearchType] = useState("location");
   const [editType, setEditType] = useState("created");
   const [loading, setLoading] = useState(false)
+  const [errorState, setErrorState] = useState(false)
 
   return (
     <div>
@@ -31,6 +32,8 @@ function App() {
         setEditType={setEditType}
         loading={loading}
         setLoading={setLoading}
+        errorState={errorState}
+        setErrorState={setErrorState}
       />
     </div>
   );

@@ -3,7 +3,7 @@ import UserSearch from "./UserSearch";
 import LocationSearch from "./LocationSearch";
 import KeyWordSearch from "./KeyWordSearch";
 
-export default function Search({ searchType, setSearchType, loading, setLoading }) {
+export default function Search({ searchType, setSearchType, loading, setLoading, errorState, setErrorState }) {
   console.error("searchtype is: ", searchType);
   return (
     <>
@@ -11,20 +11,20 @@ export default function Search({ searchType, setSearchType, loading, setLoading 
         className="container-md"
         style={{ display: searchType === "location" ? "block" : "none" }}
       >
-        <LocationSearch loading={loading} setLoading={setLoading}/>
+        <LocationSearch loading={loading} setLoading={setLoading} errorState={errorState} setErrorState={setErrorState}/>
       </div>
       <div
         className="container-md"
         style={{ display: searchType === "user" ? "block" : "none" }}
       >
-        <UserSearch loading={loading} setLoading={setLoading} />
+        <UserSearch loading={loading} setLoading={setLoading} errorState={errorState} setErrorState={setErrorState} />
       </div>
       *
       <div
         className="container-md"
         style={{ display: searchType === "keyword" ? "block" : "none" }}
       >
-        <KeyWordSearch loading={loading} setLoading={setLoading} />
+        <KeyWordSearch loading={loading} setLoading={setLoading} errorState={errorState} setErrorState={setErrorState}/>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import sortSingsByDate from "../helpers/sortSings";
 
-export default function LoggedInTable({ data, setData, modifiable, loading }) {
+export default function LoggedInTable({ data, setData, modifiable, loading, errorState }) {
   console.log("In the table data is: ", data);
   const [id, setId] = useState();
   const navigate = useNavigate();
@@ -46,8 +46,8 @@ export default function LoggedInTable({ data, setData, modifiable, loading }) {
     });
   }
 
-  if (data == null || data.length === 0 || data === undefined) {
-    return <LoadingTable loading={loading} />;
+  if (data == null || data.length === 0 || data === undefined || errorState == true) {
+    return <LoadingTable loading={loading} errorState={errorState}/>;
   } else {
     return (
       <>
@@ -76,7 +76,7 @@ export default function LoggedInTable({ data, setData, modifiable, loading }) {
           </label>
         </div>
         {/* 
-          I'm leaving a bunch of the table and the mapt to populate itcommented here instead or removing, plan to use it later
+          I'm leaving a bunch of the table and the .map to populate itcommented here instead or removing, plan to use it later
         */}
         <div className="container">
           <table className="table table-striped table-hover">

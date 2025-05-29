@@ -90,7 +90,7 @@ public class SearchObjectDao {
     }
 
     public List<Sing> searchByUser(String user){
-
+        try {
         User searchUser = userDao.getUserByUsername(user);
         String uuid = searchUser.getUuid();
 
@@ -102,7 +102,7 @@ public class SearchObjectDao {
                 LEFT JOIN users u1 ON sings.owner_id = u1.uuid \s
                 where owner_id = ?;
                 """;
-        try {
+
             return jdbcTemplate.query(sql, singDao::mapToSing, uuid);
         }
         catch(DaoException e){throw new DaoException("Failed to retrieve sings by user");}

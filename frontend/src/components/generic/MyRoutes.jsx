@@ -17,6 +17,8 @@ export default function MyRoutes({
   setEditType,
   loading,
   setLoading,
+  errorState,
+  setErrorState
 }) {
   return (
     <Routes>
@@ -29,6 +31,8 @@ export default function MyRoutes({
             setSearchType={setSearchType}
             loading={loading}
             setLoading={setLoading}
+            errorState={errorState}
+            setErrorState={setErrorState}
           />
         }
       />

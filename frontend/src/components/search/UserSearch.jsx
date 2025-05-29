@@ -4,7 +4,12 @@ import Table from "../../tables/Table";
 import LoggedInTable from "../../tables/LoggedInTable";
 import { AuthContext } from "../../provider/AuthProvider";
 
-export default function UserSearch({ loading, setLoading }) {
+export default function UserSearch({
+  loading,
+  setLoading,
+  errorState,
+  setErrorState,
+}) {
   const [userName, setUsername] = useState("user");
   const [searchType, setSearchType] = useState("");
   const [data, setData] = useState(null);
@@ -30,6 +35,7 @@ export default function UserSearch({ loading, setLoading }) {
 
   const handleSubmit = (e) => {
     setLoading(true);
+    setErrorState(false);
     e.preventDefault();
     var queryString;
 
@@ -56,7 +62,14 @@ export default function UserSearch({ loading, setLoading }) {
           strippedToken,
         },
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            setErrorState(true);
+            return response.json();
+          }
+        })
         .then((json) => {
           setData(json);
           setLoading(false);
@@ -140,9 +153,15 @@ export default function UserSearch({ loading, setLoading }) {
             setData={setData}
             loading={loading}
             modifiable={modifiable}
+            errorState={errorState}
           />
         ) : (
-          <Table data={data} setData={setData} loading={loading} />
+          <Table
+            data={data}
+            setData={setData}
+            loading={loading}
+            errorState={errorState}
+          />
         )}
       </div>
     </div>
