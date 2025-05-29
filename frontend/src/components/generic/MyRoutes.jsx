@@ -4,13 +4,10 @@ import Home from "./Home";
 import Search from "../search/Search";
 import Login from "./Login";
 import NotFound from "./NotFound";
-import LoginButton from "../../buttons/LoginButton";
-import SearchSelect from "../../buttons/SearchSelect";
 import SignUp from "./Signup";
 import MySings from "../userPages/MySings";
 import Settings from "../userPages/Settings";
 import UpdateSing from "../userPages/UpdateSing";
-import EditSelect from "../../buttons/EditSelect";
 import CreateSing from "../userPages/CreateSing";
 
 export default function MyRoutes({
@@ -19,7 +16,7 @@ export default function MyRoutes({
   editType,
   setEditType,
   loading,
-  setLoading
+  setLoading,
 }) {
   return (
     <Routes>
@@ -27,7 +24,12 @@ export default function MyRoutes({
       <Route
         path="/search"
         element={
-          <Search searchType={searchType} setSearchType={setSearchType} loading={loading} setLoading={setLoading}/>
+          <Search
+            searchType={searchType}
+            setSearchType={setSearchType}
+            loading={loading}
+            setLoading={setLoading}
+          />
         }
       />
       <Route path="/login" element={<Login />} />
@@ -37,7 +39,10 @@ export default function MyRoutes({
         element={<MySings editType={editType} setEditType={setEditType} />}
       />
       <Route path="/Settings" element={<Settings />} />
-      <Route path="/UpdateSing/:id" element={<UpdateSing editType={editType}/>} />
+      <Route
+        path="/UpdateSing/:id"
+        element={<UpdateSing editType={editType} />}
+      />
       <Route path="/CreateSing" element={<CreateSing />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

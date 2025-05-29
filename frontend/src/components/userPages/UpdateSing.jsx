@@ -7,32 +7,20 @@ import { AuthContext } from "../../provider/AuthProvider";
 
 export default function UpdateSing({ editType }) {
   const {
-    isLoggedIn,
-    setIsLoggedIn,
     token,
-    setToken,
-    role,
-    setRole,
     userName,
-    setUserName,
-    loginFailed,
-    setLoginFailed,
   } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const { id } = useParams();
 
   var { data, loading } = useFetchSing(id);
-  var dataToSend = "";
 
   console.error("In UpdateSing data is: ", data);
 
   const handleName = (e) => {
     const target = e.target.id;
-    console.log("In handleNmae target is: ", target);
     data[target] = e.target.value;
-    console.log("in handleName data.target is: ", data.target);
-    console.log("in handleName data is: ", data);
   };
 
   const handleUpdate = (e) => {
@@ -97,7 +85,6 @@ export default function UpdateSing({ editType }) {
           }
         })
         .catch((error) => {
-          console.log("handleDelete catch error is: ", error);
           alert("Something has gone awry. Is the backend up?");
         });
     }

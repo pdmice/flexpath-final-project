@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import UserSearch from "./UserSearch";
 import LocationSearch from "./LocationSearch";
 import KeyWordSearch from "./KeyWordSearch";

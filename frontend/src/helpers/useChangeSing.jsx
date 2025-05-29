@@ -3,23 +3,8 @@ import { AuthContext } from "../provider/AuthProvider";
 
 
 export function useChangeSing(data) {
-  /* const [data, setData] = useState(); */
   const [errorState, setError] = useState();
   const [loading, setLoading] = useState(true);
-
-  const {
-    isLoggedIn,
-    setIsLoggedIn,
-    token,
-    setToken,
-    role,
-    setRole,
-    userName,
-    setUserName,
-    loginFailed,
-    setLoginFailed,
-  } = useContext(AuthContext);
-
 
   console.log("useChangeSing: data is", data);
 

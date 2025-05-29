@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
@@ -15,13 +14,11 @@ export default function LoggedInTable({ data, setData, modifiable, loading }) {
 
   const handleClick = (ID) => {
     setId(ID);
-    console.log("In handleClick id is: ", ID);
     addToMySings(userName, isPublic, ID);
   };
 
   const handleRadio = (ORDER) => {
     setOrder(ORDER);
-    console.log("order is: ", order);
   };
 
   useEffect(() => {
@@ -55,7 +52,6 @@ export default function LoggedInTable({ data, setData, modifiable, loading }) {
   } else {
     return (
       <>
-        {/*=================================================================================*/}
 
         <div className="form-check">
           <input
@@ -81,8 +77,9 @@ export default function LoggedInTable({ data, setData, modifiable, loading }) {
             Sort Descending
           </label>
         </div>
-
-        {/*=================================================================================*/}
+        {/* 
+          I'm leaving a bunch of the table and the mapt to populate itcommented here instead or removing, plan to use it later
+        */}
         <div className="container">
           <table className="table table-striped table-hover">
             <thead>
@@ -143,8 +140,6 @@ export default function LoggedInTable({ data, setData, modifiable, loading }) {
           </table>
         </div>
 
-        {/* ------------------------------------------------------------------------------------- */}
-
         <div
           class="modal fade"
           id="isPublicModal"
@@ -193,8 +188,6 @@ export default function LoggedInTable({ data, setData, modifiable, loading }) {
             </div>
           </div>
         </div>
-
-        {/* ------------------------------------------------------------------------------------- */}
       </>
     );
   }

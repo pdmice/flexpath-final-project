@@ -7,7 +7,6 @@ export default function UserSearch({ loading, setLoading }) {
   const [userName, setUsername] = useState("user");
   const [searchType, setSearchType] = useState("");
   const [data, setData] = useState(null);
-  /* const [queryString, setQueryString] = useState(null); */
 
   const { token, isLoggedIn } = useContext(AuthContext);
 
@@ -17,7 +16,6 @@ export default function UserSearch({ loading, setLoading }) {
   useEffect(() => {
     setData(null);
   }, [userName, searchType]);
-
 
   var strippedToken = "";
 
@@ -31,7 +29,6 @@ export default function UserSearch({ loading, setLoading }) {
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
-    /*------------------------------------------------------------------------------------*/
     var queryString;
 
     if (searchType === "created") {
@@ -46,12 +43,10 @@ export default function UserSearch({ loading, setLoading }) {
         ? (queryString = `http://localhost:8080/api/users/events/public/past/${userName}`)
         : alert("You need to login for that");
     }
-    /*------------------------------------------------------------------------------------*/
+
     if (!searchType) {
       alert("Select How you wish to search");
     }
-    console.log("In handleSubmit userName is: ", userName);
-    console.log("In handleSubmit queryString is: ", queryString);
     async function fetchData(userName) {
       await fetch(queryString, {
         headers: {
@@ -63,10 +58,8 @@ export default function UserSearch({ loading, setLoading }) {
         .then((json) => {
           setData(json);
           setLoading(false);
-          console.log("Data is: ", data);
         })
         .catch((error) => {
-          console.error("UserSearch error was: ".error);
           setLoading(false);
         });
     }
@@ -97,8 +90,6 @@ export default function UserSearch({ loading, setLoading }) {
         </form>
       </div>
 
-      {/*============================================================================================*/}
-
       <div className="dropdown ms-auto pt-2">
         <button
           className="btn btn-secondary dropdown-toggle"
@@ -107,7 +98,6 @@ export default function UserSearch({ loading, setLoading }) {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          {/* {searchType} */}
           {searchType ? searchType : "Type of User Search"}
         </button>
         <ul
@@ -140,8 +130,6 @@ export default function UserSearch({ loading, setLoading }) {
           </li>
         </ul>
       </div>
-
-      {/*============================================================================================*/}
 
       <div className="container">
         <Table data={data} setData={setData} loading={loading} />

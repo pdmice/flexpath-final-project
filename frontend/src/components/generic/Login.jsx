@@ -5,12 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();
   const {
-    isLoggedIn,
     setIsLoggedIn,
     token,
     setToken,
-    role,
-    setRole,
     userName,
     setUserName,
     loginFailed,

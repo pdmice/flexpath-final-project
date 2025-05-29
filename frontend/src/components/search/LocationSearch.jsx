@@ -19,13 +19,11 @@ export default function LocationSearch({ loading, setLoading }) {
   const { isLoggedIn } = useContext(AuthContext);
   const [zipCode, setZipCode] = useState();
 
-  console.log("Api key is: ", API_KEY);
 
   const handleDate = (range) => {
     const [startDate, endDate] = range;
     let start = new Date(startDate).toISOString("yyyy-MM-dd").split("T")[0];
     let end = new Date(endDate).toISOString("yyyy-MM-dd").split("T")[0];
-    console.log("Parsed dates are: ", start, end);
     setStartDate(start);
     setEndDate(end);
   };
@@ -34,21 +32,18 @@ export default function LocationSearch({ loading, setLoading }) {
     setZipCode(e.target.value);
 
     async function fetchGPS() {
-      console.error("e.targetvalue is: ", e.target.value);
       await fetch(
         `https://geocode.maps.co/search?postalcode=${e.target.value}=&api_key=${API_KEY}`
       )
         .then((response) => {
-          console.log("Geocoding response is: ", response);
           return response.json();
         })
         .then((json) => {
-          console.log("Geocoding json is: ", json);
           setSearchString(`${json[0].lat}:${json[0].lon}`);
         })
         .catch((e) => console.log("fetchGPS error: ", e));
     }
-    //Add a stupid simple de-bounce kinda thing to  not get rate-limited by geocoding api
+    //Add a stupid simple de-bounce kinda thing to not get rate-limited by geocoding api
     setTimeout(() => {
       fetchGPS();
     }, 500);
@@ -66,7 +61,6 @@ export default function LocationSearch({ loading, setLoading }) {
         "searchRadius": ${radius},
         "searchLocation":"${searchString}"}`;
 
-    console.log("In handleSubmit postQuery is: ", postQuery);
 
     async function fetchData(post) {
       setLoading(true);

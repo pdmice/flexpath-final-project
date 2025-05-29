@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import Table from "../../tables/Table";
 import { AuthContext } from "../../provider/AuthProvider";
-import UpdateSing from "./UpdateSing";
 
 export default function MySings({ editType }) {
   const [modifiable, setModifiable] = useState(true);

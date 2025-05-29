@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../provider/AuthProvider";
 import sortSingsByDate from "../helpers/sortSings";
 
 export default function Table({ data, setData, modifiable, loading }) {
@@ -33,7 +31,6 @@ export default function Table({ data, setData, modifiable, loading }) {
   } else {
     return (
       <>
-        {/*=================================================================================*/}
 
         <div className="form-check">
           <input
@@ -60,7 +57,6 @@ export default function Table({ data, setData, modifiable, loading }) {
           </label>
         </div>
 
-        {/*=================================================================================*/}
         <div className="container">
           <table className="table table-striped table-hover">
             <thead>

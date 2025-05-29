@@ -10,15 +10,8 @@ import { useUUID } from "../../helpers/useUUID";
 export default function CreateSing() {
   const {
     isLoggedIn,
-    setIsLoggedIn,
     token,
-    setToken,
-    role,
-    setRole,
     userName,
-    setUserName,
-    loginFailed,
-    setLoginFailed,
   } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -35,11 +28,7 @@ export default function CreateSing() {
     const target = e.target.id;
     data.owner_id = uuid;
     data.id = "";
-    console.log("In handleName data.owner_id is: ", data.owner_id);
-    console.log("In handleNmae target is: ", target);
     data[target] = e.target.value;
-    console.log("in handleName data.target is: ", data.target);
-    console.log("in handleName data is: ", data);
   };
 
   const handleUpdate = (e) => {

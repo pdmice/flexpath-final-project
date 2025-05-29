@@ -27,7 +27,6 @@ export function useUUID(username) {
           }
         );
         const json = await response.json();
-        console.log("Fetched JSON:", json);
         setUUID(json.uuid);
       } catch (error) {
         console.error("Fetch error:", error);
