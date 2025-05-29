@@ -18,7 +18,10 @@ public class BookController {
     private BookDao bookDao;
 
     @GetMapping
-    public List<Book> getAllBooks() {return bookDao.getAll();}
+    public List<Book> getAllBooks() {
+        return bookDao.getAll();
+    }
+}
 
 //    @GetMapping("/{id}")
 //    public Book getBookById(int id){return bookDao.getBookById(id);}
@@ -33,11 +36,11 @@ public class BookController {
 //        }
 //    }
 
-    @DeleteMapping("/{id}")
-    public void deleteBookById(@PathVariable int id) { bookDao.deleteBook(id);}
-
-    @PutMapping("/update/{id}")
-    public Book update(@RequestBody Book book) {
-        return bookDao.updateBook(book);
-    }
-}
+//    @DeleteMapping("/{id}")
+//    public void deleteBookById(@PathVariable int id) { bookDao.deleteBook(id);}
+//
+//    @PutMapping("/update/{id}")
+//    public Book update(@RequestBody Book book) {
+//        return bookDao.updateBook(book);
+//    }
+//}

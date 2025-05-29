@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import sortSingsByDate from "../helpers/sortSings";
-
 
 export default function LoggedInTable({ data, setData, modifiable, loading }) {
   console.log("In the table data is: ", data);
@@ -52,7 +51,6 @@ export default function LoggedInTable({ data, setData, modifiable, loading }) {
   } else {
     return (
       <>
-
         <div className="form-check">
           <input
             className="form-check-input"

@@ -460,10 +460,76 @@ CREATE TABLE users_events (
     foreign key (user_id) references users(uuid),
     FOREIGN KEY (event_id) references sings(id)
     );
+    
+    
+-- A bunch of test events... Hopefully enough to test everything out.
+
+
+INSERT INTO users_events (id, user_id, event_id, public, event_date) VALUES
+(5, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 22, 0, '2025-01-01'),
+(6, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 23, 0, '2025-01-01'),
+(7, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 24, 1, '2025-01-01'),
+(8, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 25, 1, '2025-01-01'),
+(9, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, 0, '2025-10-25'),
+(10, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, 0, '2025-10-25'),
+(11, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, 0, '2025-10-25'),
+(12, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, 0, '2025-10-25'),
+(13, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 141, 1, '2025-05-26'),
+(14, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 257, 1, '2025-09-20'),
+(15, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 197, 1, '2025-07-19'),
+(16, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 294, 0, '2025-10-25'),
+(17, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 191, 0, '2025-12-07'),
+(18, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 165, 1, '2025-06-15'),
+(20, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 326, 1, '2025-06-12'),
+(21, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 255, 1, '2025-09-20'),
+(23, '72e9a58c-49d3-4198-841d-57be5553ee8e', 309, 0, '2025-08-11'),
+(24, '72e9a58c-49d3-4198-841d-57be5553ee8e', 104, 1, '2026-04-25'),
+(25, '72e9a58c-49d3-4198-841d-57be5553ee8e', 44, 1, '2026-02-28'),
+(26, '72e9a58c-49d3-4198-841d-57be5553ee8e', 235, 0, '2025-08-30'),
+(27, '72e9a58c-49d3-4198-841d-57be5553ee8e', 197, 1, '2025-07-19'),
+(28, '72e9a58c-49d3-4198-841d-57be5553ee8e', 255, 0, '2025-09-20'),
+(29, '72e9a58c-49d3-4198-841d-57be5553ee8e', 141, 1, '2025-05-26'),
+(30, '169422f5-034a-469a-8669-7432e6690daa', 26, 1, '2026-01-31'),
+(31, '169422f5-034a-469a-8669-7432e6690daa', 45, 0, '2026-02-28'),
+(32, '169422f5-034a-469a-8669-7432e6690daa', 66, 0, '2026-03-22'),
+(33, '169422f5-034a-469a-8669-7432e6690daa', 92, 1, '2026-04-18'),
+(34, '169422f5-034a-469a-8669-7432e6690daa', 116, 1, '2026-03-05'),
+(35, '169422f5-034a-469a-8669-7432e6690daa', 137, 1, '2025-05-24'),
+(36, '169422f5-034a-469a-8669-7432e6690daa', 161, 0, '2025-06-14'),
+(37, '169422f5-034a-469a-8669-7432e6690daa', 186, 0, '2025-12-07'),
+(38, '169422f5-034a-469a-8669-7432e6690daa', 199, 1, '2025-07-19'),
+(39, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 20, 1, '2025-01-01'),
+(40, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 21, 1, '2025-01-01'),
+(41, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 22, 1, '2025-01-01'),
+(42, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 23, 1, '2025-01-01'),
+(43, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 89, 1, '2026-12-04'),
+(44, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 73, 1, '2026-11-04'),
+(45, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 121, 0, '2026-09-05'),
+(46, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 30, 0, '2026-07-02'),
+(47, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 103, 1, '2026-04-25'),
+(48, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 77, 0, '2026-04-04'),
+(49, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 65, 1, '2026-03-21');
+
 
 /*
 Reverse the order of lat/long. This seem to be implementation dependent. Remove if you get errors like "coordinate out of bounds. Must be less than 90"
 */
+
+CREATE TABLE users_events (
+	id int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    user_id VARCHAR(36) not null,
+    event_id int not null,
+    public int not null,
+    event_date date,
+    foreign key (user_id) references users(uuid),
+    FOREIGN KEY (event_id) references sings(id)
+    );
+    
+
+
+-- It seems like the order of latitude and longitude is implementation dependent for the POINT data type. I've had to switch it from desktop to 
+-- laptop to get it working. If you're getting sql errors in idea similar to 'out of bounds, must be < 90' comment this out
+
 UPDATE sings
 SET location = ST_PointFromText(
     CONCAT(

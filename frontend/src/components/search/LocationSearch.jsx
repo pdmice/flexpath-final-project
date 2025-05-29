@@ -61,6 +61,7 @@ export default function LocationSearch({ loading, setLoading }) {
         "searchRadius": ${radius},
         "searchLocation":"${searchString}"}`;
 
+    console.log("In handleSubmit postQuery is: ", postQuery);
 
     async function fetchData(post) {
       setLoading(true);

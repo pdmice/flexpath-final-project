@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-export default function EditSelect({setEditType }) {
+export default function EditSelect({ setEditType }) {
   const handleEditType = (editType) => {
     setEditType(editType);
   };
@@ -20,7 +20,7 @@ export default function EditSelect({setEditType }) {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        Edit Selection
+        Sings I've...
       </button>
       <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="edit">
         <li>
@@ -28,7 +28,7 @@ export default function EditSelect({setEditType }) {
             className="dropdown-item "
             onClick={() => handleEditType("created")}
           >
-            Sings I've Added
+            Added to the DB
           </button>
         </li>
         <li>
@@ -36,7 +36,7 @@ export default function EditSelect({setEditType }) {
             className="dropdown-item "
             onClick={() => handleEditType("attending")}
           >
-            Upcoming Sings
+            Planned to attend
           </button>
         </li>
         <li>
@@ -44,7 +44,7 @@ export default function EditSelect({setEditType }) {
             className="dropdown-item "
             onClick={() => handleEditType("attended")}
           >
-            Past Sings
+            Already Attended
           </button>
         </li>
       </ul>

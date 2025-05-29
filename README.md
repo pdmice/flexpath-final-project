@@ -32,8 +32,13 @@ SET location = ST_PointFromText(
 
 ```
 
-This will reverse the ordering of the coordinates. If you get errors like "Data out of bounds. Must be less than 90" in the idea console it's because 
+This will reverse the ordering of the coordinates. If you get sql errors like "Data out of bounds. Must be less than 90" in the idea console it's because 
 sql is expecting the opposite ordering and is treating latitude as longitude and vice versa. Removing (or adding) this last statement should fix the  problem. 
+
+## Test users:
+
+There are a couple test users in the DB. You can login with the provided admin or user accounts. There are also accounts with username:password - joedod:joedod and janedoe:janedoe
+to use in searches etc that have some events populated. 
 
 
 ## Ensure dev server is on the correct port

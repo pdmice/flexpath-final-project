@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import Table from "../../tables/Table";
+import LoggedInTable from "../../tables/LoggedInTable";
 import { AuthContext } from "../../provider/AuthProvider";
 
 export default function UserSearch({ loading, setLoading }) {
   const [userName, setUsername] = useState("user");
   const [searchType, setSearchType] = useState("");
   const [data, setData] = useState(null);
+  const [modifiable, setModifiable] = useState(true);
 
   const { token, isLoggedIn } = useContext(AuthContext);
 
@@ -131,8 +133,17 @@ export default function UserSearch({ loading, setLoading }) {
         </ul>
       </div>
 
-      <div className="container">
-        <Table data={data} setData={setData} loading={loading} />
+      <div>
+        {isLoggedIn ? (
+          <LoggedInTable
+            data={data}
+            setData={setData}
+            loading={loading}
+            modifiable={modifiable}
+          />
+        ) : (
+          <Table data={data} setData={setData} loading={loading} />
+        )}
       </div>
     </div>
   );

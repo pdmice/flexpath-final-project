@@ -1,10 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import Table from "../../tables/Table";
+import LoggedInTable from "../../tables/LoggedInTable";
+import { AuthContext } from "../../provider/AuthProvider";
 
 export default function KeyWordSearch({ loading, setLoading }) {
   const [keyword, setKeyword] = useState(null);
   const [data, setData] = useState(null);
+  const [modifiable, setModifiable] = useState(true);
 
   // Get text input
   const handleKeyword = (e) => {
@@ -47,7 +50,7 @@ export default function KeyWordSearch({ loading, setLoading }) {
         </form>
       </div>
       <div className="container">
-        <Table data={data} setData={setData} loading={loading} />
+        <Table data={data} setData={setData} loading={loading} modifiable={modifiable} />
       </div>
     </div>
   );
