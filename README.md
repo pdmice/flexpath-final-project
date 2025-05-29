@@ -6,11 +6,11 @@ This file was removed from my github to avoid publishing MySql password
 
 ## Add .env
 
-The search by location function uses a geocoding API from geocode.maps.co to get GPS coordinates for a given zip code, and requires an API key
+The search by location function uses a geocoding API from geocode.maps.co to get GPS coordinates for a given zip code, and requires a free API key
 You will need to add frontend/.env with the api key provided in the submission notes in the form of:
 
 ```
-API_KEY=RANDOM_KEY_STRING
+VITE_API_KEY=RANDOM_KEY_STRING
 ```
 
 ## Possibly modify create-database.sql
@@ -40,5 +40,5 @@ sql is expecting the opposite ordering and is treating latitude as longitude and
 
 I had to add a proxy in vite.config.js in order to get around CORS protection as I could not figure out how to add @Crossorigin annotation 
 for /auth/login like is done in the other controllers. Unfortunately this is error prone and very easy to overlook  when 5173 is in use and vite 
-automatically moves to 5174 or similar. I would be interested in how to set properly set crossorigin policy for /aut/login as well as how to set the 
+automatically moves to 5174 or similar. I would be interested in how to  properly set crossorigin policy for /aut/login as well as how to set the 
 HMAC secret to properly secure this JWT implementation. 
