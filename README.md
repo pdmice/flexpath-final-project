@@ -13,6 +13,13 @@ You will need to add frontend/.env with the api key provided in the submission n
 VITE_API_KEY=RANDOM_KEY_STRING
 ```
 
+## .env and test:
+
+Unfortunately it seems that vite's import.meta.env.VITE_API_KEY is not supported or easily integrated with jest. 
+The searchLocation components relies on this to hit the geocoding api, so in order to test it I mock the geocoding fetch and 
+comment out the import in LocationSearch.jsx just provide a dummy variable. Comment/Uncomment the correct one to run tests or the app. 
+
+
 ## Possibly modify create-database.sql
 
 GPS coordinates are saved as a POINT data type in the database. It seems that whether the ordering is LAT,LON or
@@ -51,5 +58,5 @@ HMAC secret to properly secure this JWT implementation.
 
 ## npm install jest-environmentjsdom
 
-I had to install @testing-library/jest-dom and jest-environmentjsdom to get tests working as it is no longer shipped with jest.
+I had to install @testing-library/jest-dom and jest-environmentjsdom to get tests working as it is no longer shipped with jest. I know we weren't supposed to rely on external libraries for the app, but  assume this is fine as jest doesn't seem to work at all without it?
 

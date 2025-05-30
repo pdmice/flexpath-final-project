@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Home() {
   return (
-    <div className="container-md">
+    <div className="container-md text-center">
       <h1>Welcome to the Travelling Singer!</h1>
 
       <p>

@@ -20,7 +20,7 @@ export default function LocationSearch({
   );
   const [data, setData] = useState(null);
   const [modifiable, setModifiable] = useState(true);
-  //const API_KEY = import.meta.env.VITE_API_KEY;
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   /*                  YOU   BROKE THE API KEY TO TEST!
 
@@ -29,7 +29,7 @@ export default function LocationSearch({
 
                         */
 
-  const API_KEY = "aslkjd;lskdfj;slkd";
+  //const API_KEY = "aslkjd;lskdfj;slkd";
   const { isLoggedIn } = useContext(AuthContext);
   const [zipCode, setZipCode] = useState();
 
@@ -59,7 +59,7 @@ export default function LocationSearch({
     //Add a stupid simple de-bounce kinda thing to not get rate-limited by geocoding api
     setTimeout(() => {
       fetchGPS();
-    }, 500);
+    }, 700);
   };
 
   const handleRadius = (e) => {
@@ -131,7 +131,7 @@ export default function LocationSearch({
           <input
             type="text"
             className="form-control"
-            placeholder="Search by zip-code"
+            placeholder="Search by  5 digit zip-code like 90210"
             onChange={(e) => handleZipCode(e)}
           ></input>
           <p className="mt-3">How far (in miles) can you travel?</p>

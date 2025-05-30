@@ -53,10 +53,10 @@ export default function LoggedInTable({
   }
 
   if (
-    data == null ||
+    data === null ||
     data.length === 0 ||
     data === undefined ||
-    errorState == true
+    errorState === true
   ) {
     return <LoadingTable loading={loading} errorState={errorState} />;
   } else {
@@ -126,7 +126,7 @@ export default function LoggedInTable({
                       }}
                     >
                       <td>{key["id"]}</td>
-                    </button>
+                    
                     <td
                       id="nomodbutton"
                       style={{ display: !modifiable ? "block" : "none" }}
@@ -145,6 +145,7 @@ export default function LoggedInTable({
                     {/* <td>{key["contact_email"]}</td>
                     <td>{key["user_added_note"]}</td> */}
                     {/* <td>{key["location"]}</td> */}
+                    </button>
                   </tr>
                 );
               })}
