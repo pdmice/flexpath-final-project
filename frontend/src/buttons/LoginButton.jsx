@@ -23,7 +23,7 @@ export default function LoginButton() {
   return (
     <>
       {isLoggedIn ? (
-        <div className="dropdown ms-auto p-3">
+        <div className="dropdown ms-auto p-3" data-testid="loggedInDropDown">
           <button
             className="btn btn-secondary dropdown-toggle"
             type="button"

@@ -2,9 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
-import sortSingsByDate from "../helpers/sortSings";
+import sortSingsByDate  from "../helpers/sortSings";
 
-export default function LoggedInTable({ data, setData, modifiable, loading, errorState }) {
+export default function LoggedInTable({
+  data,
+  setData,
+  modifiable,
+  loading,
+  errorState,
+}) {
   console.log("In the table data is: ", data);
   const [id, setId] = useState();
   const navigate = useNavigate();
@@ -46,8 +52,13 @@ export default function LoggedInTable({ data, setData, modifiable, loading, erro
     });
   }
 
-  if (data == null || data.length === 0 || data === undefined || errorState == true) {
-    return <LoadingTable loading={loading} errorState={errorState}/>;
+  if (
+    data == null ||
+    data.length === 0 ||
+    data === undefined ||
+    errorState == true
+  ) {
+    return <LoadingTable loading={loading} errorState={errorState} />;
   } else {
     return (
       <>
@@ -57,6 +68,7 @@ export default function LoggedInTable({ data, setData, modifiable, loading, erro
             type="radio"
             name="sortByDate"
             id="sortAscending"
+            data-testid="sortAscending"
             onChange={() => handleRadio("asc")}
           />
           <label class="form-check-label" for="flexRadioDefault1">
@@ -69,6 +81,7 @@ export default function LoggedInTable({ data, setData, modifiable, loading, erro
             type="radio"
             name="sortByDate"
             id="sortDescending"
+            data-testid="sortDesc"
             onChange={() => handleRadio("desc")}
           />
           <label class="form-check-label" for="flexRadioDefault2">
@@ -103,6 +116,7 @@ export default function LoggedInTable({ data, setData, modifiable, loading, erro
                   <tr key={val}>
                     <button
                       id="modbutton"
+                      data-testid="tableButton"
                       style={{ display: modifiable ? "block" : "none" }}
                       className="btn btn-outline-secondary"
                       data-bs-toggle="modal"
@@ -162,6 +176,7 @@ export default function LoggedInTable({ data, setData, modifiable, loading, erro
               <div class="modal-footer">
                 <button
                   type="button"
+                  data-testid="modal"
                   class="btn btn-secondary"
                   onClick={() => {
                     isPublic = 0;

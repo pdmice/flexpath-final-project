@@ -6,7 +6,6 @@ import Login from "./Login";
 import NotFound from "./NotFound";
 import SignUp from "./Signup";
 import MySings from "../userPages/MySings";
-import Settings from "../userPages/Settings";
 import UpdateSing from "../userPages/UpdateSing";
 import CreateSing from "../userPages/CreateSing";
 
@@ -18,7 +17,7 @@ export default function MyRoutes({
   loading,
   setLoading,
   errorState,
-  setErrorState
+  setErrorState,
 }) {
   return (
     <Routes>
@@ -42,7 +41,6 @@ export default function MyRoutes({
         path="/MySings"
         element={<MySings editType={editType} setEditType={setEditType} />}
       />
-      <Route path="/Settings" element={<Settings />} />
       <Route
         path="/UpdateSing/:id"
         element={<UpdateSing editType={editType} />}

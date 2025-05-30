@@ -46,4 +46,10 @@ to use in searches etc that have some events populated.
 I had to add a proxy in vite.config.js in order to get around CORS protection as I could not figure out how to add @Crossorigin annotation 
 for /auth/login like is done in the other controllers. Unfortunately this is error prone and very easy to overlook  when 5173 is in use and vite 
 automatically moves to 5174 or similar. I would be interested in how to  properly set crossorigin policy for /aut/login as well as how to set the 
-HMAC secret to properly secure this JWT implementation. 
+HMAC secret to properly secure this JWT implementation.
+
+
+## npm install jest-environmentjsdom
+
+I had to install @testing-library/jest-dom and jest-environmentjsdom to get tests working as it is no longer shipped with jest.
+

@@ -1,0 +1,95 @@
+import { useBooks } from "./useBooks";
+
+const booksTest = [
+  {
+    id: 1,
+    name: "Denson Book",
+  },
+  {
+    id: 2,
+    name: "1805 Christian Harmony",
+  },
+  {
+    id: 3,
+    name: "American Vocalist",
+  },
+  {
+    id: 4,
+    name: "Christian Harmony",
+  },
+  {
+    id: 5,
+    name: "Christian Harmony 1873/2015",
+  },
+  {
+    id: 6,
+    name: "Christian Harmony 2010",
+  },
+  {
+    id: 7,
+    name: "Colored Denson Book",
+  },
+  {
+    id: 8,
+    name: "Colored Sacred Harp",
+  },
+  {
+    id: 9,
+    name: "Cooper Book",
+  },
+  {
+    id: 10,
+    name: "Dayton Harmonist",
+  },
+  {
+    id: 11,
+    name: "Denson Book 2025",
+  },
+  {
+    id: 12,
+    name: "Georgian Harmony",
+  },
+  {
+    id: 13,
+    name: "Harmonia Sacra",
+  },
+  {
+    id: 14,
+    name: "J.L. White Book",
+  },
+  {
+    id: 15,
+    name: "Missouri Harmony",
+  },
+  {
+    id: 16,
+    name: "New Harp of Columbia",
+  },
+  {
+    id: 17,
+    name: "Norumbega Harmony",
+  },
+  {
+    id: 18,
+    name: "Shenandoah Harmony",
+  },
+  {
+    id: 19,
+    name: "Social Harp",
+  },
+  {
+    id: 20,
+    name: "Southern Harmony",
+  },
+  {
+    id: 21,
+    name: "Valley Pocket Harmonist",
+  },
+];
+
+describe("useBooks hook", () => {
+  it("should retrieve a JSON object of books", () => {
+    const usedBooks = useBooks();
+    expect(usedBooks).toBe(booksTest);
+  });
+});

@@ -44,6 +44,7 @@ export default function SignUp() {
             <input
               type="text"
               id="username"
+              placeholder="username"
               className="form-control"
               onChange={(e) => handleUserName(e)}
             />
@@ -56,6 +57,7 @@ export default function SignUp() {
             <input
               type="password"
               id="password"
+              placeholder="password"
               className="form-control"
               onChange={(e) => handlePassword(e)}
             />

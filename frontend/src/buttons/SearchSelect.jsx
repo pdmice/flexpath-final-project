@@ -9,6 +9,7 @@ export default function SearchSelect({ setSearchType }) {
   return (
     <div
       className="dropdown"
+      data-testid="searchSelectDropDown"
       style={{
         display: useLocation().pathname === "/search" ? "block" : "none",
       }}

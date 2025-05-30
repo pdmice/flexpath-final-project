@@ -9,6 +9,7 @@ export default function EditSelect({ setEditType }) {
   return (
     <div
       className="dropdown"
+      data-testid="editSelectDropDown"
       style={{
         display: useLocation().pathname === "/MySings" ? "block" : "none",
       }}

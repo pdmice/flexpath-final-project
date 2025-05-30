@@ -70,6 +70,7 @@ export default function Login() {
             type="text"
             id="username"
             className="form-control"
+            placeholder="username"
             onChange={(e) => handleUserName(e)}
           />
           <label className="form-label" htmlFor="Username">
@@ -82,6 +83,7 @@ export default function Login() {
             type="password"
             id="password"
             className="form-control"
+            placeholder="password"
             onChange={(e) => handlePassword(e)}
           />
           <label className="form-label" htmlFor="password">

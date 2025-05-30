@@ -6,10 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 
 export default function UpdateSing({ editType }) {
-  const {
-    token,
-    userName,
-  } = useContext(AuthContext);
+  const { token, userName } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -104,95 +101,111 @@ export default function UpdateSing({ editType }) {
 
   return (
     <>
+      <div data-testid="alternateHeading">
+      <div
+        className="container-md text-center"
+        style={{ display: editType == "attending" ? "block" : "none" }}
+      >
+        <h1>{headerText}</h1>
+      </div>
+      <div
+        className="container-md text-center"
+        style={{ display: editType == "attended" ? "block" : "none" }}
+      >
+        <h1>{headerText}</h1>
+      </div></div>
+
+
+
       <div className="container-md">
         <div style={{ display: editType == "created" ? "block" : "none" }}>
-        <h1 className="text-center"> Update Sings You've Created</h1>
-        <p className="text-center">You are modifying:</p>
-        <p className="text-center">
-          {loading ? "loading... " : JSON.stringify(data.name)}
-        </p>
-        <p className="text-center">
-          {" "}
-          Type a new value into each box to change it, or leave it blank leave
-          that field unchanged.
-        </p>
-        <form onSubmit={(e) => handleUpdate(e)}>
-          <p className="mt-3">Name</p>
-          <input
-            type="text"
-            id="name"
-            className="form-control"
-            placeholder={loading ? "Loading... " : JSON.stringify(data.name)}
-            onChange={(e) => handleName(e)}
-          ></input>
-          <p className="mt-3">Date (In the form of yyyy-mm-dd)</p>
-          <input
-            type="text"
-            id="start_date"
-            className="form-control"
-            placeholder={
-              loading ? "Loading... " : JSON.stringify(data.start_date)
-            }
-            onChange={(e) => handleName(e)}
-          ></input>
-          <p className="mt-3">Starting Time (In the form of HH:MM:SS)</p>
-          <input
-            type="text"
-            id="start_time"
-            className="form-control"
-            placeholder={
-              loading ? "Loading... " : JSON.stringify(data.start_time)
-            }
-            onChange={(e) => handleName(e)}
-          ></input>
-          <p className="mt-3">End Time (In the form of HH:MM:SS)</p>
-          <input
-            type="text"
-            id="end_time"
-            className="form-control"
-            placeholder={
-              loading ? "Loading... " : JSON.stringify(data.end_time)
-            }
-            onChange={(e) => handleName(e)}
-          ></input>
-          <p className="mt-3">Primary Book</p>
-          <input
-            type="text"
-            id="primary_book"
-            className="form-control"
-            placeholder={
-              loading ? "Loading... " : JSON.stringify(data.primary_book)
-            }
-            onChange={(e) => handleName(e)}
-          ></input>
-          <p className="mt-3">Secondary Book</p>
-          <input
-            type="text"
-            id="secondary_book"
-            className="form-control"
-            placeholder={
-              loading ? "Loading... " : JSON.stringify(data.secondary_book)
-            }
-            onChange={(e) => handleName(e)}
-          ></input>
-          <div className=" border-top mt-1 d-grid gap-2">
-            <button type="submit" className="btn  btn-outline-secondary">
-              Submit Changes
-            </button>
-          </div>
-        </form>
+          <h1 className="text-center"> {headerText}</h1>
+          <p className="text-center">You are modifying:</p>
+          <p className="text-center">
+            {loading ? "loading... " : JSON.stringify(data.name)}
+          </p>
+          <p className="text-center">
+            {" "}
+            Type a new value into each box to change it, or leave it blank leave
+            that field unchanged.
+          </p>
+          <form onSubmit={(e) => handleUpdate(e)}>
+            <p className="mt-3">Name</p>
+            <input
+              type="text"
+              id="name"
+              data-testid="handleUpdate"
+              className="form-control"
+              placeholder={loading ? "Loading... " : JSON.stringify(data.name)}
+              onChange={(e) => handleName(e)}
+            ></input>
+            <p className="mt-3">Date (In the form of yyyy-mm-dd)</p>
+            <input
+              type="text"
+              id="start_date"
+              className="form-control"
+              placeholder={
+                loading ? "Loading... " : JSON.stringify(data.start_date)
+              }
+              onChange={(e) => handleName(e)}
+            ></input>
+            <p className="mt-3">Starting Time (In the form of HH:MM:SS)</p>
+            <input
+              type="text"
+              id="start_time"
+              className="form-control"
+              placeholder={
+                loading ? "Loading... " : JSON.stringify(data.start_time)
+              }
+              onChange={(e) => handleName(e)}
+            ></input>
+            <p className="mt-3">End Time (In the form of HH:MM:SS)</p>
+            <input
+              type="text"
+              id="end_time"
+              className="form-control"
+              placeholder={
+                loading ? "Loading... " : JSON.stringify(data.end_time)
+              }
+              onChange={(e) => handleName(e)}
+            ></input>
+            <p className="mt-3">Primary Book</p>
+            <input
+              type="text"
+              id="primary_book"
+              className="form-control"
+              placeholder={
+                loading ? "Loading... " : JSON.stringify(data.primary_book)
+              }
+              onChange={(e) => handleName(e)}
+            ></input>
+            <p className="mt-3">Secondary Book</p>
+            <input
+              type="text"
+              id="secondary_book"
+              className="form-control"
+              placeholder={
+                loading ? "Loading... " : JSON.stringify(data.secondary_book)
+              }
+              onChange={(e) => handleName(e)}
+            ></input>
+            <div className=" border-top mt-1 d-grid gap-2">
+              <button type="submit" className="btn  btn-outline-secondary">
+                Submit Changes
+              </button>
+            </div>
+          </form>
         </div>
         <div className=" border-top mt-1 d-grid gap-2">
           <button
             type="button"
             className="btn  btn-outline-secondary"
-            style={{display: "block"}}
+            style={{ display: "block" }}
             onClick={(e) => handleDelete(e)}
           >
             Delete Sing!
           </button>
         </div>
-
       </div>
     </>
   );
