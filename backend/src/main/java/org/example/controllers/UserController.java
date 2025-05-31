@@ -6,10 +6,12 @@ import org.example.models.User;
 import org.example.daos.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -37,9 +39,16 @@ public class UserController {
      * @return A list of all users.
      */
     @GetMapping
-    public List<User> getAll() {
-        return userDao.getUsers();
+    public ResponseEntity<List<User>> getAll() {
+        try{
+            return  ResponseEntity.ok(userDao.getUsers());
+        }catch(Exception e ){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
+
+
 
     /**
      * Gets a user by their username.
@@ -48,7 +57,7 @@ public class UserController {
      * @return The user with the given username.
      */
     @GetMapping(path = "/{username}")
-    @PreAuthorize("#username == authentication.name OR hasRole('ADMIN')")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
     public User get(@PathVariable String username) {
         return userDao.getUserByUsername(username);
     }
