@@ -82,11 +82,12 @@ public class UserController {
      * @param username The username of the user.
      * @return The updated user.
      */
-    @PutMapping(path = "/{username}/password")
+    @PutMapping(path = "/passchange/{username}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
     public User updatePassword(@RequestBody String password, @PathVariable String username) {
         User user = userDao.getUserByUsername(username);
         if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
         }
         user.setPassword(password);
         return userDao.updatePassword(user);

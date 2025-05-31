@@ -3,8 +3,6 @@ package org.example.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.fraho.spring.securityJwt.base.dto.JwtUser;
-import org.example.SpringBootApplication;
 import org.example.daos.UserDao;
 import org.example.models.User;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +15,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import org.springframework.http.*;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -68,8 +65,10 @@ public class UserControllerTest {
 
     }
 
+    String randomUser = UUID.randomUUID().toString();
+    String randomPassword = UUID.randomUUID().toString();
 
-    private String JoeDodAuthToken() throws JsonProcessingException {
+    private String TestUserAuthToken() throws JsonProcessingException {
 
         String authUrl = "http://localhost:" + port + "/auth/login";
         HttpHeaders headers = new HttpHeaders();
@@ -77,10 +76,10 @@ public class UserControllerTest {
 
         String body = """
                 {
-                    "username": "joedod",
-                    "password": "joedod"
+                    "username": "%s",
+                    "password": "%s"
                 }
-                """;
+                """.format(randomUser, randomPassword);
 
         HttpEntity<String> request = new HttpEntity<>(body, headers);
 
@@ -187,15 +186,15 @@ public class UserControllerTest {
 
 
     @Test
-    @DisplayName("Get /api/users/joedod return the user if they are the user")
+    @DisplayName("Get /api/users/testuser return the user if they are the user")
     public void getUserByUserNameWithUsersToken() throws JsonProcessingException {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(JoeDodAuthToken());
+        headers.setBearerAuth(TestUserAuthToken());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
         ResponseEntity<User> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/joedod",
+                "http://localhost:" + port + "/api/users/testuser",
                 HttpMethod.GET,
                 requestEntity,
                 User.class
@@ -210,7 +209,7 @@ public class UserControllerTest {
     public void getUserByUserNameWithDifferentUsersToken() throws JsonProcessingException {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(JoeDodAuthToken());
+        headers.setBearerAuth(TestUserAuthToken());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
         ResponseEntity<User> response = restTemplate.exchange(
@@ -225,8 +224,7 @@ public class UserControllerTest {
     }
 
 
-    String randomUser = UUID.randomUUID().toString();
-    String randomPassword = UUID.randomUUID().toString();
+
     @Test
     @DisplayName("POST to /api/users should create a new user")
     public void createAUser() throws JsonProcessingException {
@@ -256,5 +254,58 @@ public class UserControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
     }
+
+    @Test
+    @DisplayName("PUT to /api/users/passchange/{username} should change password")
+    public void updatePassword() throws JsonProcessingException {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(TestUserAuthToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String putString = randomPassword;
+
+        HttpEntity<String> request = new HttpEntity<>(putString, headers);
+
+        ResponseEntity<User> response = restTemplate.exchange(
+                "http://localhost:" + port + "/api/users/passchange/%s".format(randomUser),
+                HttpMethod.PUT,
+                request,
+                User.class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+
+
+    }
+
+    @Test
+    @DisplayName("DELETE to /api/users/{username} should delete the user")
+    public void deleteUser() throws JsonProcessingException {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(AdminAuthToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String putString = randomPassword;
+
+        HttpEntity<String> request = new HttpEntity<>(putString, headers);
+
+        String url = String.format("http://localhost:%d/api/users/%s", port, randomUser);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                request,
+                String.class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+    }
+
+
+
 
 }
