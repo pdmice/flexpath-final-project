@@ -20,16 +20,17 @@ export default function LocationSearch({
   );
   const [data, setData] = useState(null);
   const [modifiable, setModifiable] = useState(true);
-  //const API_KEY = import.meta.env.VITE_API_KEY;
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   /*                  YOU   BROKE THE API KEY TO TEST!
+                             OR VICE VERSA
 
                         FIX THE COMMENTS HERE!
 
 
                         */
 
-  const API_KEY = "aslkjd;lskdfj;slkd";
+  //const API_KEY = "aslkjd;lskdfj;slkd";
   const { isLoggedIn } = useContext(AuthContext);
   const [zipCode, setZipCode] = useState();
 
@@ -143,13 +144,13 @@ export default function LocationSearch({
           ></input>
           <p className="=mt-3">When are you going to be around?</p>
 
-           <DatePicker
+          <DatePicker
             selected={startDate}
             onChange={handleDate}
             startDate={startDate}
             endDate={endDate}
             selectsRange
-          /> 
+          />
           <div className=" border-top mt-1 d-grid gap-2">
             <button type="submit" className="btn  btn-outline-secondary">
               Search

@@ -12,6 +12,7 @@ export default function Login() {
     setUserName,
     loginFailed,
     setLoginFailed,
+    setAuthedUserName,
   } = useContext(AuthContext);
 
   const [password, setPassword] = useState(null);
@@ -36,7 +37,12 @@ export default function Login() {
         },
         body: login,
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.ok) {
+            setAuthedUserName(userName);
+            response.json();
+          }
+        })
         .then((json) => {
           setToken(json);
           setIsLoggedIn(true);

@@ -109,12 +109,12 @@ describe("Make sure LoggedInTable works Properly", () => {
     );
 
     const tableButton = screen.getAllByTestId("tableButton");
-    const modal = screen.getByTestId("modal");
+    const modal = screen.getAllByTestId("modal");
 
     fireEvent.click(tableButton[0]);
 
     await waitFor(() => {
-      expect(modal).toBeVisible();
+      expect(modal[0]).toBeVisible();
     });
   });
 

@@ -11,7 +11,10 @@ export default function AuthProvider({ children }) {
   const [role, setRole] = useState(null);
   const [userName, setUserName] = useState(null);
   const [loginFailed, setLoginFailed] = useState(false);
-
+  const [authedUserName, setAuthedUserName] = useState(null)
+  
+  
+  
   return (
     <>
       <AuthContext.Provider
@@ -28,6 +31,8 @@ export default function AuthProvider({ children }) {
           setUserName,
           loginFailed,
           setLoginFailed,
+          authedUserName,
+          setAuthedUserName
         }}
       >
         {children}

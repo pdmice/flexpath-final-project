@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import LoadingTable from "./LoadingTable";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
-import sortSingsByDate  from "../helpers/sortSings";
+import sortSingsByDate from "../helpers/sortSings";
 
 export default function LoggedInTable({
   data,
@@ -15,7 +15,13 @@ export default function LoggedInTable({
   const [id, setId] = useState();
   const navigate = useNavigate();
   const [order, setOrder] = useState();
-  const { isLoggedIn, userName, token } = useContext(AuthContext);
+  const { isLoggedIn, userName, token, authedUserName } =
+    useContext(AuthContext);
+
+  const handleUpdate = (ID) => {
+    setData(ID);
+    navigate(`/UpdateSing/${id}`);
+  };
 
   const handleClick = (ID) => {
     setId(ID);
@@ -172,9 +178,32 @@ export default function LoggedInTable({
                   aria-label="no"
                 ></button>
               </div>
-              <div class="modal-body">...</div>
+              <div class="modal-body">
+                Would you like to include this in the list of your sings other
+                people can see?
+              </div>
               <div class="modal-footer">
+                {/**======================================================================= */}
+
                 <button
+                  type="button"
+                  data-testid="modal"
+                  class="btn btn-danger"
+                  onClick={() => {
+                    isPublic = 0;
+                    handleUpdate();
+                  }}
+                  data-bs-dismiss="modal"
+                >
+                  Edit This sing
+                </button>
+
+                {/**======================================================================= */}
+                <button
+                  style={{
+                    display: authedUserName === "admin" ? "block" : "none",
+                    color: "red",
+                  }}
                   type="button"
                   data-testid="modal"
                   class="btn btn-secondary"
