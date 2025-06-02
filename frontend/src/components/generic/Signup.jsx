@@ -28,7 +28,12 @@ export default function SignUp() {
         body: post,
       })
         .then((response) => {
-          response.ok ? navigate("/") : navigate("/Error");
+          if (response.ok) {
+            alert("Account created. You can log in now");
+            navigate("/Login");
+          } else {
+            navigate("/Error");
+          }
         })
         .catch((error) => console.error(error));
     }

@@ -40,7 +40,7 @@ export default function Login() {
         .then((response) => {
           if (response.ok) {
             setAuthedUserName(userName);
-            response.json();
+            return response.json();
           }
         })
         .then((json) => {

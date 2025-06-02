@@ -23,7 +23,10 @@ export default function MySings({ editType }) {
       mode: "cors",
       headers: {
         Accept: "application/json",
-        Authorization: strippedToken,
+        Authorization: `${JSON.stringify(token)
+          .split(":")[2]
+          .split(",")[0]
+          .replace(/"/g, "")}`,
       },
     })
       .then((response) => response.json())

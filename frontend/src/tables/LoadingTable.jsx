@@ -30,10 +30,10 @@ export default function LoadingTable({ data, loading, errorState }) {
         No Data Returned
       </h4>
       <h4
-        className="text-center text-danger"
+        claparameterssName="text-center text-danger"
         style={{ display: errorState ? "block" : "none" }}
       >
-        Database Communication Error
+        Error
       </h4>
     </div>
   );

@@ -39,6 +39,13 @@ export default function LoggedInTable({
   }, [order]);
 
   var isPublic = 0;
+
+  var strippedToken = JSON.stringify(token)
+    .split(":")[2]
+    .split(",")[0]
+    .replace(/"/g, "");
+
+  console.log("In loggedInTable stripped token is: ", strippedToken);
   async function addToMySings() {
     await fetch(
       `http://localhost:8080/api/users/${userName}/events/${isPublic}/${id}`,

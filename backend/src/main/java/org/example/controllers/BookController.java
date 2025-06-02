@@ -23,24 +23,4 @@ public class BookController {
     }
 }
 
-//    @GetMapping("/{id}")
-//    public Book getBookById(int id){return bookDao.getBookById(id);}
-//
-//    @PostMapping("/create")
-//    public Book create(@RequestBody String name) {
-//        try{
-//            return bookDao.createBook(name);
-//        }
-//        catch(DaoException e){
-//            throw new DaoException("Failed to create sing");
-//        }
-//    }
 
-//    @DeleteMapping("/{id}")
-//    public void deleteBookById(@PathVariable int id) { bookDao.deleteBook(id);}
-//
-//    @PutMapping("/update/{id}")
-//    public Book update(@RequestBody Book book) {
-//        return bookDao.updateBook(book);
-//    }
-//}
