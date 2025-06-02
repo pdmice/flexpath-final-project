@@ -194,7 +194,7 @@ public class UserControllerTest {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
         ResponseEntity<User> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/testuser",
+                "http://localhost:" + port + "/api/users/" + randomUser,
                 HttpMethod.GET,
                 requestEntity,
                 User.class
@@ -219,7 +219,7 @@ public class UserControllerTest {
                 User.class
         );
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
 
     }
 
