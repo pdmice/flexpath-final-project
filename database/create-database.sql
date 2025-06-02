@@ -453,21 +453,23 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 
 
 CREATE TABLE users_events (
+    id int  NOT NULL AUTO_INCREMENT,
 	user_id VARCHAR(36) not null,
     event_id int not null,
     public int not null,
-    PRIMARY KEY (user_id,event_id),
-    foreign key (user_id) references users(uuid),
+    event_date date,
+    Primary key (id),
+    KEY idx_user_id (user_id),
+    KEY idx_event_id (event_id),
+    FOREIGN KEY (user_id) references users(uuid),
     FOREIGN KEY (event_id) references sings(id)
     );
     
     
     
 INSERT INTO users (uuid, username, password) VALUES
-('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 'admin', '$2a$10$tBTfzHzjmQVKza3VSa5lsOX6/iL93xPVLlLXYg2FhT6a.jb1o6VDq'),
 ('152f30fb-cec5-4e12-9f47-2d27f5236e6c', 'polly', '$2a$10$RojMNDXE7er/mwNOYPdj1.BkpUP64kQMjPXPIAFbH97DCiCLjVp6y'),
 ('167c6481-b162-45e9-900b-50c3b85969c1', 'joe', '$2a$10$UuVWhKZB.p1sxwsICAKRKOUvMp41L1zrjJnyIeE0/6ZQk1554279S'),
-('169422f5-034a-469a-8669-7432e6690daa', 'joedod', '$2a$10$N7J6xiPxwCluTKJmIJyZI.1sZwcR5de3vJcowIRj3MyzFiPzgHxSi'),
 ('219f3777-9fc9-4ab8-8ea3-53eda9f480dc', 'milly', '$2a$10$Loq1CIMlz5HCWv/YdpdbI.xTSU5TKp2HsdkFNS7JlfPRdYY5ax.X6'),
 ('236995d6-c37f-4fe0-9b76-32cea773568e', '4db2e9ce-735a-4feb-acde-7e6ae5f24691', '$2a$10$CxCNd.ol/XnY5KPcX2SyIejxvOz/KsOs5vXAbogPHptCzHLl0nARW'),
 ('30f6d34c-7b0a-43f2-9826-0c7b259eec9b', '715928b1-4cd5-4e34-9e5e-b0bce9f383ef', '$2a$10$o1pVhv4hI.EFGk5q7vV4L.yyZS9WNhH9LrsnmTVI6/ltbf9o4TGxW'),
@@ -475,7 +477,6 @@ INSERT INTO users (uuid, username, password) VALUES
 ('444ae962-de2a-4e3f-86df-8c13df41ed1e', 'billy', '$2a$10$mXXEE7e1AbmUdYWhsdXOjejYoM6gI3/zaN59qA3.EikD2EIBETWP6'),
 ('598e24b7-8c4c-480b-9d8f-4f5d64d62877', 'testuser', '$2a$10$17eOZ0THuSSqmvzvlnaSaOPUgu.36DOlgAongaeNYcB6aa34brb/O'),
 ('6595a0ef-754f-4474-b7f4-81d731acbdbd', '8c6f3fe9-d01d-4a1e-b5df-43cd070972fb', '$2a$10$oLa1Q8t17s/NnGdTed00TeJf9YwWTv6pGT2I0DAL2TNBz/J1T2Z2.'),
-('72e9a58c-49d3-4198-841d-57be5553ee8e', 'user', '$2a$10$tBTfzHzjmQVKza3VSa5lsOX6/iL93xPVLlLXYg2FhT6a.jb1o6VDq'),
 ('825d7474-f29b-4af9-b01f-63d0aee657e0', 'mike', '$2a$10$RwDLDZIUV0wcXdECZCu3je9gwVBd/Rs2CL3XV1LiaV/.Dl0fV../u'),
 ('8498ecdc-2f8d-4207-93ef-fd3e65f06346', 'asdf', '$2a$10$xrNC89g3E05HHiqWFpwDfOsh4n5k8X.7Dc1kacGGCPRu0h/FbI2Xq'),
 ('87cae3ac-30a2-4e7c-b856-402f532ea9fe', '4c3ba103-9405-4266-aeff-dce29e3ec309', '$2a$10$U1zFU5l4EFKXJ/Ye99br2OzCryyy8.H8LafL9z5C7HZDVDFVTL6a2'),
@@ -484,30 +485,71 @@ INSERT INTO users (uuid, username, password) VALUES
 ('90715aa3-3c10-482d-94f6-8688fd0d03e1', 'testbill', '$2a$10$RYmAlvOgYAP62CV0qZkH9evrciLwmD6geEfAf2tLTqBj6qnGnP4K2'),
 ('90881783-cd2d-493d-980a-bb1dc96eff98', 'aaa', '$2a$10$oz4/gDGYA3vM1xvMtiiJyOE86IN.MaX0GJFg4/lIj2tT.fZcmgKeG'),
 ('9603223d-b499-49a0-aadd-6a5852cb136e', 'als;kdjfa;s', '$2a$10$zRjqhurQITyvAa0oiaFqfOmjoGjBLarPGCEAwhrjb9uqvhFQsuoNq'),
-('991535c2-c4d7-4d91-b2dd-c73a9c09f436', 'janedoe', '$2a$10$Lp1DQeWA.sMPGjihEFXCHeo8fIandv0urYq7p7fzKf..KOEr3oEYy'),
 ('ac539ace-62bd-4d4d-a778-d7cfd5cc2f23', '97512604-def7-4dd0-8559-b684ba44e653', '$2a$10$4qiwrMQG6AaSZOPGA3WTbeDwj7nzN75pHtbr.vp1wrWidHMFHa/TG'),
 ('bf271559-f2ad-439a-9b7f-7db8b74bc86e', 'joey', '$2a$10$MSfxpdQ8ANXCalGbJsB0C.C2rzRVO1GQZtBPIrDtnOH4fXsMNXunu'),
 ('d0fd5521-d1d5-488e-bee9-05738259732f', 'dd077aed-53c6-451e-b32c-32c1d94b1db3', '$2a$10$AbWUXvYMT5o5quFdW6dp1eaFniEzxU9xAkuMlhaeMqDFPUz6mhAYu'),
 ('fa3e11fc-e797-4625-99ec-51ce7a082e06', 'billyholiday', '$2a$10$KliiuiUuO8uV2LUvc7nhROQXdyM5FJLU5ZMT.Xg1SzwBT1K.5niMC');
 
 
--- Create the table
-CREATE TABLE user_event_links (
-    id INT PRIMARY KEY,
-    user_id char(36) NOT NULL,
-    event_id INT NOT NULL,
-    public BOOLEAN NOT NULL,
-    event_date DATE NOT NULL
-);
+
 
 -- Insert data
-INSERT INTO user_event_links (id, user_id, event_id, public, event_date) VALUES
+/* INSERT INTO users_events (user_id, event_id, public, event_date) VALUES
+(1,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 22, FALSE, '2025-01-01'),
+(2,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 23, FALSE, '2025-01-01'),
+(3,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 24, TRUE, '2025-01-01'),
+(4,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 25, TRUE, '2025-01-01'),
+(5,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
+(6, '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
+(7,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
+(8,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
+(9,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 141, TRUE, '2025-05-26'),
+(10,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 257, TRUE, '2025-09-20'),
+(11,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 197, TRUE, '2025-07-19'),
+(12,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 294, FALSE, '2025-10-25'),
+(13,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 191, FALSE, '2025-12-07'),
+(14,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 165, TRUE, '2025-06-15'),
+(15,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 326, TRUE, '2025-06-12'),
+(16,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 255, TRUE, '2025-09-20'),
+(17,'72e9a58c-49d3-4198-841d-57be5553ee8e', 309, FALSE, '2025-08-11'),
+(18,'72e9a58c-49d3-4198-841d-57be5553ee8e', 104, TRUE, '2026-04-25'),
+(19,'72e9a58c-49d3-4198-841d-57be5553ee8e', 44, TRUE, '2026-02-28'),
+(20,'72e9a58c-49d3-4198-841d-57be5553ee8e', 235, FALSE, '2025-08-30'),
+(21,'72e9a58c-49d3-4198-841d-57be5553ee8e', 197, TRUE, '2025-07-19'),
+(23,'72e9a58c-49d3-4198-841d-57be5553ee8e', 255, FALSE, '2025-09-20'),
+(24,'72e9a58c-49d3-4198-841d-57be5553ee8e', 141, TRUE, '2025-05-26'),
+(25,'169422f5-034a-469a-8669-7432e6690daa', 26, TRUE, '2026-01-31'),
+(26,'169422f5-034a-469a-8669-7432e6690daa', 45, FALSE, '2026-02-28'),
+(27,'169422f5-034a-469a-8669-7432e6690daa', 66, FALSE, '2026-03-22'),
+(28,'169422f5-034a-469a-8669-7432e6690daa', 92, TRUE, '2026-04-18'),
+(29,'169422f5-034a-469a-8669-7432e6690daa', 116, TRUE, '2026-03-05'),
+(30,'169422f5-034a-469a-8669-7432e6690daa', 137, TRUE, '2025-05-24'),
+(31,'169422f5-034a-469a-8669-7432e6690daa', 161, FALSE, '2025-06-14'),
+(32,'169422f5-034a-469a-8669-7432e6690daa', 186, FALSE, '2025-12-07'),
+(33,'169422f5-034a-469a-8669-7432e6690daa', 199, TRUE, '2025-07-19'),
+(34,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 20, TRUE, '2025-01-01'),
+(35,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 21, TRUE, '2025-01-01'),
+(36,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 22, TRUE, '2025-01-01'),
+(37,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 23, TRUE, '2025-01-01'),
+(38,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 89, TRUE, '2026-12-04'),
+(39,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 73, TRUE, '2026-11-04'),
+(40,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 121, FALSE, '2026-09-05'),
+(41,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 30, FALSE, '2026-07-02'),
+(42,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 103, TRUE, '2026-04-25'),
+(43,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 77, FALSE, '2026-04-04'),
+(44,'991535c2-c4d7-4d91-b2dd-c73a9c09f436', 65, TRUE, '2026-03-21'),
+(45,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 104, FALSE, '2026-04-25'),
+(46,'10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 355, TRUE, '2025-05-02'); */
+
+
+
+INSERT INTO users_events (user_id, event_id, public, event_date) VALUES
 ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 22, FALSE, '2025-01-01'),
 ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 23, FALSE, '2025-01-01'),
 ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 24, TRUE, '2025-01-01'),
 ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 25, TRUE, '2025-01-01'),
 ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
-( '10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
+('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
 ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
 ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 291, FALSE, '2025-10-25'),
 ('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 141, TRUE, '2025-05-26'),
@@ -545,10 +587,7 @@ INSERT INTO user_event_links (id, user_id, event_id, public, event_date) VALUES
 ('991535c2-c4d7-4d91-b2dd-c73a9c09f436', 103, TRUE, '2026-04-25'),
 ('991535c2-c4d7-4d91-b2dd-c73a9c09f436', 77, FALSE, '2026-04-04'),
 ('991535c2-c4d7-4d91-b2dd-c73a9c09f436', 65, TRUE, '2026-03-21'),
-('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 104, FALSE, '2026-04-25'),
-('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 355, TRUE, '2025-05-02');
-
-
+('10b2fd3b-0d98-4b38-9d1f-d4f7701913e7', 104, FALSE, '2026-04-25');
 /*
 Reverse the order of lat/long. This seem to be implementation dependent. Remove if you get errors like "coordinate out of bounds. Must be less than 90"
 */
