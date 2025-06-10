@@ -79,6 +79,10 @@ class SearchControllerTest {
 
 
 
+
+
+
+
     @Test
     @DisplayName(" Get /api/search/id/{id} should return a sing")
     public void getSingListById() {

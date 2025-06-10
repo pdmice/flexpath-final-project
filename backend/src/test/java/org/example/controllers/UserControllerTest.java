@@ -68,18 +68,47 @@ public class UserControllerTest {
     String randomUser = UUID.randomUUID().toString();
     String randomPassword = UUID.randomUUID().toString();
 
+
+
+    @Test
+    @DisplayName("POST to /api/users should create a new user")
+    public void createAUser() throws JsonProcessingException {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+        String createdUser = """
+                {
+                "uuid":"",
+                "username":"%s",
+                "password":"%s"
+                }
+                """.formatted(randomUser, randomPassword);
+
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(createdUser,headers);
+
+        ResponseEntity<User> response = restTemplate.exchange(
+                "http://localhost:" + port + "/api/users",
+                HttpMethod.POST,
+                requestEntity,
+                User.class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+
+    }
+
     private String TestUserAuthToken() throws JsonProcessingException {
 
         String authUrl = "http://localhost:" + port + "/auth/login";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        String body = """
-                {
-                    "username": "%s",
-                    "password": "%s"
-                }
-                """.format(randomUser, randomPassword);
+        String body = "{\"username\":" +  randomUser + "\"password\":" + " \"" + randomPassword + "\"}" ;
+
+
 
         HttpEntity<String> request = new HttpEntity<>(body, headers);
 
@@ -225,35 +254,7 @@ public class UserControllerTest {
 
 
 
-    @Test
-    @DisplayName("POST to /api/users should create a new user")
-    public void createAUser() throws JsonProcessingException {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-
-        String createdUser = """
-                {
-                "uuid":"",
-                "username":"%s",
-                "password":"%s"
-                }
-                """.formatted(randomUser, randomPassword);
-
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(createdUser,headers);
-
-        ResponseEntity<User> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users",
-                HttpMethod.POST,
-                requestEntity,
-                User.class
-        );
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-
-    }
 
     @Test
     @DisplayName("PUT to /api/users/passchange/{username} should change password")
@@ -268,7 +269,7 @@ public class UserControllerTest {
         HttpEntity<String> request = new HttpEntity<>(putString, headers);
 
         ResponseEntity<User> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/passchange/%s".format(randomUser),
+                "http://localhost:" + port + "/api/users/passchange/" + randomUser,
                 HttpMethod.PUT,
                 request,
                 User.class
