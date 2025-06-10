@@ -20,7 +20,7 @@ export default function LocationSearch({
   );
   const [data, setData] = useState(null);
   const [modifiable, setModifiable] = useState(true);
-  //const API_KEY = import.meta.env.VITE_API_KEY;
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   /*                  YOU   BROKE THE API KEY TO TEST!
                              OR VICE VERSA
@@ -30,7 +30,7 @@ export default function LocationSearch({
 
                         */
 
-  const API_KEY = "aslkjd;lskdfj;slkd";
+  //const API_KEY = "aslkjd;lskdfj;slkd";
   const { isLoggedIn } = useContext(AuthContext);
   const [zipCode, setZipCode] = useState();
 
