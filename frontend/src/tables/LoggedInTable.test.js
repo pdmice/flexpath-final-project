@@ -45,7 +45,7 @@ const fakeData = [
 ];
 
 const mockToken =
-  "AA:AA:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVpZCI6LTEsIm5iZiI6MTc0ODUwMjQ5MSwiaXNzIjoiZnJhaG8tc2VjdXJpdHkiLCJleHAiOjE3NDg1MDYwOTEsImlhdCI6MTc0ODUwMjQ5MSwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwianRpIjoiMTQ2M2M4ZDctYzUyNi00MzFjLThkMzAtMDQ2YmNmNzlmYTg2In0.PTHHaMLvvowrvGyl85NqZZZRTKYzjUe3HZqmTXsYalI,AA";
+  "{AA:AA:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVpZCI6LTEsIm5iZiI6MTc0ODUwMjQ5MSwiaXNzIjoiZnJhaG8tc2VjdXJpdHkiLCJleHAiOjE3NDg1MDYwOTEsImlhdCI6MTc0ODUwMjQ5MSwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwianRpIjoiMTQ2M2M4ZDctYzUyNi00MzFjLThkMzAtMDQ2YmNmNzlmYTg2In0.PTHHaMLvvowrvGyl85NqZZZRTKYzjUe3HZqmTXsYalI,AA}";
 
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -86,13 +86,13 @@ describe("Make sure LoggedInTable works Properly", () => {
   test("The modal should pop up when button is clicked", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve({ ok: true, message: fakeData }),
+        json: () => Promise.resolve({ ok: true, message: fakeData, token: mockToken }),
       })
     );
 
     render(
       <MemoryRouter initialEntries={["/LoggedInTable"]}>
-        <AuthContext.Provider value={{ isLoggedIn: true }}>
+        <AuthContext.Provider value={{ isLoggedIn: true, token:mockToken }}>
           <LoggedInTable
             data={fakeData}
             setData={jest.fn()}
@@ -129,7 +129,7 @@ describe("Make sure LoggedInTable works Properly", () => {
 
     render(
       <MemoryRouter>
-        <AuthContext.Provider value={{ isLoggedIn: true }}>
+        <AuthContext.Provider value={{ isLoggedIn: true, token:mockToken}}>
           <LoggedInTable
             data={fakeData}
             setData={jest.fn()}

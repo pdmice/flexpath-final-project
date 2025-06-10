@@ -20,7 +20,7 @@ export default function LocationSearch({
   );
   const [data, setData] = useState(null);
   const [modifiable, setModifiable] = useState(true);
-  const API_KEY = import.meta.env.VITE_API_KEY;
+  //const API_KEY = import.meta.env.VITE_API_KEY;
 
   /*                  YOU   BROKE THE API KEY TO TEST!
                              OR VICE VERSA
@@ -30,7 +30,7 @@ export default function LocationSearch({
 
                         */
 
-  //const API_KEY = "aslkjd;lskdfj;slkd";
+  const API_KEY = "aslkjd;lskdfj;slkd";
   const { isLoggedIn } = useContext(AuthContext);
   const [zipCode, setZipCode] = useState();
 
@@ -41,6 +41,13 @@ export default function LocationSearch({
     setStartDate(start);
     setEndDate(end);
   };
+
+  const handleArrive = (e) => {
+    setStartDate(e.target.value)
+  } 
+  const handleDepart = (e) => {
+    setEndDate(e.target.value)
+  }
 
   const handleZipCode = (e) => {
     setZipCode(e.target.value);
@@ -142,15 +149,22 @@ export default function LocationSearch({
             placeholder="Enter Search Radius in Miles"
             onChange={(e) => handleRadius(e)}
           ></input>
-          <p className="=mt-3">When are you going to be around?</p>
+          <p className="=mt-3">When will you arrive?</p>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="YYYY-MM-DD"
+            onChange={(e) => handleArrive(e)}
+          ></input>
 
-          <DatePicker
-            selected={startDate}
-            onChange={handleDate}
-            startDate={startDate}
-            endDate={endDate}
-            selectsRange
-          />
+          <p className="=mt-3">When will you depart?</p>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="YYYY-MM-DD"
+            onChange={(e) => handleDepart(e)}
+          ></input>
+         
           <div className=" border-top mt-1 d-grid gap-2">
             <button type="submit" className="btn  btn-outline-secondary">
               Search

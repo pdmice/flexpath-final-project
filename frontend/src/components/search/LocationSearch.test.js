@@ -47,18 +47,21 @@ const fakeData = [
   },
 ];
 
+const mockToken = "{AA:AA:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVpZCI6LTEsIm5iZiI6MTc0ODUwMjQ5MSwiaXNzIjoiZnJhaG8tc2VjdXJpdHkiLCJleHAiOjE3NDg1MDYwOTEsImlhdCI6MTc0ODUwMjQ5MSwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwianRpIjoiMTQ2M2M4ZDctYzUyNi00MzFjLThkMzAtMDQ2YmNmNzlmYTg2In0.PTHHaMLvvowrvGyl85NqZZZRTKYzjUe3HZqmTXsYalI,AA}";
+
+
 describe("Make sure LocatonSearch Works", () => {
   test("Make sure all the boxes are boxes", () => {
     render(
       <MemoryRouter>
-        <AuthContext.Provider value={{ isLoggedIn: true }}>
+        <AuthContext.Provider value={{ isLoggedIn: true , token: mockToken}}>
           <LocationSearch setLoading={jest.fn()} setErrorState={jest.fn()} />
         </AuthContext.Provider>
       </MemoryRouter>
     );
 
     const textboxes = screen.getAllByRole("textbox");
-    expect(textboxes).toHaveLength(3);
+    expect(textboxes).toHaveLength(4);
   });
 
   test("Make sure the clicky bits do clicky things", async () => {
@@ -71,7 +74,7 @@ describe("Make sure LocatonSearch Works", () => {
 
     render(
       <MemoryRouter>
-        <AuthContext.Provider value={{ isLoggedIn: true }}>
+        <AuthContext.Provider value={{ isLoggedIn: true, token: mockToken }}>
           <LocationSearch
             setLoading={jest.fn()}
             setErrorState={jest.fn()}

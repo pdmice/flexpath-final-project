@@ -10,7 +10,7 @@ describe("Make sure the error header displays properly", () => {
   test("Displays DB Error when errorState", () => {
     render(<LoadingTable errorState={errorState} />);
 
-    var message = screen.getByText("Database Communication Error");
+    var message = screen.getByText("Error");
     expect(message).toBeVisible();
   });
 
@@ -31,7 +31,7 @@ describe("Make sure the error header displays properly", () => {
   test("Doesn't display DB Error when errorState is false", () => {
     render(<LoadingTable errorState={(errorState = false)} />);
 
-    var message = screen.queryByText("Database Communication Error");
+    var message = screen.queryByText("Error");
     expect(message).not.toBeVisible();
   });
 
