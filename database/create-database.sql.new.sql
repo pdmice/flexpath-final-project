@@ -453,10 +453,11 @@ INSERT INTO sings (name, owner_id, start_date, end_date, when_description, start
 
 
 CREATE TABLE users_events (
-	user_id VARCHAR(36) not null,
+    id int Auto_increment primary key not null,
+    user_id VARCHAR(36) not null,
     event_id int not null,
     public int not null,
-    PRIMARY KEY (user_id,event_id),
+    event_date date,
     foreign key (user_id) references users(uuid),
     FOREIGN KEY (event_id) references sings(id)
     );
@@ -514,19 +515,6 @@ INSERT INTO users_events (id, user_id, event_id, public, event_date) VALUES
 /*
 Reverse the order of lat/long. This seem to be implementation dependent. Remove if you get errors like "coordinate out of bounds. Must be less than 90"
 */
-
-CREATE TABLE users_events (
-	id int AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    user_id VARCHAR(36) not null,
-    event_id int not null,
-    public int not null,
-    event_date date,
-    foreign key (user_id) references users(uuid),
-    FOREIGN KEY (event_id) references sings(id)
-    );
-    
-
-
 -- It seems like the order of latitude and longitude is implementation dependent for the POINT data type. I've had to switch it from desktop to 
 -- laptop to get it working. If you're getting sql errors in idea similar to 'out of bounds, must be < 90' comment this out
 
