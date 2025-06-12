@@ -53,7 +53,7 @@ export default function CreateSing() {
           body: post,
         })
           .then((response) => {
-            response.ok ? navigate("/MySings") : navigate("/Error");
+            response.ok ? navigate("/MySings", {state: {editType: "created"}}) : navigate("/Error");
           })
           .catch((error) => {
             alert("Something went wrong. Are you logged in?");
