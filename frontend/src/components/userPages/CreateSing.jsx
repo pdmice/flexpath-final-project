@@ -21,6 +21,7 @@ export default function CreateSing() {
 
   console.log("In createsing uuid is: ", uuid);
   console.log("in createsing books is:", books);
+  console.log("In createSing token is: ", token)
 
   /* console.error("In UpdateSing data is: ", data); */
 
@@ -36,6 +37,8 @@ export default function CreateSing() {
     if (isLoggedIn) {
       async function postData(data) {
         const post = `${JSON.stringify(data)}`;
+        console.log("In handleSubmit post is: ", post)
+        console.log("In handleSubmit token is: ", token)
         await fetch(`http://localhost:8080/api/sings/create`, {
           method: "post",
           mode: "cors",

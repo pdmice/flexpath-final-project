@@ -10,12 +10,11 @@ export default function Login() {
     setToken,
     userName,
     setUserName,
-    loginFailed,
-    setLoginFailed,
     setAuthedUserName,
   } = useContext(AuthContext);
 
   const [password, setPassword] = useState(null);
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const handleUserName = (e) => {
     setUserName(e.target.value);
@@ -27,6 +26,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoginFailed(false)
     async function login(username, password) {
       const login = `{"username": "${userName}", "password":"${password}"}`;
       await fetch("http://localhost:5173/auth/login", {
@@ -38,20 +38,28 @@ export default function Login() {
         body: login,
       })
         .then((response) => {
-          if (response.ok) {
+          console.log("In .then response.status is: ", response.status)
+          if (response.status === 200) {
+            console.log("if response.ok is firing, loginfailed is: ", loginFailed)
             setAuthedUserName(userName);
+            setLoginFailed(false)
             return response.json();
+
+          }else{
+            setLoginFailed(true)
+            throw new Error('Login Failed');
           }
         })
         .then((json) => {
+          console.log("In second then loginFailed is: ", loginFailed)
           setToken(json);
           setIsLoggedIn(true);
-          setLoginFailed(false);
           navigate("/MySings");
         })
         .catch((error) => {
           console.error("Login error: ", error);
-          setLoginFailed(true);
+          setLoginFailed(true)
+;
         });
     }
     login(userName, password);
@@ -64,12 +72,13 @@ export default function Login() {
       localStorage.removeItem("token");
     }
   }, [token]);
-
+console.log("Before return loginFailed is: ", loginFailed)
   return (
     <div className="container-sm">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div data-mdb-input-init className="form-outline mb-4">
-          <h4 style={{ display: loginFailed ? "block" : "none", color: "red" }}>
+          <h4>LoginFailed is: {loginFailed}</h4>
+          <h4 style={{ display: loginFailed === true ? "block" : "none", color: "red" }}>
             Login failed.
           </h4>
           <input
