@@ -75,6 +75,10 @@ export default function LoggedInTable({
   } else {
     return (
       <>
+      <h3 className="text-center">Click the ID name of a sing to add it to your events</h3>
+      <h3 className="text-center" style={{
+                  display: authedUserName === "admin" ? "block" : "none",
+                }}>You're admin, click on ID to update a sings details (or add to your events)</h3>
         <div className="form-check">
           <input
             className="form-check-input"
@@ -193,6 +197,9 @@ export default function LoggedInTable({
                 {/**======================================================================= */}
 
                 <button
+                 style={{
+                  display: authedUserName === "admin" ? "block" : "none",
+                }}
                   type="button"
                   data-testid="modal"
                   class="btn btn-danger"
@@ -207,10 +214,7 @@ export default function LoggedInTable({
 
                 {/**======================================================================= */}
                 <button
-                  style={{
-                    display: authedUserName === "admin" ? "block" : "none",
-                    color: "red",
-                  }}
+                 
                   type="button"
                   data-testid="modal"
                   class="btn btn-secondary"
