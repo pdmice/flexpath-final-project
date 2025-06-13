@@ -8,6 +8,7 @@ import SignUp from "./Signup";
 import MySings from "../userPages/MySings";
 import UpdateSing from "../userPages/UpdateSing";
 import CreateSing from "../userPages/CreateSing";
+import Error from "./Error";
 
 export default function MyRoutes({
   searchType,
@@ -46,6 +47,7 @@ export default function MyRoutes({
         element={<UpdateSing editType={editType} />}
       />
       <Route path="/CreateSing" element={<CreateSing />} />
+      <Route path="/Error" element={<Error />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

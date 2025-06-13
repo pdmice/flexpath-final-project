@@ -69,7 +69,7 @@ insert into users (uuid, username, password) values ('169422f5-034a-469a-8669-74
 insert into roles (uuid, username, role) values ('169422f5-034a-469a-8669-7432e6690daa','joedod', 'USER');
 
 -- janedoe password is janedoe
-insert into users (uuid, username, password) values ('991535c2-c4d7-4d91-b2dd-c73a9c09f436','janedoe', ' $2a$10$Lp1DQeWA.sMPGjihEFXCHeo8fIandv0urYq7p7fzKf..KOEr3oEYy');
+insert into users (uuid, username, password) values ('991535c2-c4d7-4d91-b2dd-c73a9c09f436','janedoe', '$2a$10$Lp1DQeWA.sMPGjihEFXCHeo8fIandv0urYq7p7fzKf..KOEr3oEYy');
 insert into roles (uuid, username, role) values ('991535c2-c4d7-4d91-b2dd-c73a9c09f436','janedoe', 'USER');
 
 insert into books (id, name) VALUES (1, "Denson Book");

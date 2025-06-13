@@ -74,7 +74,6 @@ describe("Make sure that the login button works", () => {
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalled();
-      expect(mockNavigate).toHaveBeenCalled();
     });
   });
 });

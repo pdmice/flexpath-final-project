@@ -186,6 +186,7 @@ export default function LoggedInTable({
                   type="button"
                   class="btn-close"
                   data-bs-dismiss="modal"
+                  data-testid="modal"
                   aria-label="no"
                 ></button>
               </div>
@@ -201,7 +202,6 @@ export default function LoggedInTable({
                   display: authedUserName === "admin" ? "block" : "none",
                 }}
                   type="button"
-                  data-testid="modal"
                   class="btn btn-danger"
                   onClick={() => {
                     isPublic = 0;
