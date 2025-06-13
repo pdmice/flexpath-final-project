@@ -23,8 +23,6 @@ public class SingSecurity {
         User user = userDao.getUserByUsername(username);
         String uuid = user.getUuid();
 
-        return uuid.equals(singOwner);
+        if (uuid.equals(singOwner)){return false;}else{return true;}
     }
-
-
 }

@@ -77,7 +77,6 @@ console.log("Before return loginFailed is: ", loginFailed)
     <div className="container-sm">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div data-mdb-input-init className="form-outline mb-4">
-          <h4>LoginFailed is: {loginFailed}</h4>
           <h4 style={{ display: loginFailed === true ? "block" : "none", color: "red" }}>
             Login failed.
           </h4>

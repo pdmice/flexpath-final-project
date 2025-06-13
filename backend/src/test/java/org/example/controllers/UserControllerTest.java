@@ -66,7 +66,7 @@ public class UserControllerTest {
     }
 
     String randomUser = UUID.randomUUID().toString();
-    String randomPassword = UUID.randomUUID().toString();
+    String randomPassword = "testPassword";
 
 
 
@@ -82,9 +82,9 @@ public class UserControllerTest {
                 {
                 "uuid":"",
                 "username":"%s",
-                "password":"%s"
+                "password":"testPassword"
                 }
-                """.formatted(randomUser, randomPassword);
+                """.formatted(randomUser);
 
 
         HttpEntity<String> requestEntity = new HttpEntity<>(createdUser,headers);
@@ -102,25 +102,50 @@ public class UserControllerTest {
 
     private String TestUserAuthToken() throws JsonProcessingException {
 
-        String authUrl = "http://localhost:" + port + "/auth/login";
+        /// /////////////////////////////////////////////////////////////////////////////
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        String body = "{\"username\":" +  randomUser + "\"password\":" + " \"" + randomPassword + "\"}" ;
+
+        String createdUser = """
+                {
+                "uuid":"",
+                "username":"%s",
+                "password":"testPassword"
+                }
+                """.formatted(randomUser);
+
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(createdUser,headers);
+
+        ResponseEntity<User> response = restTemplate.exchange(
+                "http://localhost:" + port + "/api/users",
+                HttpMethod.POST,
+                requestEntity,
+                User.class);
+
+        /// ////////////////////////////////////////////////////////////////////////////////////
+
+
+        String authUrl = "http://localhost:" + port + "/auth/login";
+        HttpHeaders headers2 = new HttpHeaders();
+        headers2.setContentType(MediaType.APPLICATION_JSON);
+
+        String body = "{\"username\":" +  "\"" + randomUser + "\"" + ",\"password\":" + "\"testPassword\"" + "}";
 
 
 
-        HttpEntity<String> request = new HttpEntity<>(body, headers);
+        HttpEntity<String> request = new HttpEntity<>(body, headers2);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(authUrl, request,String.class);
+        ResponseEntity<String> response2 = restTemplate.postForEntity(authUrl, request,String.class);
 
         try {
             //ObjectMapper is from Jackson JSON parsing lib to make an Object from json
             ObjectMapper mapper = new ObjectMapper();
             //JsonNode just gives us the top of a Json tree
-            JsonNode top = mapper.readTree(response.getBody());
+            JsonNode top1 = mapper.readTree(response2.getBody());
             //use .path() to traverse it
-            return top.path("accessToken").path("token").asText();
+            return top1.path("accessToken").path("token").asText();
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse token", e);
         }
@@ -234,7 +259,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("Get /api/users/joe is forbidden as joedod")
+    @DisplayName("Get /api/users/janedoe is forbidden as testuser123")
     public void getUserByUserNameWithDifferentUsersToken() throws JsonProcessingException {
 
         HttpHeaders headers = new HttpHeaders();
@@ -242,13 +267,13 @@ public class UserControllerTest {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
         ResponseEntity<User> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/joe",
+                "http://localhost:" + port + "/api/users/janedoe",
                 HttpMethod.GET,
                 requestEntity,
                 User.class
         );
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
     }
 
@@ -264,7 +289,7 @@ public class UserControllerTest {
         headers.setBearerAuth(TestUserAuthToken());
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        String putString = randomPassword;
+        String putString = "testPassword";
 
         HttpEntity<String> request = new HttpEntity<>(putString, headers);
 

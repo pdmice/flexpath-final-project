@@ -223,7 +223,7 @@ public class SingControllerTest {
 
 
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/sings/delete/361/admin",
+                "http://localhost:" + port + "/api/sings/delete/1/admin",
                 HttpMethod.GET,
                 requestEntity,
                 String.class
