@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
 export default function EditSelect({ setEditType }) {
   const handleEditType = (editType) => {
     setEditType(editType);
   };
+
+  const navigate = useNavigate();
 
   const {isLoggedIn} = useContext(AuthContext)
 
@@ -30,7 +32,9 @@ export default function EditSelect({ setEditType }) {
         <li>
           <button
             className="dropdown-item "
-            onClick={() => handleEditType("created")}
+            onClick={() =>{ 
+              navigate('/MySings', {state: {editType: "created"}})
+              handleEditType("created")}}
           >
             Added to the DB
           </button>
@@ -38,7 +42,9 @@ export default function EditSelect({ setEditType }) {
         <li>
           <button
             className="dropdown-item "
-            onClick={() => handleEditType("attending")}
+            onClick={() => {
+              navigate('/MySings', {state: {editType: "attending"}})
+              handleEditType("attending")}}
           >
             Planned to attend
           </button>
@@ -46,7 +52,9 @@ export default function EditSelect({ setEditType }) {
         <li>
           <button
             className="dropdown-item "
-            onClick={() => handleEditType("attended")}
+            onClick={() => {
+              navigate('/MySings', {state: {editType: "attended"}})
+              handleEditType("attended")}}
           >
             Already Attended
           </button>
