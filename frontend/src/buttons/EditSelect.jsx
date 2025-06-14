@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 export default function EditSelect({ setEditType }) {
   const handleEditType = (editType) => {
     setEditType(editType);
   };
 
+  const {isLoggedIn} = useContext(AuthContext)
+
   return (
     <div
-      className="dropdown"
+      className="dropdown ms-2"
       data-testid="editSelectDropDown"
       style={{
-        display: useLocation().pathname === "/MySings" ? "block" : "none",
+        display: isLoggedIn ? "block" : "none",
       }}
     >
       <button
