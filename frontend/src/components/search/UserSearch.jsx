@@ -97,15 +97,9 @@ export default function UserSearch({
             placeholder="Search by users"
             onChange={(e) => handleKeyword(e)}
           ></input>
-          <div className=" border-top mt-1 d-grid gap-2">
-            <button type="submit" className="btn  btn-outline-secondary">
-              Search
-            </button>
-          </div>
-        </form>
-      </div>
+          {/********************************************** */}
 
-      <div className="dropdown ms-auto pt-2">
+          <div className="dropdown ms-auto pt-2">
         <button
           className="btn btn-secondary dropdown-toggle"
           type="button"
@@ -145,6 +139,20 @@ export default function UserSearch({
           </li>
         </ul>
       </div>
+
+          {/*********************************************** */}
+          <div className=" border-top mt-1 d-grid gap-2">
+            <button type="submit" className="btn  btn-outline-secondary">
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/************************************************************************************************ */}
+
+
+      {/*************************************************************************************************** */}
 
       <div>
         {isLoggedIn ? (
