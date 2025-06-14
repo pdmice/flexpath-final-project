@@ -36,7 +36,8 @@ export default function Table({
     data == null ||
     data.length === 0 ||
     data === undefined ||
-    errorState == true
+    errorState == true ||
+    Array.isArray(data) != true
   ) {
     return <LoadingTable loading={loading} errorState={errorState} />;
   } else {

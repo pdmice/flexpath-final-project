@@ -12,15 +12,15 @@ export default function LocationSearch({
   errorState,
   setErrorState,
 }) {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState('2025-01-01');
+  const [endDate, setEndDate] = useState('2026-01-01');
   const [radius, setRadius] = useState(100);
   const [searchString, setSearchString] = useState(
     "39.89243631917957, -95.86952041568385"
   );
   const [data, setData] = useState(null);
   const [modifiable, setModifiable] = useState(true);
-  //const API_KEY = import.meta.env.VITE_API_KEY;
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   /*                  YOU   BROKE THE API KEY TO TEST!
                              OR VICE VERSA
@@ -30,7 +30,7 @@ export default function LocationSearch({
 
                         */
 
-  const API_KEY = "aslkjd;lskdfj;slkd";
+  //const API_KEY = "aslkjd;lskdfj;slkd";
   const { isLoggedIn } = useContext(AuthContext);
   const [zipCode, setZipCode] = useState();
 
@@ -76,6 +76,7 @@ export default function LocationSearch({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!zipCode){alert("You need to set a zip code")}
 
     const postQuery = `{"searchStart":"${startDate}" ,
         "searchEnd": "${endDate}",
@@ -104,7 +105,7 @@ export default function LocationSearch({
           }
         })
         .then((json) => {
-          setData(json);
+          setData(json)
           setLoading(false);
         })
         .catch((error) => console.error("Fetch error was: ", error));
@@ -146,14 +147,14 @@ export default function LocationSearch({
           <input
             type="text"
             className="form-control"
-            placeholder="Enter Search Radius in Miles"
+            placeholder="Enter Search Radius in Miles. Default: 100"
             onChange={(e) => handleRadius(e)}
           ></input>
           <p className="=mt-3">When will you arrive?</p>
           <input
             type="text"
             className="form-control"
-            placeholder="YYYY-MM-DD"
+            placeholder="YYYY-MM-DD  Default:2025-01-01"
             onChange={(e) => handleArrive(e)}
           ></input>
 
@@ -161,7 +162,7 @@ export default function LocationSearch({
           <input
             type="text"
             className="form-control"
-            placeholder="YYYY-MM-DD"
+            placeholder="YYYY-MM-DD   Default:2026-01-01"
             onChange={(e) => handleDepart(e)}
           ></input>
          
