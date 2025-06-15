@@ -26,6 +26,11 @@ public class SearchController {
     }
 
     @CrossOrigin
+    @GetMapping("/{username}")
+    public List<Sing> searchPublicByUsername(@PathVariable String username){return searchObjectDao.searchByUser(username);};
+
+
+    @CrossOrigin
     @GetMapping("/all/{username}")
     @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
     public List<Sing> searchByUsername(@PathVariable String username){return searchObjectDao.searchALLByUser(username);}

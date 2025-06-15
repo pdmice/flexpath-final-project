@@ -100,7 +100,7 @@ public class SearchObjectDao {
                 LEFT JOIN books b1 ON sings.primary_book = b1.id
                 LEFT JOIN books b2 ON sings.secondary_book = b2.id
                 LEFT JOIN users u1 ON sings.owner_id = u1.uuid \s
-                where owner_id = ?;
+                where owner_id = ? and isPublic = 1;
                 """;
 
             return jdbcTemplate.query(sql, singDao::mapToSing, uuid);
