@@ -1,6 +1,7 @@
 package org.example.daos;
 
 import org.example.exceptions.DaoException;
+import org.example.models.CustomUserGroup;
 import org.example.models.Sing;
 import org.example.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -245,6 +245,16 @@ public class UserDao {
         return jdbcTemplate.update(sql, isPublic, uuid, name);
     }
 
+    public List<CustomUserGroup> getUsersCustomGroups(String uuid){
+        String sql = "SELECT * FROM custom_user_groups WHERE users_uuid = ?";
+        return jdbcTemplate.query(sql, this::mapToCustomUserGroup, uuid);
+    }
+
+    public List<CustomUserGroup> getUsersPublicCustomGroups(String uuid){
+        String sql = "SELECT * FROM custom_user_groups WHERE users_uuid = ? AND isPublic = 1";
+        return jdbcTemplate.query(sql, this::mapToCustomUserGroup, uuid);
+    }
+
 
 
     /**
@@ -261,6 +271,14 @@ public class UserDao {
                 resultSet.getString("uuid"),
                 resultSet.getString("username"),
                 resultSet.getString("password")
+        );
+    }
+
+    public CustomUserGroup mapToCustomUserGroup(ResultSet resultSet, int rowNumber) throws SQLException{
+        return new CustomUserGroup(
+                resultSet.getString("users_uuid"),
+                resultSet.getInt("isPublic"),
+                resultSet.getString("custom_group_name")
         );
     }
 

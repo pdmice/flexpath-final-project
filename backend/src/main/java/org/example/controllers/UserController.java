@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import jakarta.annotation.security.PermitAll;
 import org.example.daos.SingDao;
 import org.example.models.CustomUserGroup;
 import org.example.models.Sing;
@@ -8,6 +9,7 @@ import org.example.daos.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -226,6 +228,22 @@ public class UserController {
     @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
     public int createCustomUserGroup(@PathVariable String username, @RequestBody CustomUserGroup newGroup){
         return userDao.createCustomUserGroup(newGroup.getIsPublic(), newGroup.getUuid(), newGroup.getName());
+    }
+
+    @GetMapping("/custom/get/{username}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public List<CustomUserGroup> getUsersCustomGroups(@PathVariable String username){
+        User user  = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+        return userDao.getUsersCustomGroups(uuid);
+    }
+
+    @GetMapping("/custom/get/public/{username}")
+    @PreAuthorize("permitAll()")
+    public List<CustomUserGroup> getUsersPublicCustomGroups(@PathVariable String username){
+        User user  = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+        return userDao.getUsersPublicCustomGroups(uuid);
     }
 
 
