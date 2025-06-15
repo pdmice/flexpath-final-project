@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import org.example.daos.SingDao;
+import org.example.models.CustomUserGroup;
 import org.example.models.Sing;
 import org.example.models.User;
 import org.example.daos.UserDao;
@@ -220,6 +221,13 @@ public class UserController {
         return userDao.getUsersFutureEventsIDS(uuid);
 
     }
+
+    @PostMapping("/custom/add/{username}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public int createCustomUserGroup(@PathVariable String username, @RequestBody CustomUserGroup newGroup){
+        return userDao.createCustomUserGroup(newGroup.getIsPublic(), newGroup.getUuid(), newGroup.getName());
+    }
+
 
 
 }

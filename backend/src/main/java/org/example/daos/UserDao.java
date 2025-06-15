@@ -239,6 +239,13 @@ public class UserDao {
     }
 
 
+    public int createCustomUserGroup(int isPublic, String uuid, String name){
+        String sql = "INSERT INTO custom_user_groups (isPublic, users_uuid, custom_group_name) VALUES (?,?,?);";
+
+        return jdbcTemplate.update(sql, isPublic, uuid, name);
+    }
+
+
 
     /**
      * Maps a row in the ResultSet to a User object.

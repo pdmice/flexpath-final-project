@@ -9,6 +9,7 @@ import MySings from "../userPages/MySings";
 import UpdateSing from "../userPages/UpdateSing";
 import CreateSing from "../userPages/CreateSing";
 import Error from "./Error";
+import CreateCustomGroup from "../userPages/CreateCustomGroup";
 
 export default function MyRoutes({
   searchType,
@@ -47,6 +48,7 @@ export default function MyRoutes({
         element={<UpdateSing editType={editType} />}
       />
       <Route path="/CreateSing" element={<CreateSing />} />
+      <Route path="/CreateCustomGroup" element={<CreateCustomGroup/>} />
       <Route path="/Error" element={<Error />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

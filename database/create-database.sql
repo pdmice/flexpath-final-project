@@ -513,6 +513,24 @@ INSERT INTO users_events (id, user_id, event_id, public, event_date) VALUES
 (49, '991535c2-c4d7-4d91-b2dd-c73a9c09f436', 65, 1, '2026-03-21');
 
 
+CREATE TABLE custom_user_groups (
+	id int PRIMARY KEY NOT NULL auto_increment,
+    isPublic int NOT NULL,
+    users_uuid CHAR(36) NOT NULL,
+    custom_group_name VARCHAR(100),
+    foreign key (users_uuid) references users(uuid)
+    );
+    
+    
+CREATE TABLE custom_user_groups_events (
+group_id int not null,
+event_id int not null,
+PRIMARY KEY (group_id,event_id),
+FOREIGN KEY (group_id) references custom_user_groups(id),
+FOREIGN KEY (event_id) REFERENCES sings(id)
+);
+
+
 /*
 Reverse the order of lat/long. This seem to be implementation dependent. Remove if you get errors like "coordinate out of bounds. Must be less than 90"
 */

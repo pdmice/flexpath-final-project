@@ -54,6 +54,16 @@ export default function LoginButton() {
               </button>
             </li>
             <li>
+          <button
+            className="dropdown-item "
+            onClick={() => {
+              navigate('/CreateCustomGroup', {state: {editType: "createGroup"}})
+              handleEditType("attended")}}
+          >
+            Create Group
+          </button>
+        </li>
+            <li>
               <button className="dropdown-item " onClick={() => handleLogout()}>
                 Logout
               </button>

@@ -59,6 +59,16 @@ export default function EditSelect({ setEditType }) {
             Already Attended
           </button>
         </li>
+        <li>
+          <button
+            className="dropdown-item "
+            onClick={() => {
+              navigate('/MySings', {state: {editType: "customGroups"}})
+              handleEditType("customGroups")}}
+          >
+            Added to custom groups
+          </button>
+        </li>
       </ul>
     </div>
   );
