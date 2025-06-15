@@ -39,11 +39,14 @@ const fakeData = [
   },
 ];
 
+const mockToken = "{AA:AA:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVpZCI6LTEsIm5iZiI6MTc0ODUwMjQ5MSwiaXNzIjoiZnJhaG8tc2VjdXJpdHkiLCJleHAiOjE3NDg1MDYwOTEsImlhdCI6MTc0ODUwMjQ5MSwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwianRpIjoiMTQ2M2M4ZDctYzUyNi00MzFjLThkMzAtMDQ2YmNmNzlmYTg2In0.PTHHaMLvvowrvGyl85NqZZZRTKYzjUe3HZqmTXsYalI,AA}";
+
+
 describe("Make sure the keyword search functions", () => {
   test("Make sure the things render", () => {
     render(
       <MemoryRouter>
-        <AuthContext.Provider>
+        <AuthContext.Provider value={{ isLoggedIn: true, token: mockToken }}>
           <KeyWordSearch />
         </AuthContext.Provider>
       </MemoryRouter>
@@ -66,7 +69,7 @@ describe("Make sure the keyword search functions", () => {
 
     render(
       <MemoryRouter>
-        <AuthContext.Provider>
+        <AuthContext.Provider  value={{ isLoggedIn: true, token: mockToken }}>
           <KeyWordSearch setLoading={jest.fn()} setErrorState={jest.fn()} />
         </AuthContext.Provider>
       </MemoryRouter>

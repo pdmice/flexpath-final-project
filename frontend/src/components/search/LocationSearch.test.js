@@ -90,7 +90,7 @@ describe("Make sure LocatonSearch Works", () => {
     });
 
     fireEvent.change(
-      screen.getByPlaceholderText("Enter Search Radius in Miles"),
+      screen.getByPlaceholderText("Enter Search Radius in Miles. Default: 100"),
       {
         target: { value: "600" },
       }

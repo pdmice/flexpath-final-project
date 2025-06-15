@@ -13,7 +13,7 @@ export default function KeyWordSearch({
   const [keyword, setKeyword] = useState(null);
   const [data, setData] = useState(null);
   const [modifiable, setModifiable] = useState(true);
-  const { token, isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleKeyword = (e) => {
     setKeyword(e.target.value);
