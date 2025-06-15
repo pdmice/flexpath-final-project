@@ -61,7 +61,7 @@ public class SearchObjectDao {
 
         String sql = """
                 SELECT\s
-                    pointB.location, pointB.id, pointB.name, pointB.start_date, pointB.end_date, pointB.when_description, pointB.start_time, pointB.end_time, pointB.contact_email, pointB.user_added_note, b1.name AS primary_book,b2.name AS secondary_book,u1.username AS owner_id,\s
+                    pointB.location, pointB.id,pointB.isPublic,  pointB.name, pointB.start_date, pointB.end_date, pointB.when_description, pointB.start_time, pointB.end_time, pointB.contact_email, pointB.user_added_note, b1.name AS primary_book,b2.name AS secondary_book,u1.username AS owner_id,\s
                     ST_Distance_Sphere(
                         pointA.search_location,\s
                         pointB.location
