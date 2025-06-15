@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Table from "../../tables/Table";
 import LoggedInTable from "../../tables/LoggedInTable";
 import { AuthContext } from "../../provider/AuthProvider";
@@ -13,6 +13,7 @@ export default function KeyWordSearch({
   const [keyword, setKeyword] = useState(null);
   const [data, setData] = useState(null);
   const [modifiable, setModifiable] = useState(true);
+  const { token, isLoggedIn } = useContext(AuthContext);
 
   const handleKeyword = (e) => {
     setKeyword(e.target.value);
@@ -62,13 +63,22 @@ export default function KeyWordSearch({
         </form>
       </div>
       <div className="container">
-        <Table
-          data={data}
-          setData={setData}
-          loading={loading}
-          modifiable={modifiable}
-          errorState={errorState}
-        />
+        {isLoggedIn ? (
+                  <LoggedInTable
+                    data={data}
+                    setData={setData}
+                    loading={loading}
+                    modifiable={modifiable}
+                    errorState={errorState}
+                  />
+                ) : (
+                  <Table
+                    data={data}
+                    setData={setData}
+                    loading={loading}
+                    errorState={errorState}
+                  />
+                )}
       </div>
     </div>
   );

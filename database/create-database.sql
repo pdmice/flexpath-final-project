@@ -23,7 +23,7 @@ create table books (
 );
 create table sings (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    isPublic int not null,
+    isPublic int not null DEFAULT 1,
     name VARCHAR(100),
     owner_id VARCHAR(100),
     start_date DATE not null,

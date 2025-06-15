@@ -221,7 +221,7 @@ public class UserDao {
 
     }
 
-    public List<Sing> geMyFutureEventsIDS(String uuid){
+    public List<Sing> getMyFutureEventsIDS(String uuid){
         String queryForListOfSings = "SELECT event_id FROM users_events where user_id = ?  AND event_date > CURDATE();";
         List<Integer> sings = jdbcTemplate.queryForList(queryForListOfSings,Integer.class,uuid);
         return sings.stream()

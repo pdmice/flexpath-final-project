@@ -167,7 +167,7 @@ public class UserController {
         User user = userDao.getUserByUsername(username);
         String uuid = user.getUuid();
 
-        return userDao.getUsersEventsIDS(uuid);
+        return userDao.getMyFutureEventsIDS(uuid);
 
     }
 
