@@ -39,7 +39,7 @@ public class SingDao {
     public Sing getSingById(int id){
         //String sql = "SELECT * FROM sings WHERE id = ?;";
         String sql = """
-                 SELECT sings.id, sings.name, start_date, end_date,when_description,start_time, end_time, b1.name AS primary_book, b2.name as secondary_book,contact_email, user_added_note,location , u1.username AS owner_id\s
+                 SELECT sings.id, sings.isPublic, sings.name, start_date, end_date,when_description,start_time, end_time, b1.name AS primary_book, b2.name as secondary_book,contact_email, user_added_note,location , u1.username AS owner_id\s
                                     FROM sings\s
                                     LEFT JOIN books b1 ON sings.primary_book = b1.id
                                     LEFT JOIN books b2 ON sings.secondary_book = b2.id
