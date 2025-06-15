@@ -54,8 +54,8 @@ public class SingDao {
     }
 
     public Sing createSing(Sing sing){
-        String sql = "insert into  sings (name,owner_id, start_date, end_date, start_time, end_time, primary_book, secondary_book, contact_email, user_added_note,location)" +
-                " values (?,?,?,?,?,?,?,?,?,?,POINT(?,?));";
+        String sql = "insert into  sings (isPublic, name,owner_id, start_date, end_date, start_time, end_time, primary_book, secondary_book, contact_email, user_added_note,location)" +
+                " values (?, ?,?,?,?,?,?,?,?,?,?,POINT(?,?));";
         String Lat = sing.getLatitude().toString();
         String Lon =  sing.getLongitude().toString();
         String loc = Lat + ":" + Lon;
@@ -65,6 +65,7 @@ public class SingDao {
 
         try{
            jdbcTemplate.update(sql,
+                    sing.getIsPublic(),
                     sing.getName(),
                     sing.getOwner_id(),
                     sing.getStart_date(),
@@ -131,6 +132,7 @@ public class SingDao {
         int id = resultSet.getInt("id");
         return new Sing(
                 resultSet.getInt("id"),
+                resultSet.getInt("isPublic"),
                 resultSet.getString("name"),
                 resultSet.getString("owner_id"),
                 resultSet.getDate("start_date"),

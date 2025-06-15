@@ -12,6 +12,8 @@ public class Sing {
 
     private int id;
 
+    private int isPublic;
+
     private String name;
 
     private String owner_id;
@@ -44,8 +46,9 @@ public class Sing {
 
     }
 
-    public Sing(int id, String name, String owner_id, Date start_date, Date end_date, String when_Description, Time start_time, Time end_time, String primary_book, String secondary_book, String contact_email, String notes, Blob location/*BigDecimal latitude, BigDecimal longitude*/) {
+    public Sing(int id,int isPublic, String name, String owner_id, Date start_date, Date end_date, String when_Description, Time start_time, Time end_time, String primary_book, String secondary_book, String contact_email, String notes, Blob location/*BigDecimal latitude, BigDecimal longitude*/) {
         this.id = id;
+        this.isPublic = isPublic;
         this.name = name;
         this.owner_id = owner_id;
         this.start_date = start_date;
@@ -168,6 +171,14 @@ public class Sing {
 
     public BigDecimal getLongitude() {
         return longitude;
+    }
+
+    public int getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(int isPublic) {
+        this.isPublic = isPublic;
     }
 
     public void setLongitude(BigDecimal longitude) {

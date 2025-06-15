@@ -23,7 +23,7 @@ export default function CreateSing() {
   console.log("in createsing books is:", books);
   console.log("In createSing token is: ", token)
 
-  /* console.error("In UpdateSing data is: ", data); */
+  console.error("In CreateSing data is: ", data); 
 
   const handleName = (e) => {
     const target = e.target.id;
@@ -31,6 +31,10 @@ export default function CreateSing() {
     data.id = "";
     data[target] = e.target.value;
   };
+
+  const handlePublic = (num) => {
+    data.isPublic = num;
+  }
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -78,6 +82,36 @@ export default function CreateSing() {
           {" "}
           Enter the information for your sing in the boxes, then hit submit.
         </p>
+        {/********************************************************************* */}
+
+          <div className="form-check">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="makePublic"
+            id="makePublic"
+            data-testid="makePublic"
+            onChange={() => handlePublic(1)}
+          />
+          <label class="form-check-label" for="flexRadioDefault1">
+            Make Sing Publically viewable
+          </label>
+        </div>
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="makePublic"
+            id="makePrivate"
+            data-testid="makePrivate"
+            onChange={() => handlePublic(0)}
+          />
+          <label class="form-check-label" for="flexRadioDefault2">
+            Make sing private
+          </label>
+        </div>
+
+        {/************************************************************************ */}
         <form onSubmit={(e) => handleUpdate(e)}>
           <p className="mt-3">Name</p>
           <input
