@@ -40,7 +40,7 @@ export default function MySings({ editType }) {
   var url = "";
   useEffect(() => {
     if (editType === "created") {
-      url = `http://localhost:8080/api/search/${userName}`;
+      url = `http://localhost:8080/api/search/all/${userName}`;
       fetchData(userName);
     }
     if (editType === "attending") {

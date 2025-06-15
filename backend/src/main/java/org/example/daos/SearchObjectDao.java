@@ -108,6 +108,26 @@ public class SearchObjectDao {
         catch(DaoException e){throw new DaoException("Failed to retrieve sings by user");}
     }
 
+
+    public List<Sing> searchALLByUser(String user){
+        try {
+            User searchUser = userDao.getUserByUsername(user);
+            String uuid = searchUser.getUuid();
+
+            String sql = """
+                SELECT  sings.id, sings.name, start_date, end_date,when_description,start_time, end_time, b1.name AS primary_book, b2.name as secondary_book,contact_email, user_added_note,location , u1.username AS owner_id\s
+                FROM sings \s
+                LEFT JOIN books b1 ON sings.primary_book = b1.id
+                LEFT JOIN books b2 ON sings.secondary_book = b2.id
+                LEFT JOIN users u1 ON sings.owner_id = u1.uuid \s
+                where owner_id = ?;
+                """;
+
+            return jdbcTemplate.query(sql, singDao::mapToSing, uuid);
+        }
+        catch(DaoException e){throw new DaoException("Failed to retrieve sings by user");}
+    }
+
     public List<Sing> searchByKeywork(String keyword){
         String sql = """
                     SELECT sings.id, sings.name, start_date, end_date,when_description,start_time, end_time, b1.name AS primary_book, b2.name as secondary_book,contact_email, user_added_note,location , u1.username AS owner_id 

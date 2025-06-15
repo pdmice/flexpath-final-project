@@ -4,6 +4,7 @@ import org.example.daos.SearchObjectDao;
 import org.example.models.SearchObject;
 import org.example.models.Sing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +26,9 @@ public class SearchController {
     }
 
     @CrossOrigin
-    @GetMapping("/{username}")
-    public List<Sing> searchByUsername(@PathVariable String username){return searchObjectDao.searchByUser(username);}
+    @GetMapping("/all/{username}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public List<Sing> searchByUsername(@PathVariable String username){return searchObjectDao.searchALLByUser(username);}
 
     @GetMapping("/keyword/{keyword}")
     public List<Sing> searchByKeyword(@PathVariable String keyword){return searchObjectDao.searchByKeywork(keyword);}
