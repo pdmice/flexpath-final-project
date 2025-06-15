@@ -67,7 +67,7 @@ export default function LocationSearch({
     //Add a stupid simple de-bounce kinda thing to not get rate-limited by geocoding api
     setTimeout(() => {
       fetchGPS();
-    }, 500);
+    }, 1000);
   };
 
   const handleRadius = (e) => {
