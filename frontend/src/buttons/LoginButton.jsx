@@ -63,6 +63,19 @@ export default function LoginButton() {
             Create Group
           </button>
         </li>
+        {/***************************************************************** */}
+          <li>
+          <button
+            className="dropdown-item "
+            onClick={() => {
+              navigate('/Groups')
+            }}
+          >
+            My Groups
+          </button>
+        </li>
+
+        {/********************************************************************* */}
             <li>
               <button className="dropdown-item " onClick={() => handleLogout()}>
                 Logout

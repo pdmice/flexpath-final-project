@@ -2,6 +2,7 @@ package org.example.models;
 
 public class CustomUserGroup {
 
+    private int id;
     private String uuid;
     private int isPublic;
     private String name;
@@ -30,7 +31,16 @@ public class CustomUserGroup {
         this.name = name;
     }
 
-    public CustomUserGroup(String uuid, int isPublic, String name) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public CustomUserGroup(int id, String uuid, int isPublic, String name) {
+        this.id = id;
         this.uuid = uuid;
         this.isPublic = isPublic;
         this.name = name;

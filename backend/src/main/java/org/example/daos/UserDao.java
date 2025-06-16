@@ -239,21 +239,7 @@ public class UserDao {
     }
 
 
-    public int createCustomUserGroup(int isPublic, String uuid, String name){
-        String sql = "INSERT INTO custom_user_groups (isPublic, users_uuid, custom_group_name) VALUES (?,?,?);";
 
-        return jdbcTemplate.update(sql, isPublic, uuid, name);
-    }
-
-    public List<CustomUserGroup> getUsersCustomGroups(String uuid){
-        String sql = "SELECT * FROM custom_user_groups WHERE users_uuid = ?";
-        return jdbcTemplate.query(sql, this::mapToCustomUserGroup, uuid);
-    }
-
-    public List<CustomUserGroup> getUsersPublicCustomGroups(String uuid){
-        String sql = "SELECT * FROM custom_user_groups WHERE users_uuid = ? AND isPublic = 1";
-        return jdbcTemplate.query(sql, this::mapToCustomUserGroup, uuid);
-    }
 
 
 
@@ -274,13 +260,7 @@ public class UserDao {
         );
     }
 
-    public CustomUserGroup mapToCustomUserGroup(ResultSet resultSet, int rowNumber) throws SQLException{
-        return new CustomUserGroup(
-                resultSet.getString("users_uuid"),
-                resultSet.getInt("isPublic"),
-                resultSet.getString("custom_group_name")
-        );
-    }
+
 
 
 

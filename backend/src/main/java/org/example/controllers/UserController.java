@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import jakarta.annotation.security.PermitAll;
+import org.example.daos.CustomUserGroupsDAO;
 import org.example.daos.SingDao;
 import org.example.models.CustomUserGroup;
 import org.example.models.Sing;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private SingDao singDao;
+
+    @Autowired
+    private  CustomUserGroupsDAO customUserGroupsDAO;
 
     /**
      * Gets all users.
@@ -227,7 +231,7 @@ public class UserController {
     @PostMapping("/custom/add/{username}")
     @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
     public int createCustomUserGroup(@PathVariable String username, @RequestBody CustomUserGroup newGroup){
-        return userDao.createCustomUserGroup(newGroup.getIsPublic(), newGroup.getUuid(), newGroup.getName());
+        return customUserGroupsDAO.createCustomUserGroup(newGroup.getIsPublic(), newGroup.getUuid(), newGroup.getName());
     }
 
     @GetMapping("/custom/get/{username}")
@@ -235,7 +239,7 @@ public class UserController {
     public List<CustomUserGroup> getUsersCustomGroups(@PathVariable String username){
         User user  = userDao.getUserByUsername(username);
         String uuid = user.getUuid();
-        return userDao.getUsersCustomGroups(uuid);
+        return customUserGroupsDAO.getUsersCustomGroups(uuid);
     }
 
     @GetMapping("/custom/get/public/{username}")
@@ -243,8 +247,37 @@ public class UserController {
     public List<CustomUserGroup> getUsersPublicCustomGroups(@PathVariable String username){
         User user  = userDao.getUserByUsername(username);
         String uuid = user.getUuid();
-        return userDao.getUsersPublicCustomGroups(uuid);
+        return customUserGroupsDAO.getUsersPublicCustomGroups(uuid);
     }
+
+    @GetMapping("/custom/addSing/{event_id}/{group_id}/{username}")
+    @PreAuthorize("@singSecurity.isGroupOwner(#group_id, #username) or  hasAuthority('ADMIN')")
+    public int addToUsersCustomGroup(@PathVariable int event_id, @PathVariable int group_id , @PathVariable String username){
+        User user = userDao.getUserByUsername(username);
+        String uuid = user.getUuid();
+        return customUserGroupsDAO.addToUsersCustomGroup(event_id, group_id);
+    }
+
+    @GetMapping("/custom/getCustomGroupSingList/{username}/{group_id}")
+    //@PreAuthorize("@singSecurity.isGroupOwner(#group_id, #username) or  hasAuthority('ADMIN')")
+    @PreAuthorize("permitAll()")
+    public List<Sing> getCustomGroupSingList(@PathVariable String username, @PathVariable int group_id){
+        return customUserGroupsDAO.getAllSingsByGroupId(group_id);
+    }
+
+    @CrossOrigin
+    @GetMapping("/custom/{username}/getGroupById/{id}")
+    @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
+    public CustomUserGroup getGroupById(@PathVariable String username, @PathVariable int id){
+        return customUserGroupsDAO.getCustomGroupByGroupId(id);
+    }
+
+    @GetMapping("/custom/{username}/deleteGroup/{id}")
+    @PreAuthorize("@singSecurity.isGroupOwner(#group_id, #username) or  hasAuthority('ADMIN')")
+    public int deleteGroupById(@PathVariable String username, @PathVariable int id){
+        return customUserGroupsDAO.deleteCustomGroupById(id);
+    }
+
 
 
 
