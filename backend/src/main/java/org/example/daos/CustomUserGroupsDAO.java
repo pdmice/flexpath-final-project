@@ -51,12 +51,17 @@ public class CustomUserGroupsDAO {
     }
 
     public int deleteCustomGroupById(int id){
+        String deleteEventsSql = "DELETE FROM custom_user_groups_events WHERE group_id = ?";
+        jdbcTemplate.update(deleteEventsSql, id);
+
         String sql = "DELETE FROM custom_user_groups WHERE id = ?";
 
         return jdbcTemplate.update(sql, id);
     }
 
     public int deleteSingFromGroup(int group_id, int event_id){
+
+
         String sql = "DELETE FROM custom_user_groups_events where group_id = ? and event_id = ?;";
         return jdbcTemplate.update(sql, group_id, event_id );
     }

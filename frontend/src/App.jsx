@@ -20,6 +20,9 @@ function App() {
         <Link to="/search" className="navbar-brand ms-4 nav-link fs-4">
           Search
         </Link>
+        <Link to="/AdminPage" className="navbar-brand ms-4 nav-link fs-4">
+          Admin
+        </Link>
         <SearchSelect search={searchType} setSearchType={setSearchType} />
         <EditSelect editType={editType} setEditType={setEditType} />
         <LoginButton />

@@ -14,6 +14,7 @@ import Groups from "../userPages/Groups";
 import Group from "../userPages/Group"
 import EditGroup from "../userPages/EditGroup";
 import GroupSearch from "../search/GroupSearch";
+import AdminPage from "../../Admin/AdminPage";
 
 
 export default function MyRoutes({
@@ -59,6 +60,7 @@ export default function MyRoutes({
       <Route path="/Group" element={<Group />} />
       <Route path="/EditGroup" element={<EditGroup />} />
       <Route path="/GroupSearch" element={<GroupSearch />} />
+      <Route path="/AdminPage" element={<AdminPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
