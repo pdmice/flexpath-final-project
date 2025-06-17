@@ -53,6 +53,18 @@ public class SingDao {
         }
     }
 
+    public Sing getRawSingById(int id){
+        //String sql = "SELECT * FROM sings WHERE id = ?;";
+        String sql = """
+                 SELECT * FROM sings WHERE id = ?;
+                """;
+        try{
+            return jdbcTemplate.queryForObject(sql,this::mapToSing, id);
+        }
+        catch(EmptyResultDataAccessException e){throw new DaoException("Didn't find sing: ");
+        }
+    }
+
     public Sing createSing(Sing sing){
         String sql = "insert into  sings (isPublic, name,owner_id, start_date, end_date, start_time, end_time, primary_book, secondary_book, contact_email, user_added_note,location)" +
                 " values (?, ?,?,?,?,?,?,?,?,?,?,POINT(?,?));";

@@ -51,9 +51,14 @@ public class CustomUserGroupsDAO {
     }
 
     public int deleteCustomGroupById(int id){
-        String sql = "DELETE FROM custom_user_groups WHERE group_id = ?";
+        String sql = "DELETE FROM custom_user_groups WHERE id = ?";
 
         return jdbcTemplate.update(sql, id);
+    }
+
+    public int deleteSingFromGroup(int group_id, int event_id){
+        String sql = "DELETE FROM custom_user_groups_events where group_id = ? and event_id = ?;";
+        return jdbcTemplate.update(sql, group_id, event_id );
     }
 
     public List<Sing>  getAllSingsByGroupId(int group_id){
@@ -86,6 +91,8 @@ public class CustomUserGroupsDAO {
 
         return jdbcTemplate.query(sql, singDao::mapToSing, group_id);
     }
+
+
 
 
 

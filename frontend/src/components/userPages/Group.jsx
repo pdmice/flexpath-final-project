@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import Table from "../../tables/Table";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
+import LoggedInTable from "../../tables/LoggedInTable";
 
 export default function Group(){
+
+
 
     const{isLoggedIn, token, isAdmin, authedUserName} = useContext(AuthContext)
 
@@ -12,6 +15,10 @@ export default function Group(){
     const [errorState, setErrorState] = useState()
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true)
+    const [groupName, setGroupName] = useState();
+
+        console.error("In group location.pathname is:", location.pathname)
+
 
     var strippedToken;
     if (token) {
@@ -49,17 +56,48 @@ export default function Group(){
         getGroup()
     }
 
+    const fetchGroupName = () => {
+      async function getGroupName(){
+           await fetch(`http://localhost:8080/api/users/custom/${authedUserName}/getGroupById/${groupID}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: strippedToken,
+        },
+      })
+      .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            console.error("Something went awry getting group name")
+            return response.json();
+          }
+        })
+        .then((json) => {
+          console.log("In getGroupName json is:", json)
+          setGroupName(json.name);
+        })
+        .catch((error) => {
+          setLoading(false);
+          setErrorState(true)
+        });      
+        }
+        getGroupName()
+    }
+
    useEffect(() => {
     if (!groupID) return;
     fetchGroup();
+    fetchGroupName()
    }, [groupID])
+
 
 
 
     return(
         <>
         <div className="container-md">
-            <Table data={data} setData={setData} loading={loading} errorState={errorState} />
+            <h4 className="text-center">Sings in <b>{groupName}</b> </h4>
+            <LoggedInTable data={data} setData={setData} loading={loading} errorState={errorState} path={location.pathname} modifiable={true} groupID={groupID}/>
         </div>
         
         </>

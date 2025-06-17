@@ -251,11 +251,17 @@ public class UserController {
     }
 
     @GetMapping("/custom/addSing/{event_id}/{group_id}/{username}")
-    @PreAuthorize("@singSecurity.isGroupOwner(#group_id, #username) or  hasAuthority('ADMIN')")
+    @PreAuthorize("isAuthenticated() and @singSecurity.isGroupOwner(#group_id, authentication.name) or  hasAuthority('ADMIN')")
     public int addToUsersCustomGroup(@PathVariable int event_id, @PathVariable int group_id , @PathVariable String username){
-        User user = userDao.getUserByUsername(username);
-        String uuid = user.getUuid();
+//        User user = userDao.getUserByUsername(username);
+//        String uuid = user.getUuid();
         return customUserGroupsDAO.addToUsersCustomGroup(event_id, group_id);
+    }
+
+    @GetMapping("/custom/deleteSing/{event_id}/{group_id}/{username}")
+    @PreAuthorize("isAuthenticated() and @singSecurity.isGroupOwner(#group_id, authentication.name) or  hasAuthority('ADMIN')")
+    public int deleteFromCustomGroup(@PathVariable int event_id, @PathVariable int group_id, @PathVariable String username){
+        return customUserGroupsDAO.deleteSingFromGroup(group_id,event_id);
     }
 
     @GetMapping("/custom/getCustomGroupSingList/{username}/{group_id}")
@@ -265,6 +271,8 @@ public class UserController {
         return customUserGroupsDAO.getAllSingsByGroupId(group_id);
     }
 
+
+
     @CrossOrigin
     @GetMapping("/custom/{username}/getGroupById/{id}")
     @PreAuthorize("#username == authentication.name OR hasAuthority('ADMIN')")
@@ -273,7 +281,7 @@ public class UserController {
     }
 
     @GetMapping("/custom/{username}/deleteGroup/{id}")
-    @PreAuthorize("@singSecurity.isGroupOwner(#group_id, #username) or  hasAuthority('ADMIN')")
+    @PreAuthorize("isAuthenticated() and @singSecurity.isGroupOwner(#id, authentication.name) or  hasAuthority('ADMIN')")
     public int deleteGroupById(@PathVariable String username, @PathVariable int id){
         return customUserGroupsDAO.deleteCustomGroupById(id);
     }

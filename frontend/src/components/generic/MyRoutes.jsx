@@ -12,6 +12,9 @@ import Error from "./Error";
 import CreateCustomGroup from "../userPages/CreateCustomGroup";
 import Groups from "../userPages/Groups";
 import Group from "../userPages/Group"
+import EditGroup from "../userPages/EditGroup";
+import GroupSearch from "../search/GroupSearch";
+
 
 export default function MyRoutes({
   searchType,
@@ -54,6 +57,8 @@ export default function MyRoutes({
       <Route path="/Error" element={<Error />} />
       <Route path="/Groups" element={<Groups />} />
       <Route path="/Group" element={<Group />} />
+      <Route path="/EditGroup" element={<EditGroup />} />
+      <Route path="/GroupSearch" element={<GroupSearch />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

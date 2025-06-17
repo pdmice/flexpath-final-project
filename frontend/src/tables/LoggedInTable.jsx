@@ -10,8 +10,11 @@ export default function LoggedInTable({
   modifiable,
   loading,
   errorState,
+  path,
+  groupID
 }) {
   console.log("In the table data is: ", data);
+  console.log("In loggedInTable path is:", path)
   const [id, setId] = useState();
   const navigate = useNavigate();
   const [order, setOrder] = useState();
@@ -23,6 +26,12 @@ export default function LoggedInTable({
     navigate(`/UpdateSing/${id}`);
   };
 
+  const handleAddToCustom = (ID) => {
+    setId(ID)
+    console.error("in handlecustom id is:", id)
+    navigate("/Groups", {state: {singID: id}})
+  }
+
   const handleClick = (ID) => {
     setId(ID);
     addToMySings(userName, isPublic, ID);
@@ -31,6 +40,29 @@ export default function LoggedInTable({
   const handleRadio = (ORDER) => {
     setOrder(ORDER);
   };
+
+  const handleRemoveFromGroup = () => {
+    async function removeFromGroup() {
+    await fetch(
+      `http://localhost:8080/api/users/custom/deleteSing/${id}/${groupID}/${authedUserName}`,
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: `${JSON.stringify(token)
+            .split(":")[2]
+            .split(",")[0]
+            .replace(/"/g, "")}`,
+        },
+      }
+    ).then((response) => {
+      response.ok
+        ? alert("Sing removed from your group")
+        : alert("something went wrong");
+    });
+  }
+  removeFromGroup();
+  
+  }
 
   useEffect(() => {
     if (data && order) {
@@ -179,8 +211,8 @@ export default function LoggedInTable({
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Make attendance public?
+                <h5 className="text-center" id="exampleModalLabel">
+                  Add to a List
                 </h5>
                 <button
                   type="button"
@@ -191,10 +223,14 @@ export default function LoggedInTable({
                 ></button>
               </div>
               <div class="modal-body">
-                Would you like to include this in the list of your sings other
-                people can see?
+                You can add this to sings you're attending 
+                publically or Privately
+
+                If you've made any custom groups you can also 
+                add or remove this from a custom group.
+              
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer d-flex justify-content-center flex-wrap gap-2">
                 {/**======================================================================= */}
 
                 <button
@@ -213,6 +249,39 @@ export default function LoggedInTable({
                 </button>
 
                 {/**======================================================================= */}
+
+                  <button
+                 style={{
+                  display: path === "/Group" ? "block" : "none",
+                }}
+                  type="button"
+                  class="btn btn-secondary"
+                  onClick={() => {
+                    isPublic = 0;
+                    handleRemoveFromGroup();
+                  }}
+                  data-bs-dismiss="modal"
+                >
+                  Remove from  group
+                </button>
+
+                {/**====================================================================== */}
+                  <button
+                 
+                  type="button"
+                  data-testid="modal"
+                  class="btn btn-secondary"
+                  onClick={() => {
+                    isPublic = 0;
+                    handleAddToCustom();
+                  }}
+                  data-bs-dismiss="modal"
+                >
+                  Add to Custom Group
+                </button>
+               
+                {/**======================================================================= */}
+
                 <button
                  
                   type="button"
@@ -224,18 +293,18 @@ export default function LoggedInTable({
                   }}
                   data-bs-dismiss="modal"
                 >
-                  No thanks!
+                  Attend Sing Privately
                 </button>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-secondary"
                   onClick={() => {
                     isPublic = 1;
                     handleClick();
                   }}
                   data-bs-dismiss="modal"
                 >
-                  Yes please!
+                  Attend Sing Publically
                 </button>
               </div>
             </div>

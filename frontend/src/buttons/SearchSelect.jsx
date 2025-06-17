@@ -51,6 +51,14 @@ export default function SearchSelect({ setSearchType }) {
             Keyword Search
           </button>
         </li>
+        <li>
+          <button
+            className="dropdown-item "
+            onClick={() => handleSearchSelect("groups")}
+          >
+            Group Search
+          </button>
+        </li>
       </ul>
     </div>
   );

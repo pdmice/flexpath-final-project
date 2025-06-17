@@ -51,7 +51,7 @@ public class SingController {
 
     @CrossOrigin
     @GetMapping("/delete/{id}/{username}")
-    @PreAuthorize("@singSecurity.isOwner(#id, #username) or  hasAuthority('ADMIN')")
+    @PreAuthorize("isAuthenticated() and @singSecurity.isOwner(#id, authentication.name) or  hasAuthority('ADMIN')")
     public int deleteSing(@PathVariable String username, @PathVariable int id){
         return singDao.deleteSing(id);
     }
